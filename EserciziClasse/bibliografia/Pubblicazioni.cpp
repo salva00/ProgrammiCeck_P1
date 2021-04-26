@@ -4,10 +4,13 @@
 
 #include "Pubblicazioni.h"
 
-Pubblicazioni::Pubblicazioni(const std::string &title, std::vector<std::string> authors)
-        : title(title), authors(authors) {}
+Pubblicazioni::Pubblicazioni(const std::string &title, std::vector<std::string> authors){
+    setTitle(title);
+    setAuthors(authors);
+    setYear(year);
+}
 
-void Pubblicazioni::setTitle(std::string title) {
+void Pubblicazioni::setTitle(const std::string& title) {
     if (title.empty()){
         throw std::invalid_argument("autors can't be empty");
     }

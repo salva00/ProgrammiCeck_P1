@@ -9,15 +9,17 @@
 #include <string>
 
 class Pubblicazioni {
+
 public:
     Pubblicazioni(const std::string &title, std::vector<std::string> authors);
+    virtual ~Pubblicazioni() = default;
 
 private:
     std::string title;
     std::vector<std::string> authors;
     int year;
 public:
-    void setTitle(std::string);
+    void setTitle(const std::string&);
     void setAuthors(std::vector<std::string>);
     void setYear(int);
     std::string getTitle();
