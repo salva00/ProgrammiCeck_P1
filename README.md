@@ -12,7 +12,7 @@ Lezione 2:
  - [X] Account
  - [X] Invoice
  - [ ] MotorVehicle
- - [ ] Date
+ - [X] Date
 
 Lezione 3:
 -
