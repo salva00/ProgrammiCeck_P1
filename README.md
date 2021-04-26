@@ -3,14 +3,17 @@ _30 politico o gli impianto i capelli_
 
 Lezione 1:
 -
+ - [ ] Hearthrate
+ - [ ] Body Mass Index calculator
+ - [ ] Celsius-Farenheit conversion
+
 Lezione 2:
 -
  - [X] Account
  - [X] Invoice
  - [ ] MotorVehicle
  - [ ] Date
- - [ ] Hearthrate
-  
+
 Lezione 3:
 -
 
