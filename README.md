@@ -2,9 +2,13 @@
 30 politico o gli impianto i capelli
 
 Lezione 1:
-
 Lezione 2:
-
+ - [X] Account
+ - [X] Invoice
+ - [ ] MotorVehicle
+ - [ ] Date
+ - [ ] Hearthrate
+  
 Lezione 3:
 
 Lezione 4:
