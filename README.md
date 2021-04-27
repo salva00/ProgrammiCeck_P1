@@ -47,12 +47,24 @@ Lezione 6
 
 Lezione 7
 -
+ - [ ] Time*
+ - [ ] Date
+ - [ ] Rectangle
+ - [ ] TicTacToe
+ - [ ] Polynomial
+ - [ ] Matrix
+ - [ ] Complex
 
 Lezione 8
 -
+ - [ ] Instrument*
+ - [ ] Employee*
+ - [ ] Banking program
+ - [ ] Paper and publication sorter
 
 Lezione 9
 -
-
+ _TODO_
 Lezione 10
 -
+ _TODO_
