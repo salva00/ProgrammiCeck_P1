@@ -48,25 +48,28 @@ Lezione 6
 Lezione 7
 -
  - [X] Time*
- - [X] Date
  - [X] Rectangle
  - [ ] TicTacToe
+
+Lezione 8
+-
+ - [X] Date
  - [ ] Polynomial
  - [ ] Matrix (Mancano operator+ e -)
  - [X] Complex
 
-Lezione 8
+Lezione 9
 -
  - [ ] Instrument*
  - [X] Employee*
  - [ ] Banking program
  - [X] Paper and publication sorter
 
-Lezione 9
+Lezione 10
 -
  _TODO_
 
-Lezione 10
+Lezione 11
 -
  _TODO_
 
