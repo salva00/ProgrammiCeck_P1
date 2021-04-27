@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 19/04/21.
-//
 
 #ifndef DATE_H
 #define DATE_H

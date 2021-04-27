@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 21/04/21.
-//
 
 #include <stdexcept>
 #include <sstream>
@@ -74,5 +71,3 @@ void Complex::setReal(double r) {
 void Complex::setImag(double i) {
     imag=i;
 }
-
-
