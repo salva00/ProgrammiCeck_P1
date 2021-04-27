@@ -14,14 +14,22 @@ int main() {
 }
 
 std::vector<std::string> loadAuthors() {
-    //gli autori sono stringhe del tipo oppure Cognome,Nome
-    //sono ammessi i punti nel nome, ma non gli altri caratteri speciali
+    //gli autori sono stringhe del tipo Cognome,Nome
+    //sono ammessi i punti e gli spazi nel nome, ma non altri caratteri speciali
     //il vettore di autori sarà ordinato per cognome
     std::vector<std::string> authors;
     int num;
     std::cout << "How many Authors? ";
     std::cin >> num;
-    std::cin.ignore();
+    while (std::cin.fail() || num < 1) {
+        std::cin.clear();
+        std::cin.ignore(100000, '\n');       //numero a caso alto
+        std::cout << "Numbers of authors must be a positive number!\nHow many Authors? ";
+        std::cin >> num;
+    }
+    std::cin.ignore(100000, '\n');
+    std::cout << "Authors must be entered in Surname,Name format\n" <<
+        "Valid examples: Poe,Edgar Allan or Poe,Edgar A.\n";
     while (num > 0) {
         std::string input;
         bool valid_input{ false };
@@ -40,7 +48,7 @@ std::vector<std::string> loadAuthors() {
         if (i < input.length()) {
             //controllo nome
             for (; i < input.length() && valid_input; i++) {
-                if (((input[i] < 'A' || input[i] > 'Z') && (input[i] < 'a' || input[i] > 'z')) && input[i] != '.') {
+                if (((input[i] < 'A' || input[i] > 'Z') && (input[i] < 'a' || input[i] > 'z')) && (input[i] != '.' && input[i] != ' ')) {
                     std::cout << "Invalid name! Please re-enter ";
                     valid_input = false;
                 }
@@ -52,7 +60,7 @@ std::vector<std::string> loadAuthors() {
         }
         if (valid_input) {
             if (authors.size() > 0) {
-                if (input > authors.back())
+                if (input >= authors.back())
                     authors.push_back(input);
                 else {
                     for (size_t i{ 0 }; i < authors.size(); i++) {
