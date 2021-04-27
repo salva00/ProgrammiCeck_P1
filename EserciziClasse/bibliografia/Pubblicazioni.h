@@ -27,7 +27,7 @@ public:
     std::vector<std::string> getAuthors() const;
     std::string getStringAuthors() const;
     virtual std::string toString() const;
-    bool operator<(const std::string&);
+    bool operator<(const Pubblicazioni &p);
     int getYear() const;
 };
 

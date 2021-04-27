@@ -54,8 +54,8 @@ std::string Pubblicazioni::getStringAuthors() const {
     }
     return autori;}
 
-bool Pubblicazioni::operator<(const std::string &str) {
-    if (authors[0].substr(0)<str.substr(0)){
+bool Pubblicazioni::operator<(const Pubblicazioni &p) {
+    if (authors[0].substr(0)<p.authors[0].substr(0)){
         return true;           //il pi piccolo sopta
     }
     return false;
