@@ -26,7 +26,7 @@ Lezione 3
  - [X] Fibonacci sequence
  - [ ] Triangle printing program
  - [ ] Pithagorean Triples
- - [ ] Egg-timer program
+ - [X] Egg-timer program
  - [ ] DollarAmount
 
 Lezione 4
