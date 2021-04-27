@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 12/03/21.
-//
 
 #ifndef ACCOUNTCLASS_ACCOUNT_H
 #define ACCOUNTCLASS_ACCOUNT_H

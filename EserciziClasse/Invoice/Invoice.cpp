@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 16/03/21.
-//
 
 #include "Invoice.h"
 

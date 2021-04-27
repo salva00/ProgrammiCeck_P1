@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 26/04/21.
-//
 
 #ifndef SALARIEDEMPLOYEE_H
 #define SALARIEDEMPLOYEE_H

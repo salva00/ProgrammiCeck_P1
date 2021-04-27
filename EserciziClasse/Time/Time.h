@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 18/04/21.
-//
 
 #ifndef TIME_H
 #define TIME_H
