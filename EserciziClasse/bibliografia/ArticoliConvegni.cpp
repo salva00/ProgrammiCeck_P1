@@ -5,9 +5,9 @@
 #include "ArticoliConvegni.h"
 
 
-ArticoliConvegni::ArticoliConvegni(const std::string &title, const std::vector<std::string> &authors,
-                                   const std::string &titoloConvegno,const std::string &sedeConvegno,int numPagine)
-                                   : Pubblicazioni(title, authors) {
+ArticoliConvegni::ArticoliConvegni(const std::string &title, const std::vector<std::string> &authors,const int &year,
+                                   const std::string &titoloConvegno,const std::string &sedeConvegno,const int & numPagine)
+                                   : Pubblicazioni(title, authors, year) {
     setNumPagine(numPagine);
     setSedeConvegno(sedeConvegno);
     setTitoloConvegno(titoloConvegno);
@@ -34,15 +34,22 @@ void ArticoliConvegni::setNumPagine(const int &t) {
     numPagine=t;
 }
 
-std::string ArticoliConvegni::getTitoloConvegno() {
+std::string ArticoliConvegni::getTitoloConvegno() const {
     return titoloConvegno;
 }
 
-std::string ArticoliConvegni::getSedeConvegno() {
+std::string ArticoliConvegni::getSedeConvegno() const {
     return sedeConvegno;
 }
 
-int ArticoliConvegni::getNumPagine() {
+int ArticoliConvegni::getNumPagine() const {
     return numPagine;
+}
+
+std::string ArticoliConvegni::toString() const {
+    std::ostringstream output;
+    output<<"Congress Article:"<<Pubblicazioni::toString()<<"\nCongress Title"<< getTitoloConvegno()
+        <<"\nSede:"<<getSedeConvegno()<<"\nNumero Pagine:"<<getNumPagine();
+    return output.str();
 }
 

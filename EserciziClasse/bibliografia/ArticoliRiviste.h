@@ -16,7 +16,8 @@ private:
 public:
 
 
-    ArticoliRiviste(const std::string &title, const std::vector<std::string> &authors, int numRiv, int start, int stop);
+    ArticoliRiviste(const std::string &title, const std::vector<std::string> &authors,const int &year,
+                    const int & numRiv,const int & start, const int & stop);
 
     virtual ~ArticoliRiviste()=default;
 
@@ -27,6 +28,9 @@ public:
     int getNumRiv() const;
     int getStart() const;
     int getStop() const;
+
+    std::string toString() const override;
+
 
 };
 

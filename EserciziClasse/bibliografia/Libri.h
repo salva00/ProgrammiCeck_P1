@@ -14,15 +14,16 @@ private:
     std::string publisher;
 public:
 
-    Libri(const std::string& , const std::vector<std::string>& , const std::string&,const std::string&);
+    Libri(const std::string& , const std::vector<std::string>& , const std::string&,const std::string&,const int&);
 
     virtual ~Libri()=default;
 
 
     void setISBN(const std::string&);
     void setPublisher(const std::string&);
-    std::string getISBN();
-    std::string getPublisher();
+    std::string getISBN() const;
+    std::string getPublisher() const;
+    std::string toString() const override;
 };
 
 

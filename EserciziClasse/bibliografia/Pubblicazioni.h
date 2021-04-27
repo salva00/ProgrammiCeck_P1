@@ -7,11 +7,12 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
 
 class Pubblicazioni {
 
 public:
-    Pubblicazioni(const std::string &title, std::vector<std::string> authors);
+    Pubblicazioni(const std::string &title, std::vector<std::string> authors, const int& year);
     virtual ~Pubblicazioni() = default;
 
 private:
@@ -22,10 +23,11 @@ public:
     void setTitle(const std::string&);
     void setAuthors(std::vector<std::string>);
     void setYear(int);
-    std::string getTitle();
-    std::vector<std::string> getAuthors();
-    int getYear();
-
+    std::string getTitle() const;
+    std::vector<std::string> getAuthors() const;
+    std::string getStringAuthors() const;
+    virtual std::string toString() const;
+    int getYear() const;
 };
 
 

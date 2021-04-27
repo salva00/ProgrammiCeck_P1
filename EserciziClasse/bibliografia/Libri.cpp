@@ -5,8 +5,8 @@
 #include "Libri.h"
 
 Libri::Libri(const std::string &title, const std::vector<std::string> &authors,
-             const std::string &isbn,const std::string &publisher)
-        : Pubblicazioni(title, authors){
+             const std::string &isbn,const std::string &publisher, const int &year)
+        : Pubblicazioni(title, authors,year){
     setISBN(isbn);
     setPublisher(publisher);
 }
@@ -25,10 +25,16 @@ void Libri::setPublisher(const std::string& publisher) {
     this->publisher=publisher;
 }
 
-std::string Libri::getISBN() {
+std::string Libri::getISBN() const{
     return ISBN;
 }
 
-std::string Libri::getPublisher() {
+std::string Libri::getPublisher() const{
     return publisher;
+}
+
+std::string Libri::toString() const {
+    std::ostringstream output;
+    output<<"Book:"<<Pubblicazioni::toString()<<"\nISBN"<< getISBN()<<"\nPublisher:"<<getPublisher();
+    return output.str();
 }

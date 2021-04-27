@@ -4,9 +4,9 @@
 
 #include "ArticoliRiviste.h"
 
-ArticoliRiviste::ArticoliRiviste(const std::string &title, const std::vector<std::string> &authors,
-                                 int numRiv,int start, int stop)
-        : Pubblicazioni(title, authors){
+ArticoliRiviste::ArticoliRiviste(const std::string &title, const std::vector<std::string> &authors,const int &year,
+                                 const int &numRiv,const int &start, const int &stop)
+        : Pubblicazioni(title, authors,year){
     setNumRiv(numRiv);
     setStart(start);
     setStop(stop);
@@ -43,4 +43,11 @@ int ArticoliRiviste::getStart() const {
 
 int ArticoliRiviste::getStop() const {
     return stop;
+}
+
+std::string ArticoliRiviste::toString() const {
+    std::ostringstream output;
+    output<<"Article:"<<Pubblicazioni::toString()<<"\nNumber:"<< getNumRiv()
+          <<"\nFirst page:"<<getStart()<<"\nLast page:"<<getStop();
+    return output.str();
 }

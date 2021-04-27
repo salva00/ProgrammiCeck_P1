@@ -16,16 +16,19 @@ private:
 public:
 
 
-    ArticoliConvegni(const std::string &title, const std::vector<std::string> &authors,
-                     const std::string &titoloConvegno,const std::string &sedeConvegno,int numPagine);
+    ArticoliConvegni(const std::string &title, const std::vector<std::string> &authors,const int &year,
+                     const std::string &titoloConvegno,const std::string &sedeConvegno,const int &numPagine);
 
     void setTitoloConvegno(const std::string&);
     void setSedeConvegno(const std::string&);
     void setNumPagine(const int&);
 
-    std::string getTitoloConvegno();
-    std::string getSedeConvegno();
-    int getNumPagine();
+    std::string getTitoloConvegno() const;
+    std::string getSedeConvegno() const;
+    int getNumPagine() const;
+
+    std::string toString() const override;
+
 
 };
 

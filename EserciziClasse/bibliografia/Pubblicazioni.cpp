@@ -4,7 +4,7 @@
 
 #include "Pubblicazioni.h"
 
-Pubblicazioni::Pubblicazioni(const std::string &title, std::vector<std::string> authors){
+Pubblicazioni::Pubblicazioni(const std::string &title, std::vector<std::string> authors, const int &year){
     setTitle(title);
     setAuthors(authors);
     setYear(year);
@@ -31,14 +31,26 @@ void Pubblicazioni::setYear(int year) {
     this->year=year;
 }
 
-std::string Pubblicazioni::getTitle() {
+std::string Pubblicazioni::getTitle() const {
     return title;
 }
 
-std::vector<std::string> Pubblicazioni::getAuthors() {
+std::vector<std::string> Pubblicazioni::getAuthors() const {
     return authors;
 }
 
-int Pubblicazioni::getYear() {
+int Pubblicazioni::getYear() const{
     return year;
 }
+
+std::string Pubblicazioni::toString() const {
+    return "\nTitle:" + getTitle() + "\nAuthors:" +getStringAuthors()+ "\nYear: " + std::to_string(getYear());
+}
+
+std::string Pubblicazioni::getStringAuthors() const {
+    std::string autori;
+    for (const std::string a : authors){
+        autori+= a +",";
+    }
+    return autori;}
+
