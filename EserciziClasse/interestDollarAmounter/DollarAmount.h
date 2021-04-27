@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 07/04/21.
-//
 
 #ifndef INTERESTDOLLARAMOUNTER_DOLLARAMOUNT_H
 #define INTERESTDOLLARAMOUNTER_DOLLARAMOUNT_H

@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 26/04/21.
-//
 
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H

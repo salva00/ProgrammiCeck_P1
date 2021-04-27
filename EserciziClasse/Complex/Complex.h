@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 21/04/21.
-//
 
 #ifndef COMPLEX_H
 #define COMPLEX_H

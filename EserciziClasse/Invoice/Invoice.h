@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 16/03/21.
-//
 
 #ifndef INVOICE_INVOICE_H
 #define INVOICE_INVOICE_H

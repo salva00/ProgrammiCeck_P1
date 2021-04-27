@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 18/04/21.
-//
 
 #include "Time.h"
 #include <iomanip> //for setw and setfill stream manipulators

@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 26/04/21.
-//
 
 #ifndef EMPLOYEESALARY_COMMISSIONEMPLYEE_H
 #define EMPLOYEESALARY_COMMISSIONEMPLYEE_H
