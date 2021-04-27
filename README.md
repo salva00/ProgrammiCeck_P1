@@ -20,10 +20,10 @@ Lezione 3
 -
  - [ ] Student*
  - [ ] Min/Max number of a sequence
- - [ ] Palindrome
- - [ ] Base-10 to Binary
+ - [X] Palindrome
+ - [X] Base-10 to Binary
  - [ ] Binary to Base-10
- - [ ] Fibonacci sequence
+ - [X] Fibonacci sequence
  - [ ] Triangle printing program
  - [ ] Pithagorean Triples
  - [ ] Egg-timer program
@@ -35,36 +35,41 @@ Lezione 4
 
 Lezione 5
 -
- - [ ] Craps game*
+ - [X] Craps game*
 
 Lezione 6
 -
- - [ ] Merge Sort
- - [ ] Quick Sort
+ - [X] Merge Sort
+ - [X] Quick Sort
  - [ ] Longest Common Subsequence (LCS)
- - [ ] Matrix product
+ - [X] Matrix product
  - [ ] Add to vector without repetition
 
 Lezione 7
 -
- - [ ] Time*
- - [ ] Date
+ - [X] Time*
+ - [X] Date
  - [ ] Rectangle
  - [ ] TicTacToe
  - [ ] Polynomial
- - [ ] Matrix
- - [ ] Complex
+ - [/] Matrix
+ - [X] Complex
 
 Lezione 8
 -
  - [ ] Instrument*
- - [ ] Employee*
+ - [X] Employee*
  - [ ] Banking program
- - [ ] Paper and publication sorter
+ - [X] Paper and publication sorter
 
 Lezione 9
 -
  _TODO_
+
 Lezione 10
 -
  _TODO_
+
+-
+
+*Usato nelle slide, ma non assegnato come esercizio per casa
