@@ -3,7 +3,7 @@ _30 politico o gli impianto i capelli_
 
 Lezione 1
 -
- - [ ] Hearthrate
+ - [X] Hearthrate
  - [ ] Body Mass Index calculator
  - [X] Celsius-Farenheit conversion
 
@@ -14,7 +14,7 @@ Lezione 2
  - [ ] MotorVehicle
  - [X] Date
  - [ ] Remove duplicate
- - [ ] Target Hearthrate calculator
+ - [X] Target Hearthrate calculator
 
 Lezione 3
 -
@@ -43,16 +43,16 @@ Lezione 6
  - [X] Quick Sort
  - [ ] Longest Common Subsequence (LCS)
  - [X] Matrix product
- - [ ] Add to vector without repetition
+ - [X] Add to vector without repetition
 
 Lezione 7
 -
  - [X] Time*
  - [X] Date
- - [ ] Rectangle
+ - [X] Rectangle
  - [ ] TicTacToe
  - [ ] Polynomial
- - [/] Matrix
+ - [ ] Matrix (Mancano operator+ e -)
  - [X] Complex
 
 Lezione 8
@@ -70,6 +70,5 @@ Lezione 10
 -
  _TODO_
 
--
 
 *Usato nelle slide, ma non assegnato come esercizio per casa
