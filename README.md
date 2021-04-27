@@ -27,7 +27,7 @@ Lezione 3
  - [ ] Triangle printing program
  - [ ] Pithagorean Triples
  - [X] Egg-timer program
- - [ ] DollarAmount
+ - [X] DollarAmount
 
 Lezione 4
 -
