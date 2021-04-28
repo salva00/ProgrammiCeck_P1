@@ -67,7 +67,7 @@ Lezione 9
 
 Lezione 10
 -
- _TODO_
+ - [X] Opefiple1
 
 Lezione 11
 -
