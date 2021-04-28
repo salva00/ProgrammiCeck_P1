@@ -69,6 +69,7 @@ Lezione 10
 -
  - [X] Opefiple1
  - [X] Readfile
+ - [X] File-Position-pointers
 
 Lezione 11
 -
