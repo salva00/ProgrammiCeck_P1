@@ -22,7 +22,7 @@ Lezione 3
  - [ ] Min/Max number of a sequence
  - [X] Palindrome
  - [X] Base-10 to Binary
- - [ ] Binary to Base-10
+ - [X] Binary to Base-10
  - [X] Fibonacci sequence
  - [ ] Triangle printing program
  - [ ] Pithagorean Triples
