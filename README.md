@@ -49,7 +49,7 @@ Lezione 7
 -
  - [X] Time*
  - [X] Rectangle
- - [ ] TicTacToe
+ - [X] TicTacToe
 
 Lezione 8
 -
@@ -60,7 +60,7 @@ Lezione 8
 
 Lezione 9
 -
- - [ ] Instrument*
+ - [X] Instrument*
  - [X] Employee*
  - [ ] Banking program
  - [X] Paper and publication sorter
