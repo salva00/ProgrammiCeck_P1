@@ -4,7 +4,7 @@ _30 politico o gli impianto i capelli_
 Lezione 1
 -
  - [X] Hearthrate
- - [ ] Body Mass Index calculator
+ - [X] Body Mass Index calculator
  - [X] Celsius-Farenheit conversion
 
 Lezione 2
