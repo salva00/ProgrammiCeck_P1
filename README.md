@@ -11,7 +11,7 @@ Lezione 2
 -
  - [X] Account
  - [X] Invoice
- - [ ] MotorVehicle
+ - [X] MotorVehicle
  - [X] Date
  - [ ] Remove duplicate
  - [X] Target Hearthrate calculator
