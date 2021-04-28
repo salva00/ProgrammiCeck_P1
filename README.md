@@ -68,6 +68,7 @@ Lezione 9
 Lezione 10
 -
  - [X] Opefiple1
+ - [X] Readfile
 
 Lezione 11
 -
