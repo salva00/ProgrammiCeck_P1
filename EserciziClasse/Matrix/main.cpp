@@ -18,7 +18,8 @@ int main() {
     {0,0,1}
   }};
   Matrix<double> mat2{3,3,1};
-  mat2.random(1,time(NULL),0);
+  // mat2.random(1,time(NULL),0);
+
   mat1.print();
   mat2.print();
   cout << "mat1 -= mat2 \n";
