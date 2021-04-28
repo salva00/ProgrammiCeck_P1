@@ -71,7 +71,7 @@ Lezione 10
  - [X] Readfile
  - [X] File-Position-pointers
  - [X] MainArgumentFile
- - [ ] Banking Account file
+ - [X] Banking Account file
 
 Lezione 11
 -
