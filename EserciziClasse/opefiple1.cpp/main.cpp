@@ -8,7 +8,9 @@ using std::ofstream;
 using std::ios;
 
 int main() {
-    ofstream outClientFile{"clients.txt",ios::out};
+    ofstream outClientFile("clients.txt",ios::out);
+
+    //ofstream outClientFile{"clients.txt",ios::out};
 
     if(!outClientFile){
         std::cerr<<"File could not be opended"<<std::endl;
@@ -24,6 +26,6 @@ int main() {
         outClientFile<<account<<" "<< name <<" " << balance <<std::endl;
         std::cout<<"? ";
     }
-
+    outClientFile.close();
     return 0;
 }
