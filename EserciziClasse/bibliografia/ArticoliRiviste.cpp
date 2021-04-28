@@ -1,7 +1,3 @@
-//
-// Created by Salvatore Bramante on 26/04/21.
-//
-
 #include "ArticoliRiviste.h"
 
 ArticoliRiviste::ArticoliRiviste(const std::string &title, const std::vector<std::string> &authors,

@@ -1,7 +1,3 @@
-//
-// Created by Salvatore Bramante on 26/04/21.
-//
-
 #include "Libri.h"
 
 Libri::Libri(const std::string &title, const std::vector<std::string> &authors,
