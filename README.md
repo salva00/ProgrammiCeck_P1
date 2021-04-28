@@ -62,7 +62,7 @@ Lezione 9
 -
  - [X] Instrument* (dalla repo pub.)
  - [X] Employee*
- - [ ] Banking program
+ - [X] Banking program
  - [X] Paper and publication sorter
 
 Lezione 10
@@ -71,6 +71,7 @@ Lezione 10
  - [X] Readfile
  - [X] File-Position-pointers
  - [X] MainArgumentFile
+ - [] Banking Account file
 
 Lezione 11
 -
