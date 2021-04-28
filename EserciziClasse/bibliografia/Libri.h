@@ -1,7 +1,3 @@
-//
-// Created by Salvatore Bramante on 26/04/21.
-//
-
 #ifndef BIBLIOGRAFIA_LIBRI_H
 #define BIBLIOGRAFIA_LIBRI_H
 

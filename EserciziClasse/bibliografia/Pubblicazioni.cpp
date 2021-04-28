@@ -1,7 +1,3 @@
-//
-// Created by Salvatore Bramante on 26/04/21.
-//
-
 #include "Pubblicazioni.h"
 
 Pubblicazioni::Pubblicazioni(const std::string &title, std::vector<std::string> authors){
