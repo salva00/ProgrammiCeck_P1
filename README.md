@@ -13,7 +13,7 @@ Lezione 2
  - [X] Invoice
  - [X] MotorVehicle
  - [X] Date
- - [ ] Remove duplicate
+ - [X] Remove duplicate
  - [X] Target Hearthrate calculator
 
 Lezione 3
