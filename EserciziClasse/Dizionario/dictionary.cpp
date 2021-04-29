@@ -48,7 +48,7 @@ Dict::Dict(const std::string& filename, std::string l1, std::string l2) :
   wordfile.close();
 }
 
-void Dict::print() {
+void Dict::print() const {
   std::cout << "Translations stored:\n";
   std::cout << std::setw(COLUMN_WIDTH) << std::left << this->lang1 << this->lang2 << '\n';
   for(size_t i = 0; i < lang1w.size(); i++) {
@@ -57,12 +57,12 @@ void Dict::print() {
   return;
 }
 
-void Dict::print(int index) {
+void Dict::print(int index) const {
   std::cout << index << ": " << this->lang1w[index] << ' ' << this->lang2w[index] << '\n';
   return;
 }
 
-std::string Dict::getWord(int index, bool which) {
+std::string Dict::getWord(int index, bool which) const {
   return which? this->lang2w[index] : this->lang1w[index];
 }
 
@@ -123,10 +123,10 @@ void Dict::append(std::string wl1, std::string wl2) {
   int left = 0;
   int right = n-1;
   int position{0};
-
-  while (left<=right){
-      int mid = (right+left)/2;
-      if (this->lang1w[mid] <= wl1 && this->lang1w[mid+1] > wl1){
+  int mid{};
+  while (left<=right) {
+      mid = (right+left)/2;
+      if (this->lang1w[mid] <= wl1 && this->lang1w[mid+1] > wl1) {
           position = mid;
           break;
       }
@@ -136,12 +136,17 @@ void Dict::append(std::string wl1, std::string wl2) {
           right = mid - 1;
       }
   }
-  this->lang1w.insert(this->lang1w.begin()+position+1,wl1);
-  this->lang2w.insert(this->lang2w.begin()+position+1,wl2);
+  if (mid == this->lang1w.size()-1) {
+    this->lang1w.push_back(wl1);
+    this->lang2w.push_back(wl2);
+  } else {
+    this->lang1w.insert(this->lang1w.begin()+position+1,wl1);
+    this->lang2w.insert(this->lang2w.begin()+position+1,wl2);
+  }
   return;
 }
 
-int Dict::search(std::string what, bool which){
+int Dict::search(const std::string& what, bool which) const {
     int n = this->lang1w.size();
     int left = 0;
     int right = n-1;
@@ -163,6 +168,17 @@ int Dict::search(std::string what, bool which){
         }
     }
     return -1;
+}
+
+void Dict::load(const std::string& filename) {
+  std::ofstream wordfile{filename, std::ios::out | std::ios::trunc};
+  if(!wordfile) {
+    throw;
+  }
+  for(size_t i = 0; i < this->lang1w.size(); i++) {
+    wordfile << this->lang1w[i] << SEPARATOR_CHAR << this->lang2w[i] << '\n';
+  }
+  wordfile.close();
 }
 
 

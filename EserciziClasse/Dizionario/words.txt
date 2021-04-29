@@ -1,7 +1,8 @@
 a:A
 b:B
+bone:osso
 c:C
 d:D
-e:D
+e:E
 f:F
-g:G
+y:Y

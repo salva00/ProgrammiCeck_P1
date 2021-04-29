@@ -47,7 +47,7 @@ int main() {
     cout << "1 - Search for a value in english\n";
     cout << "2 - Search for a value in italian\n";
     cout << "3 - Insert a value\n";
-    cout << "4 - Exit\n";
+    cout << "4 - Save to file\n";
     cin >> choice;
     std::string word;
     switch(choice) {
@@ -84,10 +84,16 @@ int main() {
         mydict.append(word,word2);
         break;
       }
+      case 4: {
+        mydict.load("words.txt");
+        break;
+      }
       default: {
         break;
       }
     }
+  //mydict.load("words.txt");
+  system("pause");
   }
   return 0;
 }

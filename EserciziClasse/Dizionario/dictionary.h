@@ -16,18 +16,19 @@ private:
   std::string lang2;
 public:
   Dict(const std::string&, std::string = "Language1", std::string = "Language2");
-  void print();
-  void print(int);
-  std::string getWord(int, bool = 0);
+  void print() const;
+  void print(int) const;
+  std::string getWord(int, bool = 0) const;
   void sort(bool = 0, int = 0, int = -1);
   int partition(bool, int, int);
   void swap(bool, int, int);
   std::string getLang1() const;
   std::string getLang2() const;
 
-  int search(std::string, bool = 0);
+  int search(const std::string&, bool = 0) const;
   void append(std::string, std::string);
 
+  void load(const std::string&);
 };
 
 
