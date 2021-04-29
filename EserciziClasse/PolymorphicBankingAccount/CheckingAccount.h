@@ -12,7 +12,7 @@ class CheckingAccount : public Account {
 private:
 public:
     CheckingAccount(double balance, const std::string& owner);
-    void debit(double withdraw) override;
+    virtual void debit(double withdraw) override;
     void credit(double add) override;   //add interest to balance
 
 

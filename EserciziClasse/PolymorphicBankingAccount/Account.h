@@ -17,7 +17,7 @@ public:
     virtual ~Account()=default;
     virtual void debit(double withdraw) = 0;
     virtual void credit(double add)=0;
-    virtual double getBalance()const;
+    double getBalance()const;
     virtual void setBalance(double balance);
     virtual void setOwner(const std::string& owner);
     virtual std::string getOwner() const;
