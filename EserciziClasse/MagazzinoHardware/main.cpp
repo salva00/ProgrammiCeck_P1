@@ -28,7 +28,7 @@ int main() {
     }
     Choice c;
     while ((c=getChoiche())!=Choice::EXIT){
-        switch (getChoiche()) {
+        switch (c) {
             case Choice::ADD:
                 addRecord(db);
                 break;
@@ -66,7 +66,7 @@ void addRecord(std::fstream& db) {
     int recordNumber{selectRecord("Choose a new product number:")};
     db.seekg((recordNumber-1)*sizeof(Articoli));
     Articoli articolo;
-    db.read(reinterpret_cast<char*>(&articolo),sizeof(articolo));
+    db.read(reinterpret_cast<char*>(&articolo),sizeof(Articoli));
 
     if(articolo.getProductCode()==0){
         std::string name;
@@ -84,7 +84,7 @@ void addRecord(std::fstream& db) {
         articolo.setProductCode(recordNumber);
 
         db.seekp((recordNumber-1)*sizeof(Articoli));
-        db.write(reinterpret_cast<char*>(&articolo),sizeof(articolo));
+        db.write(reinterpret_cast<char*>(&articolo),sizeof(Articoli));
     }else{
         std::cerr<<"Product n: " << recordNumber <<"already exists\n";
     }
@@ -95,12 +95,12 @@ void deleteRecord(std::fstream& db){
     int recordNumber{selectRecord("Choose a product number to delete:")};
     db.seekg((recordNumber-1)*sizeof(Articoli));
     Articoli articolo;
-    db.read(reinterpret_cast<char*>(&articolo),sizeof(articolo));
+    db.read(reinterpret_cast<char*>(&articolo),sizeof(Articoli));
 
     if(articolo.getProductCode()!=0){
         Articoli vuoto;
         db.seekp((recordNumber-1)*sizeof(Articoli));
-        db.write(reinterpret_cast<char*>(&vuoto),sizeof(articolo));
+        db.write(reinterpret_cast<char*>(&vuoto),sizeof(Articoli));
         std::cout<<"Product n: " << recordNumber <<"successfully deleted\n";
     }else{
         std::cerr<<"Product n: " << recordNumber <<"doesn't exists\n";
@@ -111,7 +111,7 @@ void updateRecord(std::fstream& db){
     int recordNumber{selectRecord("Choose a product number to update:")};
     db.seekg((recordNumber-1)*sizeof(Articoli));
     Articoli articolo;
-    db.read(reinterpret_cast<char*>(&articolo),sizeof(articolo));
+    db.read(reinterpret_cast<char*>(&articolo),sizeof(Articoli));
 
     if(articolo.getProductCode()!=0){
 
@@ -142,12 +142,12 @@ void updateRecord(std::fstream& db){
 void printRecords(std::fstream& db){
     //per stampare a console il contenuto del file:
     Articoli articolo;
-    db.read(reinterpret_cast<char*>(&articolo),sizeof(articolo));
+    db.read(reinterpret_cast<char*>(&articolo),sizeof(Articoli));
     while (db){
         if(articolo.getProductCode()!=0){
             outputLine(std::cout,articolo);
         }
-        db.read(reinterpret_cast<char*>(&articolo),sizeof(articolo));
+        db.read(reinterpret_cast<char*>(&articolo),sizeof(Articoli));
     }
     /*if (!db){
         std::cerr<<"File could not be opened"<<std::endl;
@@ -176,5 +176,4 @@ void outputLine(std::ostream& output, const Articoli& articolo){
         std::setw(11)<<articolo.getQnt()<<
         std::setw(10)<<std::setprecision(2)<< std::right<<
         std::fixed<<std::showpoint<<articolo.getPrice()<<std::endl;
-
 }
