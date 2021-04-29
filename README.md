@@ -55,7 +55,7 @@ Lezione 8
 -
  - [X] Date
  - [X] Polynomial
- - [ ] Matrix (Mancano operator+ e -)
+ - [X] Matrix
  - [X] Complex
 
 Lezione 9
