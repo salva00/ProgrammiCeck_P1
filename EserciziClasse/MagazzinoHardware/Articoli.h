@@ -7,6 +7,8 @@
 
 
 #include <string>
+#include <iostream> //per far contento Francesco :)
+#include <stdexcept>
 
 class Articoli {
 private:
