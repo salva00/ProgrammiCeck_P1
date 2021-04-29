@@ -62,7 +62,7 @@ Lezione 9
 -
  - [X] Instrument* (dalla repo pub.)
  - [X] Employee*
- - [X] Banking program
+ - [X] Polimorph Banking program
  - [X] Paper and publication sorter
 
 Lezione 10
