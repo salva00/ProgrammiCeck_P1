@@ -19,8 +19,8 @@ size_t charSearch(std::string str, char c) {
 std::string trimSpaces(std::string in) {
   std::string str{in};
   int i = 0, j = str.length()-1;
-  while(str[i] == ' ') i++;
-  while(str[j] == ' ') j--;
+  while(str[i] == ' ' || str[i] == '\t') i++;
+  while(str[j] == ' ' || str[i] == '\t') j--;
   //if(i > j) return " ";
   str.resize(j+1);
   str.erase(0,i);
