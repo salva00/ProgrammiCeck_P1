@@ -30,9 +30,8 @@ std::string trimSpaces(std::string in) {
 Dict::Dict(const std::string& filename, std::string l1, std::string l2) :
   lang1{l1}, lang2{l2} {
   std::ifstream wordfile{filename};
-  if(!wordfile) {
-    std::cerr << "File not found";
-    exit(EXIT_FAILURE);
+  if(!wordfile) {//todo
+    std::cout << "file no present\n";
   }
   std::string temp;
   size_t separator{0};
@@ -97,6 +96,7 @@ int Dict::partition(bool which, int l, int h) {
 }
 
 void Dict::sort(bool which, int l, int h) {
+  if(this->lang1w.size() <= 1) return;
   if(h <= 0) h = this->lang1w.size()-1;
   int stack[h - l + 1];
     int top = -1;
@@ -120,52 +120,79 @@ void Dict::sort(bool which, int l, int h) {
 
 void Dict::append(std::string wl1, std::string wl2) {
   int n = this->lang1w.size();
-  int left = 0;
-  int right = n-1;
   int position{0};
-  int mid{};
-  while (left<=right) {
-      mid = (right+left)/2;
-      if (this->lang1w[mid] <= wl1 && this->lang1w[mid+1] > wl1) {
-          position = mid;
-          break;
-      }
-      if (this->lang1w[mid] < wl1){
-          left = mid + 1;
-      } else {
-          right = mid - 1;
-      }
+  // notable increase in complexity if working with iterative searching
+  if(this->search(wl1,0) >= 0 || this->search(wl2,1) >= 0) {
+    std::cerr << "Couldn't complete operation. Skipping.\n";
+    return;
   }
-  if (mid == this->lang1w.size()-1) {
+// binary search
+// TODO: doesn't work if dictionary is too small. need rework
+
+// int mid{-1};
+// int left = 0;
+// int right = n-1;
+//   while (left<=right && this->lang1w.size() <= 0) {
+//       mid = (right+left)/2;
+//       if (this->lang1w[mid] <= wl1 && this->lang1w[mid+1] > wl1) {
+//           position = mid;
+//           break;
+//       }
+//       if (this->lang1w[mid] < wl1){
+//           left = mid + 1;
+//       } else {
+//           right = mid - 1;
+//       }
+//   }
+
+// iterative search
+if (this->lang1w[0] < wl1 ) position++;
+  while(position > 0 && position < n) {
+    if (this->lang1w[position-1] <= wl1 && this->lang1w[position] > wl1) break;
+    position++;
+  }
+  std::cout << "\nfound at pos: " << position << '\n';
+  if (position == n) {
     this->lang1w.push_back(wl1);
     this->lang2w.push_back(wl2);
   } else {
-    this->lang1w.insert(this->lang1w.begin()+position+1,wl1);
-    this->lang2w.insert(this->lang2w.begin()+position+1,wl2);
+    this->lang1w.insert(this->lang1w.begin()+position,wl1);
+    this->lang2w.insert(this->lang2w.begin()+position,wl2);
   }
   return;
 }
 
 int Dict::search(const std::string& what, bool which) const {
-    int n = this->lang1w.size();
-    int left = 0;
-    int right = n-1;
+// Faster but doesn't work is searching in
+// second language (which is non ordered)
+    // int n = this->lang1w.size();
+    // int left = 0;
+    // int right = n-1;
+    //
+    // while (left<=right){
+    //     int mid = (right+left)/2;
+    //     if (which == 0 && this->lang1w[mid] == what){
+    //         return mid;
+    //     }
+    //     if (which == 1 && this->lang2w[mid] == what){
+    //         return mid;
+    //     }
+    //     if (which == 0 && this->lang1w[mid] < what){
+    //         left = mid + 1;
+    //     } else if(which == 1 && this->lang2w[mid] < what) {
+    //         left = mid + 1;
+    //     } else {
+    //         right = mid - 1;
+    //     }
+    // }
+    // return -1;
 
-    while (left<=right){
-        int mid = (right+left)/2;
-        if (which == 0 && this->lang1w[mid] == what){
-            return mid;
-        }
-        if (which == 1 && this->lang2w[mid] == what){
-            return mid;
-        }
-        if (which == 0 && this->lang1w[mid] < what){
-            left = mid + 1;
-        } else if(which == 1 && this->lang2w[mid] < what) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
-        }
+// iterative :(
+    size_t i = 0;
+    while(i < this->lang1w.size()) {
+      if(which == 0 && this->lang1w[i] == what ) return i;
+      if(which == 1 && this->lang2w[i] == what ) return i;
+      i++;
     }
     return -1;
 }

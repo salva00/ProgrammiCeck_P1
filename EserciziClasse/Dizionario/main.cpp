@@ -36,6 +36,19 @@ using std::cin;
 //   return str;
 // }
 
+void dictSearch(const Dict& mydict, bool which) {
+  int index{-1};
+  std::string word;
+  cout << "Insert a name to search: ";
+  cin >> word;
+  index = mydict.search(word, which);
+  if(index >= 0) {
+    cout << "Translation is: " << mydict.getWord(index,1-which);
+  } else cout << "Couldn't find that";
+  cout << '\n';
+  return;
+}
+
 int main() {
   int choice{-1};
 
@@ -50,48 +63,31 @@ int main() {
     cout << "4 - Save to file\n";
     cin >> choice;
     std::string word;
+    int index{-1};
+    std::string word2;
+
     switch(choice) {
-      case 0: {
+      case 0:
         mydict.print();
         break;
-      }
-      case 1: {
-        int index{-1};
-        cout << "Insert a name to search: ";
-        cin >> word;
-        mydict.search(word, 0);
-        if(index >= 0) {
-          cout << "Translation is: " << mydict.getWord(index,1);
-        } else cout << "Couldn't find that\n";
+      case 1:
+        dictSearch(mydict, 0);
         break;
-      }
-      case 2: {
-        int index{-1};
-        cout << "Insert a name to search: ";
-        cin >> word;
-        mydict.search(word, 1);
-        if(index >= 0) {
-          cout << "Translation is: " << mydict.getWord(index,0);
-        } else cout << "Couldn't find that\n";
+      case 2:
+        dictSearch(mydict, 1);
         break;
-      }
-      case 3: {
-        std::string word2;
+      case 3:
         cout << "Insert an english word: ";
         cin >> word;
         cout << "Insert its translation in italian: ";
         cin >> word2;
         mydict.append(word,word2);
         break;
-      }
-      case 4: {
+      case 4:
         mydict.load("words.txt");
+        exit(EXIT_SUCCESS);
         break;
       }
-      default: {
-        break;
-      }
-    }
   //mydict.load("words.txt");
   system("pause");
   }
