@@ -67,10 +67,10 @@ Lezione 9
 
 Lezione 10
 -
- - [X] Opefiple1
- - [X] Readfile
- - [X] File-Position-pointers
- - [X] MainArgumentFile
+ - [X] Opefiple1*
+ - [X] Readfile*
+ - [X] File-Position-pointers*
+ - [X] MainArgumentFile*
  - [ ] Banking Account file
  - [ ] Magazzino con file
  - [X] Dizionario
