@@ -71,7 +71,7 @@ Lezione 10
  - [X] Readfile
  - [X] File-Position-pointers
  - [X] MainArgumentFile
- - [X] Banking Account file
+ - [ ] Banking Account file
  - [ ] Magazzino con file
  - [X] Dizionario
 
