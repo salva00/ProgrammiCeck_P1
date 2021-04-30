@@ -17,7 +17,6 @@ private:
     int qnt;
     float price;
 public:
-    //Articoli(int);//per rendre il codice più flessibile
     Articoli(const std::string& =" ", int = 0, int = 0, float =.0);
     virtual ~Articoli() = default;
 
@@ -32,6 +31,10 @@ public:
 
     void setPrice(float);
     float getPrice() const;
+
+    std::string serialize() const;
+    void deserialize();
+
 };
 
 

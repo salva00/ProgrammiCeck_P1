@@ -2,6 +2,7 @@
 // Created by Salvatore Bramante on 29/04/21.
 //
 
+#include <sstream>
 #include "Articoli.h"
 
 Articoli::Articoli(const std::string& name, int productCode, int qnt, float price) {
@@ -15,7 +16,7 @@ void Articoli::setName(const std::string & name) {
     if (name.empty()){
         throw std::invalid_argument("Name must not be empty ");
     }
-    this->name=name;
+    this->name=std::string(name.c_str());
 }
 
 std::string Articoli::getName() const {
@@ -53,4 +54,10 @@ void Articoli::setPrice(float price) {
 
 float Articoli::getPrice() const{
     return price;
+}
+
+std::string Articoli::serialize() const{
+    std::ostringstream pippo;
+    pippo<< "Name " << getName()<< "Code "<< getProductCode() <<"Qnt "<<getQnt()<<"Price "<<getPrice();
+    return pippo.str();
 }
