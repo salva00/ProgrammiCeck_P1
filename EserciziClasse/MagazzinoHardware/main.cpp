@@ -45,8 +45,8 @@ int main() {
             std::cerr << "Wrong input" << std::endl;
             break;
         }
+        db.clear(); //inutile a fine programma ?
     }
-    db.clear(); //inutile a fine programma ?
 }
 Choice getChoiche() {
     int choice;
@@ -64,7 +64,7 @@ Choice getChoiche() {
 
 void addRecord(std::fstream& db) {
     int recordNumber{ selectRecord("Choose a new product number:") };
-    db.seekg((recordNumber - 1) * sizeof(Articoli));
+    db.seekg((recordNumber - 1) * sizeof(Articoli), db.beg);
 
     Articoli articolo;
     std::string name;
@@ -81,12 +81,12 @@ void addRecord(std::fstream& db) {
     articolo.setPrice(price);
     articolo.setProductCode(recordNumber);
 
-    db.write((char*)(&articolo), sizeof(Articoli));
+    db.write(reinterpret_cast<char*>(&articolo), sizeof(Articoli));
 }
 
 void deleteRecord(std::fstream& db) {
     int recordNumber{ selectRecord("Choose a product number to delete:") };
-    db.seekg((recordNumber - 1) * sizeof(Articoli));
+    db.seekg((recordNumber - 1) * sizeof(Articoli), db.beg);
     Articoli articolo;
     db.read((char*)(&articolo), sizeof(Articoli));
 
@@ -105,7 +105,7 @@ void updateRecord(std::fstream& db) {
     int recordNumber{ selectRecord("Choose a product number to update:") };
     db.seekg((recordNumber - 1) * sizeof(Articoli));
     Articoli articolo;
-    db.read((char*)(&articolo), sizeof(Articoli));
+    db.read(reinterpret_cast<char*>(&articolo), sizeof(Articoli));
 
     if (articolo.getProductCode() != 0) {
 
@@ -127,7 +127,7 @@ void updateRecord(std::fstream& db) {
         articolo.setProductCode(recordNumber);
 
         db.seekp((recordNumber - 1) * sizeof(Articoli));
-        db.write((char*)(&articolo), sizeof(articolo));
+        db.write(reinterpret_cast<char*>(&articolo), sizeof(articolo));
     }
     else {
         std::cerr << "Product n: " << recordNumber << "doesn't exists\n";
@@ -140,7 +140,7 @@ void printRecords(std::fstream& db) {
     db.seekp(0); //parto dall' inizio del file
     while (db) {
         outputLine(std::cout, articolo);
-        db.read((char*)(&articolo), sizeof(Articoli));
+        db.read(reinterpret_cast<char*>(&articolo), sizeof(Articoli));
     }
     /*if (!db){
         std::cerr<<"File could not be opened"<<std::endl;
