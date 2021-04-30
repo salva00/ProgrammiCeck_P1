@@ -72,6 +72,8 @@ Lezione 10
  - [X] File-Position-pointers
  - [X] MainArgumentFile
  - [X] Banking Account file
+ - [ ] Magazzino con file
+ - [X] Dizionario
 
 Lezione 11
 -
