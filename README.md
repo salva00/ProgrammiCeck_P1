@@ -71,7 +71,7 @@ Lezione 10
  - [X] Readfile*
  - [X] File-Position-pointers*
  - [X] MainArgumentFile*
- - [ ] Banking Account file
+ - [X] Client Data with Database*
  - [ ] Magazzino con file
  - [X] Dizionario
 
