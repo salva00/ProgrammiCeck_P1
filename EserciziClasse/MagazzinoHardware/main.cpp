@@ -139,8 +139,8 @@ void printRecords(std::fstream& db) {
     Articoli articolo;
     db.seekp(0); //parto dall' inizio del file
     while (db) {
-        outputLine(std::cout, articolo);
         db.read(reinterpret_cast<char*>(&articolo), sizeof(Articoli));
+        outputLine(std::cout, articolo);
     }
     /*if (!db){
         std::cerr<<"File could not be opened"<<std::endl;
