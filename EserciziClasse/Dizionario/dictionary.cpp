@@ -146,18 +146,27 @@ void Dict::append(std::string wl1, std::string wl2) {
 //   }
 
 // iterative search
-if (this->lang1w[0] < wl1 ) position++;
+  if(this->lang1w.size() == 0) {
+    this->insert(wl1,wl2,0);
+    return;
+  }
+  if(this->lang1w[0] < wl1) position++;
   while(position > 0 && position < n) {
     if (this->lang1w[position-1] <= wl1 && this->lang1w[position] > wl1) break;
     position++;
   }
   std::cout << "\nfound at pos: " << position << '\n';
-  if (position == n) {
+  this->insert(wl1,wl2,position);
+  return;
+}
+
+void Dict::insert(std::string wl1, std::string wl2, int index) {
+  if (index == this->lang1w.size()) {
     this->lang1w.push_back(wl1);
     this->lang2w.push_back(wl2);
   } else {
-    this->lang1w.insert(this->lang1w.begin()+position,wl1);
-    this->lang2w.insert(this->lang2w.begin()+position,wl2);
+    this->lang1w.insert(this->lang1w.begin()+index,wl1);
+    this->lang2w.insert(this->lang2w.begin()+index,wl2);
   }
   return;
 }

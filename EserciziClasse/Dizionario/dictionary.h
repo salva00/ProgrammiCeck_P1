@@ -26,6 +26,7 @@ public:
   std::string getLang2() const;
 
   int search(const std::string&, bool = 0) const;
+  void insert(std::string, std::string, int);
   void append(std::string, std::string);
 
   void load(const std::string&);
