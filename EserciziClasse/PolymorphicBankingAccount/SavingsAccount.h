@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 28/04/21.
-//
 
 #ifndef POLYMORPHICBANKINGACCOUNT_SAVINGSACCOUNT_H
 #define POLYMORPHICBANKINGACCOUNT_SAVINGSACCOUNT_H
@@ -10,14 +7,17 @@
 
 class SavingsAccount : public Account {
 private:
-    double interest;
+    double interest{0.0}; // in %
 public:
-    SavingsAccount(double balance, const std::string& owner, double interest);
-    void debit(double withdraw) override;
+    SavingsAccount(const std::string& owner, double balance = 0, double interset = 0);
+
+    // void debit(double withdraw) override;
+    void credit(double add) override;   //add interest to balance
+
     void setInterest(double interest);
     double getInterest() const;
+
     double calculateInterest() const; //calculate interest
-    void credit(double add) override;   //add interest to balance
 
 };
 
