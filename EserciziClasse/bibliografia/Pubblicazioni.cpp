@@ -1,6 +1,6 @@
 #include "Pubblicazioni.h"
-
-Pubblicazioni::Pubblicazioni(const std::string &title, std::vector<std::string> authors){
+#include <stdexcept>
+Pubblicazioni::Pubblicazioni(const std::string &title, std::vector<std::string> authors,int year){
     setTitle(title);
     setAuthors(authors);
     setYear(year);

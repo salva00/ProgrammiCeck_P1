@@ -1,19 +1,62 @@
+/*
+*  Scrivere un programma c++ che permetta di gestire la bibliografia di un articolo scientifico.
+• Il programma deve gestire un elenco di pubblicazioni,
+• Tutte le pubblicazioni possono hanno un titolo, uno o poi’ autori, ed un anno di pubblicazione
+• E possono essere dei 
+    • Libri, vanno memorizzati le informazioni sulla casa editrice e l’ISBN
+    • Articoli su riviste, vanno memorizzati il titolo della Rivista (es IEEE Transaction of Computers), 
+        il numero della rivista, e le pagine (inizio e fine)
+    • Articoli su atti di convegni, vanno memorizzati il titolo del convegno 
+        (es IEEE Conference on Machine Learning), la sede del convegno, e il numero di pagina
+• Il programma deve permettere di memorizzare una lista di pubblicazioni in un vettore, 
+    stampare la lista, ed calcolare il numero di pubblicazioni di ciascun tipo a partire dai dati memorizzati nel vettore. 
+• La stampa deve essere fatta in ordine alfabetico di cognome (overload dell’operatore <)
+• Implementare l’ordinamento di un vettore di pubblicazioni
+*/
+
+
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include "Pubblicazioni.h"
+#include "ArticoliConvegni.h"
+#include "ArticoliRiviste.h"
+#include "Libri.h"
 
-std::vector<std::string> loadAuthors();    //carica vettore di autori
+std::vector<std::string>& loadAuthors();    //carica vettore di autori
+Libri& loadLibro(std::string&, std::vector<std::string>&);
+ArticoliConvegni& loadArtConv(std::string&, std::vector<std::string>&);
+ArticoliRiviste& loadArtRivs(std::string&, std::vector<std::string>&);
 Pubblicazioni& loadPub();                   //carica singola pubblicazione
-void makeList();                            //crea lista di pubblicazioni
+void addToList(std::vector<Pubblicazioni*>);  //crea lista di pubblicazioni
 void printList();                           //stampa lista di pubblicazioni
 void getStats();                            //calcola il numero di pubblicazioni di ciascun tipo (le stampo solo?)
+bool isValidNumericString(std::string&);
+bool isValidPositiveNumber(int);
+
+enum PubType { Libro = 0, ArticoloRivista, ArticoloConvegno };
+
+std::istream& operator>> (std::istream& in, PubType& publicationType){
+	  int val;
+	  if (in >> val){
+	  	  switch ( val ) {
+	  	  	  case 0: case 1: case 2:
+	  	  	  	  publicationType = PubType(val);
+	  	  	  	  break;
+	  	  	  default:
+	  	  	  	  throw std::invalid_argument("Invalid Input! Enter a value in range 0 to 2 ");
+	  	  }
+	  }
+	  
+	  return in;
+}
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
     return 0;
 }
 
-std::vector<std::string> loadAuthors() {
+std::vector<std::string>& loadAuthors() {
     //gli autori sono stringhe del tipo Cognome,Nome
     //sono ammessi i punti e gli spazi nel nome, ma non altri caratteri speciali
     //il vettore di autori sarà ordinato per cognome
@@ -24,7 +67,8 @@ std::vector<std::string> loadAuthors() {
     while (std::cin.fail() || num < 1) {
         std::cin.clear();
         std::cin.ignore(100000, '\n');       //numero a caso alto
-        std::cout << "Numbers of authors must be a positive number!\nHow many Authors? ";
+        throw std::invalid_argument("Numbers of authors must be a positive number!");
+        std::cout << "\nHow many Authors? ";
         std::cin >> num;
     }
     std::cin.ignore(100000, '\n');
@@ -41,7 +85,7 @@ std::vector<std::string> loadAuthors() {
             if (input[i] == ',' && i > 0)
                 valid_input = true; //cognome valido
             else if ((input[i] < 'A' || input[i] > 'Z') && (input[i] < 'a' || input[i] > 'z')) {
-                std::cout << "Invalid surname! Please re-enter ";
+                throw std::invalid_argument("Invalid surname! Please re-enter ");
                 i = input.length();
             }
         }
@@ -49,13 +93,13 @@ std::vector<std::string> loadAuthors() {
             //controllo nome
             for (; i < input.length() && valid_input; i++) {
                 if (((input[i] < 'A' || input[i] > 'Z') && (input[i] < 'a' || input[i] > 'z')) && (input[i] != '.' && input[i] != ' ')) {
-                    std::cout << "Invalid name! Please re-enter ";
+                    throw std::invalid_argument("Invalid name! Please re-enter ");
                     valid_input = false;
                 }
             }
         }
         else {  //nome vuoto
-            std::cout << "Invalid name! Please re-enter: ";
+            throw std::invalid_argument("Invalid name! Please re-enter: ");
             valid_input = false;
         }
         if (valid_input) {
@@ -76,39 +120,121 @@ std::vector<std::string> loadAuthors() {
             num--;
         }
     }
-    return authors;
+    std::vector<std::string>* vec_pointer = &authors;
+    return *vec_pointer;
 }
 
-Pubblicazioni& loadPub() {            //TODO: completare interfaccia
+Libri& loadLibro(std::string& title, std::vector<std::string>& authors,int year) {
+    std::string publisher;
+    std::string isbn;
+    std::cout << "Publisher: ";
+    std::getline(std::cin, publisher);
+    std::cout << "ISBN: ";
+    std::getline(std::cin, isbn);
+    Libri* new_libro = new Libri(title, authors, year, isbn, publisher);
+    return *new_libro;
+}
+
+ArticoliConvegni& loadArtConv(std::string& title, std::vector<std::string>& authors,int year) {
+    std::string titoloConvegno;
+    std::string sedeConvegno;
+	  int numPagine;
+    std::cout << "Titolo del Convegno: ";
+    std::getline(std::cin, titoloConvegno);
+    std::cout << "Sede del Convegno: ";
+    std::getline(std::cin, sedeConvegno);
+    std::cout << "Numero di pagine: ";
+    std::cin >> numPagine;
+    while (std::cin.fail() || numPagine < 0) {
+        throw std::invalid_argument("L' argomento deve essere un numero positivo! ");
+        std::cout << "\nNumero di pagine: ";
+        std::cin.clear();
+        std::cin >> numPagine;
+    }
+    std::cin.ignore(100000, '\n');
+
+    ArticoliConvegni* new_artConv = new ArticoliConvegni(title, authors, year, titoloConvegno, sedeConvegno, numPagine);
+    return *new_artConv;
+}
+
+ArticoliRiviste& loadArtRivs(std::string& title, std::vector<std::string>& authors,int year) {
+    std::string titoloRivista;
+    int numRivista;
+    int start;
+    int stop;
+    std::cout << "Titolo della Rivista: ";
+    std::getline(std::cin, titoloRivista);
+    std::cout << "Numero della rivista: ";
+    std::cin >> numRivista;
+    std::cout << "Pagina iniziale: ";
+    std::cin >> start;
+    std::cout << "Pagina finale: ";
+    std::cin >> stop;
+    while (std::cin.fail() || numRivista < 0) {
+        throw std::invalid_argument("L' argomento deve essere un numero positivo! ");
+        std::cout << "\nNumero di pagine: ";
+        std::cin.clear();
+        std::cin >> numRivista;
+    }
+    std::cin.ignore(100000, '\n');
+
+    ArticoliRiviste* new_artRivs = new ArticoliRiviste(title, authors, year, titoloRivista, numRivista, start, stop);
+    return *new_artRivs;
+}
+
+Pubblicazioni& loadPub() {
     std::string title;
-    std::cout << "Titolo: ";
+    std::vector<std::string> authors;
+    int year;
+	  bool invalid_input{ true };
+    PubType choice;
+    std::cout << "Publication Type: ";
+    do{
+    	  try{
+    	  	  invalid_input = false;
+    	  	  std::cin >> choice;
+    	  }
+   	   	catch(std::invalid_argument& e){
+    	  	  std::cerr << e.what();
+    	  	  std::cout << "\nPlease re-enter Publication type: ";
+    	  	  invalid_input = true;
+    	  }
+    }while(invalid_input);
+    
+    std::cout << "Title: ";
     //std::cin.getline(title);
     std::getline(std::cin,title);
     std::cin.ignore(10000, '\n');
-    PublicationType choice{ Invalid };
-    std::cout << "Publication Type: ":
-    std::cin >> choice;
-    while( choice < 0 || choice > 3) {
-        std::cout << "Invalid Input. Please re-enter Publication Type: ":
-        std::cin >> choice;
+    authors = loadAuthors();
+    std::cout << "Year of publication: ";
+    std::cin >> year;
+    while (year < 0) {
+        throw std::invalid_argument("Invalid year! ");
+        std::cout << "\nYear of publication: ";
+        std::cin >> year;
     }
-    switch(choice):
-        case Libro:
+
+    switch(choice){
+        case PubType::Libro:
+            return loadLibro(title, authors, year);
             break;
-        case ArticoloRivista:
+        case PubType::ArticoloRivista:
+            return loadArtConv(title, authors, year);
             break;
-        case ArticoloConvegno:
+        case PubType::ArticoloConvegno:
+            return loadArtRivs(title, authors, year);
             break;
         default:
             break;
+    }
 }
 
-std::vector<Pubblicazioni> makeList() {
+void addToList(std::vector<Pubblicazioni*> List) {
     short input{ 0 };
     std::cout << "How many Publications? ";
     std::cin >> input;
     while (input > 0) {
-        loadPub();
+        List.push_back( &loadPub() );
         input--;    //o --input se vogliamo far contento il prof;
     }
 }

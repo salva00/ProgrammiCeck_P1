@@ -10,7 +10,7 @@ private:
     std::string publisher;
 public:
 
-    Libri(const std::string& , const std::vector<std::string>& , const std::string&,const std::string&);
+    Libri(const std::string& title, const std::vector<std::string>& authors, int year,const std::string& isbn,const std::string& publisher);
 
     virtual ~Libri()=default;
 

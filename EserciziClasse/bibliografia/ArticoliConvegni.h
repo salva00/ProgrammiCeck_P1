@@ -12,8 +12,8 @@ private:
 public:
 
 
-    ArticoliConvegni(const std::string &title, const std::vector<std::string> &authors,
-                     const std::string &titoloConvegno,const std::string &sedeConvegno,int numPagine);
+    ArticoliConvegni(const std::string& title, const std::vector<std::string>& authors, int year,
+                     const std::string& titoloConvegno,const std::string& sedeConvegno,int numPagine);
 
     void setTitoloConvegno(const std::string&);
     void setSedeConvegno(const std::string&);

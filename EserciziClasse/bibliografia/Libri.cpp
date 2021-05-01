@@ -1,8 +1,9 @@
 #include "Libri.h"
+#include <stdexcept>
 
 Libri::Libri(const std::string &title, const std::vector<std::string> &authors,
-             const std::string &isbn,const std::string &publisher)
-        : Pubblicazioni(title, authors){
+             int year, const std::string &isbn,const std::string &publisher)
+        : Pubblicazioni(title, authors, year){
     setISBN(isbn);
     setPublisher(publisher);
 }

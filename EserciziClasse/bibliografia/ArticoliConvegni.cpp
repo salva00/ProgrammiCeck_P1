@@ -1,9 +1,9 @@
 #include "ArticoliConvegni.h"
+#include <stdexcept>
 
-
-ArticoliConvegni::ArticoliConvegni(const std::string &title, const std::vector<std::string> &authors,
-                                   const std::string &titoloConvegno,const std::string &sedeConvegno,int numPagine)
-                                   : Pubblicazioni(title, authors) {
+ArticoliConvegni::ArticoliConvegni(const std::string& title, const std::vector<std::string>& authors, int year,
+                                   const std::string& titoloConvegno,const std::string& sedeConvegno,int numPagine)
+                                   : Pubblicazioni(title, authors, year) {
     setNumPagine(numPagine);
     setSedeConvegno(sedeConvegno);
     setTitoloConvegno(titoloConvegno);

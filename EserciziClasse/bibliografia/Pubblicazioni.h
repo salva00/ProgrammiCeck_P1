@@ -8,12 +8,10 @@
 #include <vector>
 #include <string>
 
-enum PublicationType = { Invalid = -1; Libro, ArticoloRivista, ArticoloConvegno };     //serve davvero Invalid?
-
 class Pubblicazioni {
 
 public:
-    Pubblicazioni(const std::string &title, std::vector<std::string> authors);
+    Pubblicazioni(const std::string &title, std::vector<std::string> authors,int year);
     virtual ~Pubblicazioni() = default;
 
 private:
