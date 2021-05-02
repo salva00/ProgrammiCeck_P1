@@ -10,7 +10,7 @@ struct search_failure : public std::exception {
 void storeClient(ClientData&, std::string);
 
 //return reference to n-th object in database
-ClientData& getClient(int, std::string);
+ClientData getClient(int, std::string);
 
 //return index of the object from account number
 size_t searchClient(int, std::string);

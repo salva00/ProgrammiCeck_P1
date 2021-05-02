@@ -16,12 +16,12 @@ void storeClient(ClientData& client, std::string filename) {
 }
 
 
-ClientData& getClient(int position, std::string filename) {
+ClientData getClient(int position, std::string filename) {
   std::ifstream readfile{filename, std::ios::in | std::ios::binary};
   if(!readfile.is_open()) {
     throw std::invalid_argument("File could not be found");
   }
-  ClientData* temp = new ClientData{};
+  ClientData temp{};
 
   readfile.seekg(0,readfile.end);
   size_t len = readfile.tellg();
@@ -30,9 +30,9 @@ ClientData& getClient(int position, std::string filename) {
   if((position+1)*sizeof(ClientData) > len) throw search_failure();
 
   readfile.seekg(sizeof(ClientData)*position, readfile.beg);
-  readfile.read(reinterpret_cast<char*>(temp), sizeof(ClientData));
+  readfile.read(reinterpret_cast<char*>(&temp), sizeof(ClientData));
   readfile.close();
-  return *temp;
+  return temp;
 }
 
 
