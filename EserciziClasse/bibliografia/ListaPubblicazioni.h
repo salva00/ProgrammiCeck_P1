@@ -2,23 +2,30 @@
 #ifndef BIBLIOGRAFIA_BIBLIOGRAFIA_H
 #define BIBLIOGRAFIA_BIBLIOGRAFIA_H
 
-#include "Pubblicazioni.h"
 #include "ArticoliConvegni.h"
 #include "ArticoliRiviste.h"
 #include "Libri.h"
-#include <vector>
+#include "iomanager.h"
+//include<vector>
+//include<string>
 
-enum PubType { Libro, ArticoloRivista, ArticoloConvegno, Generico };
+enum class PubType {Libro = 0,
+                    ArticoloRivista = 1,
+                    ArticoloConvegno = 2,
+                    Generico = 3,
+                    Invalid = -1};
 
-PubType getType(Pubblicazioni*);
+PubType getType(const Pubblicazioni*);
 
 bool pubPtrMinus(Pubblicazioni*, Pubblicazioni*);
+
+bool operator<(const Pubblicazioni&, const Pubblicazioni&);
 
 class ListaPubblicazioni {
 private:
   std::vector<Pubblicazioni*> list;
 public:
-  ListaPubblicazioni(std::vector<Pubblicazioni*>);
+  ListaPubblicazioni(std::vector<Pubblicazioni*> = std::vector<Pubblicazioni*>());
   ~ListaPubblicazioni();
 
   Pubblicazioni& operator[](size_t);
@@ -32,6 +39,10 @@ public:
 
   void print(size_t);
   void print();
+
+  void addPub(Pubblicazioni*);
 };
+
+Pubblicazioni* askPub(PubType);
 
 #endif

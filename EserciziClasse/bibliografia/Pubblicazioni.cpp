@@ -9,14 +9,14 @@ Pubblicazioni::Pubblicazioni(const std::string &title, std::vector<std::string> 
 
 void Pubblicazioni::setTitle(const std::string& title) {
     if (title.empty()){
-        throw std::invalid_argument("autors can't be empty");
+        throw std::invalid_argument("authors can't be empty");
     }
     this->title=title;
 }
 
 void Pubblicazioni::setAuthors(std::vector<std::string> authors) {
     if(authors.empty()){
-        throw std::invalid_argument("autors can't be empty");
+        throw std::invalid_argument("authors can't be empty");
     }
     if(std::is_sorted(authors.begin(), authors.end()) == false)
       std::sort(authors.begin(), authors.end());
@@ -41,15 +41,6 @@ std::vector<std::string> Pubblicazioni::getAuthors() const {
 int Pubblicazioni::getYear() const {
     return year;
 }
-
-bool Pubblicazioni::operator<(const Pubblicazioni& rhs) {
-  if(this->getAuthors()[0] < rhs.getAuthors()[0]) return true;
-  else return false;
-}
-
-
-
-
 
 
 

@@ -25,9 +25,6 @@ public:
     std::string getTitle() const;
     std::vector<std::string> getAuthors() const;
     int getYear() const;
-
-    bool operator<(const Pubblicazioni&);
 };
-
 
 #endif //BIBLIOGRAFIA_PUBBLICAZIONI_H

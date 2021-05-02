@@ -1,7 +1,9 @@
-#include "ArticoliRiviste.h"
 
-ArticoliRiviste::ArticoliRiviste(const std::string &title, const std::vector<std::string> &authors, int year,
-                                 const std::string& titoloRiv, int numRiv,int start, int stop)
+#include"ArticoliRiviste.h"
+#include<iostream>
+
+ArticoliRiviste::ArticoliRiviste(std::string title, std::vector<std::string> authors, int year,
+                                 std::string titoloRiv, int numRiv,int start, int stop)
         : Pubblicazioni(title, authors, year){
     setTitoloRiv(titoloRiv);
     setNumRiv(numRiv);
@@ -9,25 +11,25 @@ ArticoliRiviste::ArticoliRiviste(const std::string &title, const std::vector<std
     setStop(stop);
 }
 
-void ArticoliRiviste::setTitoloRiv(const std::string& titoloRiv){
+void ArticoliRiviste::setTitoloRiv(std::string titoloRiv){
 	  this->titoloRiv = titoloRiv;
 }
 
-void ArticoliRiviste::setNumRiv(const int &n) {
+void ArticoliRiviste::setNumRiv(int n) {
     if(n<0){
         throw std::invalid_argument("numRiv can't be negative");
     }
     numRiv=n;
 }
 
-void ArticoliRiviste::setStart(const int &n) {
+void ArticoliRiviste::setStart(int n) {
     if(n<0){
         throw std::invalid_argument("start can't be negative");
     }
     start=n;
 }
 
-void ArticoliRiviste::setStop(const int &n) {
+void ArticoliRiviste::setStop(int n) {
     if(n<0){
         throw std::invalid_argument("stop can't be negative");
     }

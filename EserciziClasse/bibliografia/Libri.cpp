@@ -1,31 +1,31 @@
 #include "Libri.h"
 #include <stdexcept>
 
-Libri::Libri(const std::string &title, const std::vector<std::string> &authors,
-             int year, const std::string &isbn,const std::string &publisher)
+Libri::Libri(std::string title, std::vector<std::string> authors,
+             int year, std::string isbn, std::string publisher)
         : Pubblicazioni(title, authors, year){
     setISBN(isbn);
     setPublisher(publisher);
 }
 
-void Libri::setISBN(const std::string& isbn) {
+void Libri::setISBN(std::string isbn) {
     if(isbn.empty()|| isbn.length()!=13){
         throw std::invalid_argument("ISBN incorret");
     }
     ISBN=isbn;
 }
 
-void Libri::setPublisher(const std::string& publisher) {
+void Libri::setPublisher(std::string publisher) {
     if(publisher.empty()){
         throw std::invalid_argument("publisher empty");
     }
     this->publisher=publisher;
 }
 
-std::string Libri::getISBN() {
+std::string Libri::getISBN() const {
     return ISBN;
 }
 
-std::string Libri::getPublisher() {
+std::string Libri::getPublisher() const {
     return publisher;
 }
