@@ -20,12 +20,19 @@ using std::ios;
 
 int main() {
 
-    std::fstream db{ "hardware.dat", ios::binary | ios::in | ios::out };
+    std::fstream db{ "hardware.dat", ios::binary | ios::in | ios::out | ios::app};
 
     if (!db) {
         std::cerr << "Couldn't open the file" << std::endl;
-        exit(EXIT_FAILURE);
+        db.open( "hardware.dat", ios::binary | ios::in | ios::out );
+        //exit(EXIT_FAILURE);
+        Articoli blank;
+        for (int i = 0; i< 100; i++){
+            db.write(reinterpret_cast<const char*>(&blank),sizeof (Articoli));
+        }
+
     }
+
     Choice c;
     while ((c = getChoiche()) != Choice::EXIT) {
         switch (c) {
@@ -67,21 +74,25 @@ void addRecord(std::fstream& db) {
     db.seekg((recordNumber - 1) * sizeof(Articoli), db.beg);
 
     Articoli articolo;
-    std::string name;
-    int qnt;
-    float price;
+    if (articolo.getProductCode() == 0) {
+        std::string name;
+        int qnt;
+        float price;
 
-    std::cout << "Enter name, quantity, price\n";
-    std::cin >> std::setw(15) >> name;
-    std::cin >> std::setw(10) >> qnt;
-    std::cin >> std::setw(5) >> price;
+        std::cout << "Enter name, quantity, price\n";
+        std::cin >> std::setw(15) >> name;
+        std::cin >> std::setw(10) >> qnt;
+        std::cin >> std::setw(5) >> price;
 
-    articolo.setName(name);
-    articolo.setQnt(qnt);
-    articolo.setPrice(price);
-    articolo.setProductCode(recordNumber);
+        articolo.setName(name);
+        articolo.setQnt(qnt);
+        articolo.setPrice(price);
+        articolo.setProductCode(recordNumber);
 
-    db.write(reinterpret_cast<char*>(&articolo), sizeof(Articoli));
+        db.write(reinterpret_cast<char*>(&articolo), sizeof(Articoli));
+    }else {
+        std::cerr << "Product n: " << recordNumber << "already exists\n";
+    }
 }
 
 void deleteRecord(std::fstream& db) {
@@ -140,7 +151,8 @@ void printRecords(std::fstream& db) {
     db.seekp(0); //parto dall' inizio del file
     while (db) {
         db.read(reinterpret_cast<char*>(&articolo), sizeof(Articoli));
-        outputLine(std::cout, articolo);
+        if (articolo.getProductCode()!=0)
+            outputLine(std::cout, articolo);
     }
     /*if (!db){
         std::cerr<<"File could not be opened"<<std::endl;
