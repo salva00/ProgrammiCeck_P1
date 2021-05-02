@@ -1,17 +1,17 @@
 /*
 *  Scrivere un programma c++ che permetta di gestire la bibliografia di un articolo scientifico.
-• Il programma deve gestire un elenco di pubblicazioni,
-• Tutte le pubblicazioni possono hanno un titolo, uno o poi’ autori, ed un anno di pubblicazione
-• E possono essere dei 
-    • Libri, vanno memorizzati le informazioni sulla casa editrice e l’ISBN
-    • Articoli su riviste, vanno memorizzati il titolo della Rivista (es IEEE Transaction of Computers), 
+â€¢ Il programma deve gestire un elenco di pubblicazioni,
+â€¢ Tutte le pubblicazioni possono hanno un titolo, uno o poiâ€™ autori, ed un anno di pubblicazione
+â€¢ E possono essere dei 
+    â€¢ Libri, vanno memorizzati le informazioni sulla casa editrice e lâ€™ISBN
+    â€¢ Articoli su riviste, vanno memorizzati il titolo della Rivista (es IEEE Transaction of Computers), 
         il numero della rivista, e le pagine (inizio e fine)
-    • Articoli su atti di convegni, vanno memorizzati il titolo del convegno 
+    â€¢ Articoli su atti di convegni, vanno memorizzati il titolo del convegno 
         (es IEEE Conference on Machine Learning), la sede del convegno, e il numero di pagina
-• Il programma deve permettere di memorizzare una lista di pubblicazioni in un vettore, 
+â€¢ Il programma deve permettere di memorizzare una lista di pubblicazioni in un vettore, 
     stampare la lista, ed calcolare il numero di pubblicazioni di ciascun tipo a partire dai dati memorizzati nel vettore. 
-• La stampa deve essere fatta in ordine alfabetico di cognome (overload dell’operatore <)
-• Implementare l’ordinamento di un vettore di pubblicazioni
+â€¢ La stampa deve essere fatta in ordine alfabetico di cognome (overload dellâ€™operatore <)
+â€¢ Implementare lâ€™ordinamento di un vettore di pubblicazioni
 */
 
 
@@ -23,7 +23,7 @@
 #include "ArticoliRiviste.h"
 #include "Libri.h"
 
-std::vector<std::string>& loadAuthors();    //carica vettore di autori
+std::vector<std::string> loadAuthors();    //carica vettore di autori
 Libri& loadLibro(std::string&, std::vector<std::string>&);
 ArticoliConvegni& loadArtConv(std::string&, std::vector<std::string>&);
 ArticoliRiviste& loadArtRivs(std::string&, std::vector<std::string>&);
@@ -56,10 +56,10 @@ int main() {
     return 0;
 }
 
-std::vector<std::string>& loadAuthors() {
+std::vector<std::string> loadAuthors() {
     //gli autori sono stringhe del tipo Cognome,Nome
     //sono ammessi i punti e gli spazi nel nome, ma non altri caratteri speciali
-    //il vettore di autori sarà ordinato per cognome
+    //il vettore di autori sarÃ  ordinato per cognome
     std::vector<std::string> authors;
     int num;
     std::cout << "How many Authors? ";
