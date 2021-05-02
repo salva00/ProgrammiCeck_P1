@@ -15,7 +15,7 @@ a set of account records
 #define CLIENT_DATABASE "database.dat"
 
 // create a new ClientData from cin
-ClientData& askRecord();
+void askRecord(std::string);
 
 // prompts user to change balance to a ClientData object
 void touchClient(std::string filename);
@@ -52,7 +52,7 @@ int main() {
 
     switch(choice) {
       case 0:
-        storeClient(askRecord(),CLIENT_DATABASE);
+        askRecord(CLIENT_DATABASE);
         break;
       case 1:
         touchClient(CLIENT_DATABASE);
@@ -76,14 +76,16 @@ int main() {
   return 0;
 }
 
-ClientData& askRecord() {
+void askRecord(std::string filename) {
   std::cout << "Insert account number, name, surname, initial balance (space separated)\n";
   int accnum;
   std::string name;
   std::string surname;
-  int balance;
+  double balance;
   std::cin >> accnum >> name >> surname >> balance;
-  return *new ClientData(accnum,name,surname,balance);
+  ClientData res{accnum,name,surname,balance};
+  storeClient(res, filename);
+  return;
 }
 
 void touchClient(std::string filename) {
