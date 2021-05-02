@@ -22,9 +22,11 @@ public:
     void setTitle(const std::string&);
     void setAuthors(std::vector<std::string>);
     void setYear(int);
-    std::string getTitle();
-    std::vector<std::string> getAuthors();
-    int getYear();
+    std::string getTitle() const;
+    std::vector<std::string> getAuthors() const;
+    int getYear() const;
+
+    bool operator<(const Pubblicazioni&);
 };
 
 
