@@ -151,7 +151,7 @@ Pubblicazioni* askPub(PubType type) {
   int in1{0}, in2{0}, in3{0};
   switch(type) {
     case PubType::Libro:
-      str1 = std::to_string(askNumber(0, 9999999999999, "Inserisci ISBN libro:"));
+      str1 = askNumberS("Inserisci ISBN libro:");
       str2 = askText("Inserisci casa editrice:");
       return new Libri(title,authors,year,str1,str2);
     case PubType::ArticoloRivista:

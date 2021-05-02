@@ -86,6 +86,7 @@ int main() {
   //   mialista.addPub(new Pubblicazioni("5",{"q"},2000));
   //   mialista.print();
 
+
   ListaPubblicazioni lista{};
   int choice{-1}, choice2{-1};
   while(true) {
@@ -115,7 +116,7 @@ int main() {
         lista.addPub(askPub(static_cast<PubType>(choice2)));
         break;
       case 1:
-
+        lista.print();
         break;
       case 2:
         exit(EXIT_SUCCESS);

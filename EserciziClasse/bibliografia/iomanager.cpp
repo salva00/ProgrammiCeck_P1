@@ -18,6 +18,11 @@ inline bool isAZ(const std::string& str) {
   for(char c: str) res &= (isAZ(c) || c == ' ');
   return res;
 }
+inline bool isNum(const std::string& str) {
+  bool res{true};
+  for(char c : str) res &= ('0' <= c && c <= '9');
+  return res;
+}
 inline bool isAuthorlist(const std::string& str) {
   bool res{true};
   for(char c: str) res &= (isAZ(c) || c == ' ' || c == SEPARATOR_CHAR || c == '.' || c == '\'');
@@ -59,8 +64,8 @@ std::string trimSpaces(std::string in) {
 
 std::string askText(std::string message) {
   std::string res;
+  std::cin.ignore(200,'\n');
   do {
-    std::cin.clear();
     std::cout << message << ' ';
     std::getline(std::cin, res);
 
@@ -73,16 +78,26 @@ int askNumber(int min, long long int max, std::string message) {
   int res;
   do {
     std::cin.clear();
+    std::cin.ignore(256,'\n');
     std::cout << message << ' ';
     std::cin >> res;
   } while(std::cin.fail() || res < min || res > max);
   return res;
 }
-
-std::vector<std::string> askAuthor() {
+std::string askNumberS(std::string message) {
   std::string res;
   do {
     std::cin.clear();
+    std::cin.ignore(256,'\n');
+    std::cout << message << ' ';
+    std::cin >> res;
+  } while(std::cin.fail() || !isNum(res));
+  return res;
+}
+std::vector<std::string> askAuthor() {
+  std::string res;
+  std::cin.ignore(256,'\n');
+  do {
     std::cout << "Inserisci autori (separati da virgole):\n";
     std::getline(std::cin, res);
   } while(std::cin.fail() || !isAuthorlist(res));

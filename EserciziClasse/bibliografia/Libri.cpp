@@ -10,7 +10,7 @@ Libri::Libri(std::string title, std::vector<std::string> authors,
 
 void Libri::setISBN(std::string isbn) {
     if(isbn.empty()|| isbn.length()!=13){
-        throw std::invalid_argument("ISBN incorret");
+        throw std::invalid_argument("ISBN must be 13 character long");
     }
     ISBN=isbn;
 }
