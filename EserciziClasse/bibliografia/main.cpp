@@ -13,8 +13,25 @@
 - La stampa deve essere fatta in ordine alfabetico di cognome (overload dell'operatore <)
 - Implementare l'ordinamento di un vettore di pubblicazioni
 */
+/*
+Pubblicazioni:
+	title
+	authors[]
+	year
 
-
+ArticoliConvegni:
+	titoloConvegno
+	sedeConvegno
+	numPagine
+ArticoliRiviste:
+	titoloRiv
+	numRiv
+	start
+	stop
+Libri:
+	ISBN
+	publisher
+*/
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -34,7 +51,7 @@ void getStats();                            //calcola il numero di pubblicazioni
 bool isValidNumericString(std::string&);
 bool isValidPositiveNumber(int);
 
-enum PubType { Libro = 0, ArticoloRivista, ArticoloConvegno };
+enum PubType { Libro, ArticoloRivista, ArticoloConvegno, Generico };
 
 std::istream& operator>> (std::istream& in, PubType& publicationType){
 	  int val;
