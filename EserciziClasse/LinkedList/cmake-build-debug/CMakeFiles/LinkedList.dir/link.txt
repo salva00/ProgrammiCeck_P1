@@ -1,0 +1,1 @@
+/usr/bin/g++ -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/LinkedList.dir/main.cpp.o CMakeFiles/LinkedList.dir/StringNode.cpp.o CMakeFiles/LinkedList.dir/StringLinkedList.cpp.o -o LinkedList 
