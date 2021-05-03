@@ -7,5 +7,5 @@ OBJ= main.o dictionary.o
 	$(CC) -c $< $(CFLAGS)
 main: $(OBJ)
 	$(CC) -o output $^
-	erase $(OBJ)
+	${RM} $(OBJ)
 	@echo Completed

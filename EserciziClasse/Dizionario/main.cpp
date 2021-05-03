@@ -89,7 +89,6 @@ int main() {
         break;
       }
   //mydict.load("words.txt");
-  system("pause");
   }
   return 0;
 }
