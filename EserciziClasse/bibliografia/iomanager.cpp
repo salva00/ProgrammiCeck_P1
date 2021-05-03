@@ -99,8 +99,7 @@ std::vector<std::string> askAuthor() {
     std::cout << "Inserisci autori (separati da virgole):\n";
     std::getline(std::cin, res);
   } while(std::cin.fail() || !isAuthorlist(res));
-
-  std::vector<std::string> authors;
+    std::vector<std::string> authors
   int index = charSearch(res,SEPARATOR_CHAR);
   if(index < 0) {
     authors.push_back(res);
