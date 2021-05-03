@@ -144,7 +144,9 @@ void ListaPubblicazioni::addPub(Pubblicazioni* pub) {
 }
 
 Pubblicazioni* askPub(PubType type) {
-  std::string title = askText("Inserisci titolo pubblicazione:");
+    std::string title = askText("Inserisci titolo pubblicazione:");
+    /*std::cout<< "Inserisci titolo pubblicazione:"<<std::endl;
+    std::cin>> title;*/
   std::vector<std::string> authors = askAuthor();
   int year = askNumber(0,2030,"Inserisci data di pubblicazione:");
   std::string str1{0}, str2{0};
