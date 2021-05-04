@@ -23,8 +23,8 @@ const std::string &StringLinkedList::front() const {
 void StringLinkedList::addFront(const std::string &e) { // add to front of list
     StringNode* v = new StringNode;                     // create new node
     v-> elem = e;                                       // store data
-    v->next = head;
-    head = v;
+    v->next = head;                                     // head now follows v
+    head = v;                                           //v is the head
 
 }
 
