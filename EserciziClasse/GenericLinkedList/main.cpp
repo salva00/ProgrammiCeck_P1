@@ -20,7 +20,9 @@ int main() {
     L2.addFront(3);
     printFront(L2);
     std::cout<< L2.size()<< std::endl;
-    std::cout<< L2[3]<< std::endl;
+    std::cout<< L2[2]<< std::endl;
+    L2[2]=44;
+    std::cout<< L2[2]<< std::endl;
 
     return 0;
 }

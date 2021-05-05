@@ -19,7 +19,7 @@ public:
     const NODETYPE& front() const;          //return front element
     void addFront(const NODETYPE& e);
     void removeFront();
-    NODETYPE operator[](int);
+    NODETYPE& operator[](int);
     int size();
 };
 
@@ -70,7 +70,7 @@ int LinkedList<NODETYPE>::size() {
 }
 
 template<typename NODETYPE>
-NODETYPE LinkedList<NODETYPE>::operator[](int pos) {
+NODETYPE& LinkedList<NODETYPE>::operator[](int pos) {
     if (pos >= size() || pos < 0) {
         throw std::invalid_argument("Size not correct");
     }
