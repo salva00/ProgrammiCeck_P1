@@ -80,6 +80,7 @@ Lezione 11
 - [X] LinkedList
 - [X] GenericLinkedList
 - [ ] DoubleLinkedList (Bisogna controllare gli errori e ed implementare l'overload di <)
+- [ ] CircularLinkedList (Bisogna controllare il makefile) 
  _TODO_
 
 
