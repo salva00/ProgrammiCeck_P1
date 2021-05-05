@@ -77,11 +77,12 @@ Lezione 10
 
 Lezione 11
 -
-- [X] LinkedList
+- [X] LinkedList*
 - [X] GenericLinkedList
 - [ ] DoubleLinkedList (Bisogna controllare gli errori e ed implementare l'overload di <)
-- [ ] CircularLinkedList (Bisogna controllare il makefile) 
+- [ ] CircularLinkedList (Bisogna controllare il makefile)
+- [ ] LinkedListReversal
+- [ ] Sparse Matrix
  _TODO_
-
 
 *Usato nelle slide, ma non assegnato come esercizio per casa
