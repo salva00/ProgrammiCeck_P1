@@ -77,8 +77,8 @@ Lezione 10
 
 Lezione 11
 -
--[X] LinkedList
--[X] GenericLinkedList
+- [X] LinkedList
+- [X] GenericLinkedList
  _TODO_
 
 
