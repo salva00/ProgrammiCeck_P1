@@ -1,3 +1,7 @@
+//
+// Created by Salvatore Bramante on 04/05/21.
+//
+
 #ifndef GENERICLINKEDLIST_LINKEDLIST_H
 #define GENERICLINKEDLIST_LINKEDLIST_H
 
@@ -47,7 +51,7 @@ void LinkedList<NODETYPE>::addFront(const NODETYPE& e) {
 
 template<typename NODETYPE>
 void LinkedList<NODETYPE>::removeFront() {
-    if (head == nullptr) {
+    if (empty()) {
         throw std::invalid_argument("List is empty");
     }
     Node<NODETYPE>* old = head;
@@ -59,13 +63,10 @@ int LinkedList<NODETYPE>::size() {
     int i{ 0 };
     Node<NODETYPE>* pSize = head;
     while (pSize != nullptr) {
-        if (pSize->next == nullptr) {
-            return i + 1;
-        }
         i++;
         pSize = pSize->next;
     }
-    return 0;
+    return i;
 }
 
 template<typename NODETYPE>
@@ -74,18 +75,12 @@ NODETYPE LinkedList<NODETYPE>::operator[](int pos) {
         throw std::invalid_argument("Size not correct");
     }
     Node<NODETYPE>* pPos = head;
-    NODETYPE e;
     int i{ 0 };
-    if (pos == 0) {
-        return pPos->element;
-    }
     while (i != pos) {
-        Node<NODETYPE>* old = pPos->next;
-        pPos->next = old->next;
+        pPos = pPos->next;
         i++;
-        e = pPos->element;
     }
-    return e;
+    return pPos->element;
 }
 
 
