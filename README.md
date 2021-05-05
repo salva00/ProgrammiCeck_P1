@@ -79,6 +79,7 @@ Lezione 11
 -
 - [X] LinkedList
 - [X] GenericLinkedList
+- [ ] DoubleLinkedList (Bisogna controllare gli errori e ed implementare l'overload di <)
  _TODO_
 
 
