@@ -19,6 +19,8 @@ public:
     const NODETYPE& front() const;          //return front element
     void addFront(const NODETYPE& e);
     void removeFront();
+    NODETYPE operator[](int);
+    int size();
 };
 
 template<typename NODETYPE>
@@ -56,7 +58,42 @@ void LinkedList<NODETYPE>::removeFront() {
     head = old->next;
     delete old;
 }
+template <typename NODETYPE>
+int LinkedList<NODETYPE>::size(){
+    int i{0};
+    Node<NODETYPE>* pSize = head;
+    while(!empty()){
+        if(i==0&&pSize->next== nullptr){
+            return 0;
+        }
+        if(pSize->next== nullptr){
+            return i+1;
+        }
+        i++;
+        Node<NODETYPE>* old = pSize->next;
+        pSize->next = old->next;
+    }
+}
 
+template<typename NODETYPE>
+NODETYPE LinkedList<NODETYPE>::operator[](int pos) {
+    if(pos>=size()||pos<0){
+        throw std::invalid_argument("Size not correct");
+    }
+    Node<NODETYPE>* pPos = head;
+    NODETYPE e;
+    int i{0};
+    if (pos==0){
+        return pPos->element;
+    }
+    while (i!=pos) {
+        Node<NODETYPE>* old = pPos->next;
+        pPos->next= old->next;
+        i++;
+        e=pPos->element;
+    }
+    return e;
+}
 
 
 #endif //GENERICLINKEDLIST_LINKEDLIST_H

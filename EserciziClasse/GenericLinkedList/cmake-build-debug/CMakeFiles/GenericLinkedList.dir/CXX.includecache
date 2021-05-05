@@ -6,23 +6,23 @@
 
 #IncludeRegexTransform: 
 
-/Users/salvatorebramante/Programmazione1/EserciziClasse/GenericLinkedList/LinkedList.cpp
+/Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/GenericLinkedList/LinkedList.cpp
 LinkedList.h
-/Users/salvatorebramante/Programmazione1/EserciziClasse/GenericLinkedList/LinkedList.h
+/Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/GenericLinkedList/LinkedList.h
 
-/Users/salvatorebramante/Programmazione1/EserciziClasse/GenericLinkedList/LinkedList.h
+/Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/GenericLinkedList/LinkedList.h
 Node.h
-/Users/salvatorebramante/Programmazione1/EserciziClasse/GenericLinkedList/Node.h
+/Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/GenericLinkedList/Node.h
 stdexcept
 -
 
-/Users/salvatorebramante/Programmazione1/EserciziClasse/GenericLinkedList/Node.h
+/Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/GenericLinkedList/Node.h
 
-/Users/salvatorebramante/Programmazione1/EserciziClasse/GenericLinkedList/main.cpp
+/Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/GenericLinkedList/main.cpp
 iostream
 -
 LinkedList.h
-/Users/salvatorebramante/Programmazione1/EserciziClasse/GenericLinkedList/LinkedList.h
+/Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/GenericLinkedList/LinkedList.h
 string.h
 -
 

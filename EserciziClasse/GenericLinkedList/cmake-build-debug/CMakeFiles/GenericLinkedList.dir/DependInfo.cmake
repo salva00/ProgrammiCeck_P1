@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/salvatorebramante/Programmazione1/EserciziClasse/GenericLinkedList/LinkedList.cpp" "/Users/salvatorebramante/Programmazione1/EserciziClasse/GenericLinkedList/cmake-build-debug/CMakeFiles/GenericLinkedList.dir/LinkedList.cpp.o"
-  "/Users/salvatorebramante/Programmazione1/EserciziClasse/GenericLinkedList/main.cpp" "/Users/salvatorebramante/Programmazione1/EserciziClasse/GenericLinkedList/cmake-build-debug/CMakeFiles/GenericLinkedList.dir/main.cpp.o"
+  "/Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/GenericLinkedList/LinkedList.cpp" "/Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/GenericLinkedList/cmake-build-debug/CMakeFiles/GenericLinkedList.dir/LinkedList.cpp.o"
+  "/Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/GenericLinkedList/main.cpp" "/Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/GenericLinkedList/cmake-build-debug/CMakeFiles/GenericLinkedList.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
