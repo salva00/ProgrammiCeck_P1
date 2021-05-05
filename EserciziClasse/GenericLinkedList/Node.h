@@ -1,7 +1,3 @@
-//
-// Created by Salvatore Bramante on 04/05/21.
-//
-
 #ifndef GENERICLINKEDLIST_NODE_H
 #define GENERICLINKEDLIST_NODE_H
 template<typename NODETYPE> class LinkedList;
