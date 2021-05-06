@@ -84,6 +84,14 @@ Lezione 11
 - [ ] LinkedListReversal
 - [ ] Sparse Matrix
 
+Lezione 12
+-
+
+Lezione 13
+-
+- [X] ArrayStack
+- [X] ListStack
+
  _TODO_
 
 *Usato nelle slide, ma non assegnato come esercizio per casa
