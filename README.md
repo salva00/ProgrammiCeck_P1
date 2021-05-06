@@ -91,7 +91,8 @@ Lezione 13
 -
 - [X] ArrayStack
 - [X] ListStack
-- [ ] Labirinto  
+- [ ] Labirinto
+- [X] Stock Span Problem
 
  _TODO_
 
