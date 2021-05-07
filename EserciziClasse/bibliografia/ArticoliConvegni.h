@@ -1,27 +1,30 @@
+
 #ifndef BIBLIOGRAFIA_ARTICOLICONVEGNI_H
 #define BIBLIOGRAFIA_ARTICOLICONVEGNI_H
 
-
 #include "Pubblicazioni.h"
+//include<vector>
+//include<string>
 
-class ArticoliConvegni: public Pubblicazioni {
+class ArticoliConvegni : public Pubblicazioni {
 private:
     std::string titoloConvegno;
     std::string sedeConvegno;
     int numPagine;
 public:
 
+    ArticoliConvegni(std::string title, std::vector<std::string> authors, int year,
+                     std::string titoloConvegno, std::string sedeConvegno,int numPagine);
 
-    ArticoliConvegni(const std::string &title, const std::vector<std::string> &authors,
-                     const std::string &titoloConvegno,const std::string &sedeConvegno,int numPagine);
+    virtual ~ArticoliConvegni()=default;
 
-    void setTitoloConvegno(const std::string&);
-    void setSedeConvegno(const std::string&);
-    void setNumPagine(const int&);
+    void setTitoloConvegno(std::string);
+    void setSedeConvegno(std::string);
+    void setNumPagine(int);
 
-    std::string getTitoloConvegno();
-    std::string getSedeConvegno();
-    int getNumPagine();
+    std::string getTitoloConvegno() const;
+    std::string getSedeConvegno() const;
+    int getNumPagine() const;
 
 };
 

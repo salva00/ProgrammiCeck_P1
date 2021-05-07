@@ -8,12 +8,10 @@
 #include <vector>
 #include <string>
 
-enum PublicationType = { Invalid = -1; Libro, ArticoloRivista, ArticoloConvegno };     //serve davvero Invalid?
-
 class Pubblicazioni {
 
 public:
-    Pubblicazioni(const std::string &title, std::vector<std::string> authors);
+    Pubblicazioni(const std::string &title, std::vector<std::string> authors,int year);
     virtual ~Pubblicazioni() = default;
 
 private:
@@ -24,10 +22,9 @@ public:
     void setTitle(const std::string&);
     void setAuthors(std::vector<std::string>);
     void setYear(int);
-    std::string getTitle();
-    std::vector<std::string> getAuthors();
-    int getYear();
+    std::string getTitle() const;
+    std::vector<std::string> getAuthors() const;
+    int getYear() const;
 };
-
 
 #endif //BIBLIOGRAFIA_PUBBLICAZIONI_H
