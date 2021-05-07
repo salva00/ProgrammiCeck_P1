@@ -85,7 +85,15 @@ int main() {
   //   mialista.sort();
   //   mialista.addPub(new Pubblicazioni("5",{"q"},2000));
   //   mialista.print();
-
+  // int a;
+  // std::string b;
+  // std::cout << "1\n";
+  // std::cin >> a;
+  // std::cin.ignore(1,'\n');
+  // std::cout << "2\n";
+  // std::cin >> b;
+  // std::cin.ignore(1,'\n');
+  // std::cout << a << " " << b << '\n';
 
   ListaPubblicazioni lista{};
   int choice{-1}, choice2{-1};
@@ -95,6 +103,7 @@ int main() {
     std::cout << "1 - Mostra lista pubblicazioni\n";
     std::cout << "2 - Termina programma\n> ";
     std::cin >> choice;
+    std::cin.ignore(1,'\n');
     if(std::cin.fail() || choice < 0 || choice > 2) {
       std::cin.clear();
       std::cerr << "Opzione non valida\n";
@@ -108,6 +117,7 @@ int main() {
         std::cout << "1 - Inserisci nuovo articolo su rivista\n";
         std::cout << "2 - Inserisci nuovo articolo su atto di convegno\n> ";
         std::cin >> choice2;
+        std::cin.ignore(1,'\n');
         if(std::cin.fail() || choice < 0 || choice > 2) {
           std::cin.clear();
           std::cerr << "Opzione non valida\n";
@@ -122,9 +132,13 @@ int main() {
         exit(EXIT_SUCCESS);
         break;
       }
-    system("pause");
+    #if defined(__WIN32)
+    system("cls");
+    #else
+    std::cout << "\n\n";
+    #endif
   }
-  system("pause");
+  // system("pause");
   return 0;
 }
 //

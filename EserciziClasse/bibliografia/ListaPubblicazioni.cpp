@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <iostream>
 #include <iomanip>
-#include <limits>
 
 ListaPubblicazioni::ListaPubblicazioni(std::vector<Pubblicazioni*> vec) {
   setList(vec);
@@ -141,16 +140,10 @@ void ListaPubblicazioni::addPub(Pubblicazioni* pub) {
     this->list.insert(this->list.begin()+position, pub);
     return;
   }
-
 }
 
-/*
 Pubblicazioni* askPub(PubType type) {
-    std::string title;
-    std::string publ;
-
-    std::cout<< "Inserisci titolo pubblicazione:"<<std::endl;
-    std::cin>> title;
+  std::string title = askText("Inserisci titolo pubblicazione:");
   std::vector<std::string> authors = askAuthor();
   int year = askNumber(0,2030,"Inserisci data di pubblicazione:");
   std::string str1{0}, str2{0};
@@ -162,62 +155,89 @@ Pubblicazioni* askPub(PubType type) {
       return new Libri(title,authors,year,str1,str2);
     case PubType::ArticoloRivista:
       str1 = askText("Inserisci titolo rivista:");
-      in1 = askNumber(0, 999999999, "Inserisci numero rivista:");
+      in1 = askNumber(0, INT_MAX, "Inserisci numero rivista:");
       in2 = askNumber(0, 9999, "Inserisci pagina iniziale dell'articolo: ");
-      in3 = askNumber(0, in2, "Inserisci pagina finale dell'articolo: ");
+      in3 = askNumber(in2, 9999, "Inserisci pagina finale dell'articolo: ");
       return new ArticoliRiviste(title,authors,year,str1,in1,in2,in3);
     case PubType::ArticoloConvegno:
       str1 = askText("Inserisci titolo convegno:");
       str2 = askText("Inserisci sede del convegno");
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       in1 = askNumber(0, 9999, "Inserisci numero di pagine:");
       return new ArticoliConvegni(title,authors,year,str1,str2,in1);
     default:
       return new Pubblicazioni(title,authors,year);
   }
 }
-*/
 
-Pubblicazioni* askPub(PubType type) {
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-  switch(type) {
-    case PubType::Libro:
-      return new Libri(
-              askText("Inserisci titolo pubblicazione:"),                       // title
-              askAuthor(),                                                      // authors
-              askNumber(0,2030,"Inserisci data di pubblicazione:"),             // year
-              askNumberS("Inserisci ISBN libro:"),                              // isbn
-              askText("Inserisci casa editrice:")                               // publisher
-              );
-    case PubType::ArticoloRivista:
-      int pag_iniz;
-      return new ArticoliRiviste(
-              askText("Inserisci titolo pubblicazione:"),                       // title
-              askAuthor(),                                                      // authors
-              askNumber(0,2030,"Inserisci data di pubblicazione:"),             // year
-              askText("Inserisci titolo rivista:"),                             // titoloRivista
-              askNumber(0, 999999999, "Inserisci numero rivista:"),             //numRivista
-              pag_iniz = askNumber(0, 9999, "Inserisci pagina iniziale dell'articolo: "),   //start
-              askNumber(0, pag_iniz, "Inserisci pagina finale dell'articolo: ")  //stop
-              );
-    case PubType::ArticoloConvegno:
-      return new ArticoliConvegni(
-              askText("Inserisci titolo pubblicazione:"),                        // title
-              askAuthor(),                                                       // authors
-              askNumber(0,2030,"Inserisci data di pubblicazione:"),              // year
-              askText("Inserisci titolo convegno:"),                             // titoloConvegno
-              askText("Inserisci sede del convegno"),                            // sedeConvegno
-              askNumber(0, 9999, "Inserisci numero di pagine:")                  // numPagine
-              );
-    default:
-      return new Pubblicazioni(
-              askText("Inserisci titolo pubblicazione:"),                       // title
-              askAuthor(),                                                      // authors
-              askNumber(0,2030,"Inserisci data di pubblicazione:")              // year
-              );
-  }
-}
-
+// #define SEPARATOR_CHAR ','
+// Pubblicazioni* askPub(PubType type) {
+//   std::string title;
+//   do {
+//     std::cout << "Inserisci titolo pubblicazione:" << '\n';
+//     std::getline(std::cin, title);
+//   } while(!isAZ(title));
+//   format(title);
+//   std::string res;
+//   // std::cin.ignore(256,'\n');
+//   do {
+//     std::cout << "Inserisci autori (separati da virgole):\n";
+//   } while(!std::getline(std::cin, res) || !isAuthorlist(res));
+//   std::vector<std::string> authors;
+//   size_t index = charSearch(res,SEPARATOR_CHAR);
+//   if(index < 0) {
+//     authors.push_back(res);
+//   } else {
+//   std::string buffer;
+//     size_t leftIt = 0, rightIt = 0;
+//     while(rightIt <= res.length()) {
+//       if(res[rightIt] == SEPARATOR_CHAR || rightIt == res.length()) {
+//         buffer = res.substr(leftIt, rightIt-leftIt);
+//         if(buffer[0] == ' ' || buffer[buffer.length()-1] == ' ') {
+//           buffer = trimSpaces(buffer);
+//         }
+//         format(buffer);
+//         if(buffer != "") authors.push_back(buffer);
+//         leftIt = rightIt+1;
+//       }
+//       rightIt++;
+//     }
+//   }
+//   int year;
+//   do {
+//     std::cout << "Inserisci data di pubblicazione:" << '\n';
+//     std::cin >> year;
+//   } while(year < 0 || year > 2030);
+//   std::string str1{0}, str2{0};
+//   int in1{0}, in2{0}, in3{0};
+//   switch(type) {
+//     case PubType::Libro:
+//       do {
+//         // std::cin.clear();
+//         // std::cin.ignore(256,'\n');
+//         std::cout << "Inserisci ISBN libro:" << '\n';
+//         std::cin >> str1;
+//       } while(!isNum(str1));
+//       do {
+//         std::cout << "Inserisci casa editrice:" << '\n';
+//         std::getline(std::cin, str2);
+//       } while(!isAZ(str2));
+//       format(str2);
+//       return new Libri(title,authors,year,str1,str2);
+//     case PubType::ArticoloRivista:
+//       str1 = askText("Inserisci titolo rivista:");
+//       in1 = askNumber(0, 999999999, "Inserisci numero rivista:");
+//       in2 = askNumber(0, 9999, "Inserisci pagina iniziale dell'articolo: ");
+//       in3 = askNumber(0, in2, "Inserisci pagina finale dell'articolo: ");
+//       return new ArticoliRiviste(title,authors,year,str1,in1,in2,in3);
+//     case PubType::ArticoloConvegno:
+//       str1 = askText("Inserisci titolo convegno:");
+//       str2 = askText("Inserisci sede del convegno");
+//       in1 = askNumber(0, 9999, "Inserisci numero di pagine:");
+//       return new ArticoliConvegni(title,authors,year,str1,str2,in1);
+//     default:
+//       return new Pubblicazioni(title,authors,year);
+//   }
+// }
 
 
 

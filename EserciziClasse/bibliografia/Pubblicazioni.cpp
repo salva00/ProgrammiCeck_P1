@@ -1,8 +1,6 @@
 #include "Pubblicazioni.h"
 #include <stdexcept>
 #include <algorithm>
-#include <iostream>
-
 Pubblicazioni::Pubblicazioni(const std::string &title, std::vector<std::string> authors,int year){
     setTitle(title);
     setAuthors(authors);
@@ -11,7 +9,7 @@ Pubblicazioni::Pubblicazioni(const std::string &title, std::vector<std::string> 
 
 void Pubblicazioni::setTitle(const std::string& title) {
     if (title.empty()){
-        throw std::invalid_argument("title can't be empty");
+        throw std::invalid_argument("authors can't be empty");
     }
     this->title=title;
 }

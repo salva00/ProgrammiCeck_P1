@@ -1,9 +1,8 @@
 
 #include"iomanager.h"
 #include<iostream>
-#include<limits>
 #define SEPARATOR_CHAR ','
-
+#include<limits>
 
 inline void uppercase(char& c) {
   if('a'<=c && c<='z') c += 'A'-'a';
@@ -66,43 +65,51 @@ std::string trimSpaces(std::string in) {
 std::string askText(std::string message) {
   std::string res;
   do {
-    std::cout << message << std::endl;
-    std::cin.clear();
+    std::cout << message << '\n';
     std::getline(std::cin, res);
-
-  } while(std::cin.fail() || !isAZ(res));
+  } while(!isAZ(res));
   format(res);
   return res;
 }
 
 int askNumber(int min, long long int max, std::string message) {
-  int res;
-  do {
+  int res{min-1};
+  while(true) {
+    // std::cin.clear();
+    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    std::cout << message << '\n';
+    if(std::cin >> res && min <= res && res <= max) break;
+    // std::cout << "Invalid input.\n";
     std::cin.clear();
-    std::cout << message << ' ';
-    std::cin >> res;
-  } while(std::cin.fail() || res < min || res > max);
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+  };
+  std::cin.ignore(1,'\n');
   return res;
 }
+
 std::string askNumberS(std::string message) {
-  std::string res;
-  do {
+  std::string res{""};
+
+  while(true) {
+    // std::cin.clear();
+    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    std::cout << message << '\n';
+    if(std::cin >> res && isNum(res) && res.size() == 13) break;
+    // std::cout << "Invalid input.\n";
     std::cin.clear();
-    std::cout << message << ' ';
-    std::cin >> res;
-  } while(std::cin.fail() || !isNum(res));
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+  };
+  std::cin.ignore(1,'\n');
   return res;
 }
 std::vector<std::string> askAuthor() {
   std::string res;
+  // std::cin.ignore(256,'\n');
   do {
     std::cout << "Inserisci autori (separati da virgole):\n";
-    std::getline(std::cin, res);
-  } while(std::cin.fail() || !isAuthorlist(res));
-    std::vector<std::string> authors;
-  int index = charSearch(res,SEPARATOR_CHAR);
+  } while(!std::getline(std::cin, res) || !isAuthorlist(res));
+  std::vector<std::string> authors;
+  size_t index = charSearch(res,SEPARATOR_CHAR);
   if(index < 0) {
     authors.push_back(res);
     return authors;
