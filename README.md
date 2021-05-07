@@ -78,10 +78,12 @@ Lezione 10
 Lezione 11
 -
 - [X] LinkedList*
-- [X] GenericLinkedList
-- [ ] DoubleLinkedList (Bisogna controllare gli errori e ed implementare l'overload di <)
-- [ ] CircularLinkedList (Bisogna controllare il makefile)
-- [ ] LinkedListReversal
+- [ ] LinkedList - size(), operator[]
+- [ ] LinkedList - Reversal
+- [X] GenericLinkedList*
+- [ ] DoubleLinkedList* (Bisogna controllare gli errori e ed implementare l'overload di <)
+- [ ] Ordered DoubleLinkedList
+- [ ] CircularLinkedList* (Bisogna controllare il makefile)
 - [ ] Sparse Matrix
 
 Lezione 12
@@ -89,11 +91,13 @@ Lezione 12
 
 Lezione 13
 -
-- [X] ArrayStack
-- [X] ListStack
+- [X] ArrayStack*
+- [X] ListStack*
+- [ ] Expression solver*
 - [ ] Labirinto
 - [X] Stock Span Problem
 
- _TODO_
+
+ _TBC_
 
 *Usato nelle slide, ma non assegnato come esercizio per casa
