@@ -87,7 +87,7 @@ Lezione 11
 - [ ] Sparse Matrix
 
 Lezione 12
--
+- [X] MathException
 
 Lezione 13
 -
@@ -98,7 +98,7 @@ Lezione 13
 - [X] Stock Span Problem
 - [X] ArrayQueue
 - [X] LinkedQueue
-- [ ] DoubleLinkedQueue
+- [X] DoubleLinkedQueue
 
  _TBC_
 
