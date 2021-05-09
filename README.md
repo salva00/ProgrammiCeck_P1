@@ -87,6 +87,7 @@ Lezione 11
 - [ ] Sparse Matrix
 
 Lezione 12
+-
 - [X] MathException
 
 Lezione 13
