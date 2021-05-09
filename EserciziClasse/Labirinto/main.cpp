@@ -125,15 +125,13 @@ bool existAValidMove(Movimento* curr){
 void resolveLabirint(){
     std::stack<Movimento> mosse;
     int start = 4;
-    int cycle = 0;
     mosse.push({0,0, Direzione::NORD});
     while (!mosse.empty()){
         Movimento move = mosse.top();
         mosse.pop();
         while (existAValidMove(&move)){
-            std::cout<<cycle<<std::endl;
             Movimento next{move.x,move.y, move.dir};
-            if(next.x==10 && next.y==14){
+            if(next.x==9 && next.y==14){
                 std::cout<<"HAI VINTO"<<std::endl;
             }else if(moveIsValid(&move,&next)){
                 labirinto[move.x][move.y]=-1;
@@ -145,8 +143,6 @@ void resolveLabirint(){
             }else{
                 move.dir=directions[start++];
             }
-            std::cout<< "x: "<< move.x <<"y: "<< move.y <<std::endl;
-            cycle++;
         }
     }
 
