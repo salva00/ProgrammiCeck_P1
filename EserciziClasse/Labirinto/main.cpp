@@ -2,8 +2,9 @@
 //#include "ArrayStack.h"
 #include <array>
 #include <stack>
+
 enum class Direzione: int{
-    NORD_OVEST=0,
+    NORD_OVEST,
     NORD,
     NORD_EST,
     OVEST,
@@ -78,7 +79,7 @@ Movimento getMovement(const Movimento* curr, const Direzione dir){
 
 
 
-int const labirinto [11][15] = { 0,1,0,0,0,1,1,0,0,0,1,1,1,1,1,
+int       labirinto [11][15] = { 0,1,0,0,0,1,1,0,0,0,1,1,1,1,1,
                                  1,0,0,0,1,1,0,1,1,1,0,0,1,1,1,
                                  0,1,1,0,0,0,0,1,1,1,1,0,0,1,1,
                                  1,1,0,1,1,1,1,0,1,1,0,1,1,0,0,
@@ -100,7 +101,7 @@ bool moveIsValid(const Movimento* curr, const Movimento* next){
         (curr->y==14&&next->y==15) ){   //bordo destro
         return false;
     }
-    if(labirinto[next->x][next->y]==1){
+    if(labirinto[next->x][next->y]!=0){
         return false;
     }
     return true;
@@ -135,7 +136,7 @@ void resolveLabirint(){
             if(next.x==10 && next.y==14){
                 std::cout<<"HAI VINTO"<<std::endl;
             }else if(moveIsValid(&move,&next)){
-
+                labirinto[move.x][move.y]=-1;
                 next.dir=directions[start++];
                 mosse.push(next);
                 move.x=next.x;
