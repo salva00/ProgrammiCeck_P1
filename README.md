@@ -96,8 +96,8 @@ Lezione 13
 - [ ] Expression solver*
 - [X] Labirinto
 - [X] Stock Span Problem
-- [ ] ArrayQueue
-- [ ] LinkedQueue
+- [X] ArrayQueue
+- [X] LinkedQueue
 - [ ] DoubleLinkedQueue
 
  _TBC_
