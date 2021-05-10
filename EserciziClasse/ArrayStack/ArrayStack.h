@@ -49,13 +49,13 @@ const E &ArrayStack<E>::top() const {
 
 template<typename E>
 void ArrayStack<E>::push(const E &e) {
-    if (empty()) throw std::runtime_error("Stack full");
+    if (t+1 == capacity) throw std::runtime_error("Stack full");
     s[t++]= e;
 }
 
 template<typename E>
 void ArrayStack<E>::pop() {
-    if (empty()) throw std::runtime_error("Stack full");
+    if (empty()) throw std::runtime_error("Stack empty");
     t--;
 }
 
