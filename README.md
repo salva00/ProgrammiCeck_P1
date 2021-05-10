@@ -79,7 +79,7 @@ Lezione 11
 -
 - [X] LinkedList*
 - [X] LinkedList - size(), operator[]
-- [X] LinkedList - Reversal
+- [ ] LinkedList - Reversal (controllare reverse)
 - [X] GenericLinkedList*
 - [ ] DoubleLinkedList* (implementare l'overload di <)
 - [ ] Ordered DoubleLinkedList
