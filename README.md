@@ -78,10 +78,10 @@ Lezione 10
 Lezione 11
 -
 - [X] LinkedList*
-- [ ] LinkedList - size(), operator[]
-- [ ] LinkedList - Reversal
+- [X] LinkedList - size(), operator[]
+- [X] LinkedList - Reversal
 - [X] GenericLinkedList*
-- [ ] DoubleLinkedList* (Bisogna controllare gli errori e ed implementare l'overload di <)
+- [ ] DoubleLinkedList* (implementare l'overload di <)
 - [ ] Ordered DoubleLinkedList
 - [ ] CircularLinkedList* (Bisogna controllare il makefile)
 - [ ] Sparse Matrix
