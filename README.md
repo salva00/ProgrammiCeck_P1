@@ -1,6 +1,6 @@
 # ProgrammiCeck_P1
 _30 politico o gli impianto i capelli_
-
+_Guida pratica a git: https://rogerdudler.github.io/git-guide/index.it.html (meglio tardi che Pokèmon -cit Croix89)_
 Lezione 1
 -
  - [X] Hearthrate
