@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 06/05/21.
-//
 
 #ifndef ARRAYSTACK_ARRAYSTACK_H
 #define ARRAYSTACK_ARRAYSTACK_H
@@ -20,7 +17,7 @@ public:
     bool empty() const;
     const E& top() const;
     void push(const E&);
-    void pop();
+    const E& pop();
 };
 
 template<typename E>
@@ -50,13 +47,14 @@ const E &ArrayStack<E>::top() const {
 template<typename E>
 void ArrayStack<E>::push(const E &e) {
     if (t+1 == capacity) throw std::runtime_error("Stack full");
-    s[t++]= e;
+    s[++t]= e;
 }
 
 template<typename E>
-void ArrayStack<E>::pop() {
+const E& ArrayStack<E>::pop() {
     if (empty()) throw std::runtime_error("Stack empty");
     t--;
+    return s[t+1];
 }
 
 
