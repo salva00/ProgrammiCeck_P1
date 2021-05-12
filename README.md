@@ -102,7 +102,25 @@ Lezione 13
 - [X] LinkedQueue
 - [X] DoubleLinkedQueue
 
+Lezione 14
+-
+
  _TBC_
+ 
+ 
+Strutture dati
+-
+- [ ] Linked List (singly linked)
+- [ ] Doubly-Linked List
+- [ ] Circularly-Linked List
+- [ ] Array Stack
+- [ ] Linked Stack
+- [ ] Array Queue
+- [ ] Linked Queue (with circular lists)
+- [ ] Linked Deque
+
+
+
 
 *Usato nelle slide, ma non assegnato come esercizio per casa
 
