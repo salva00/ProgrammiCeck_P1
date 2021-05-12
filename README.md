@@ -110,10 +110,10 @@ Lezione 14
  
 Strutture dati
 -
-- [ ] Linked List (singly linked)
+- [X] Linked List (singly linked)
 - [ ] Doubly-Linked List
 - [ ] Circularly-Linked List
-- [ ] Array Stack
+- [X] Array Stack
 - [ ] Linked Stack
 - [ ] Array Queue
 - [ ] Linked Queue (with circular lists)
