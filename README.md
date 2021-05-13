@@ -111,7 +111,7 @@ Lezione 14
 Strutture dati
 -
 - [X] Linked List (singly linked)
-- [ ] Doubly-Linked List
+- [X] Doubly-Linked List
 - [ ] Circularly-Linked List
 - [X] Array Stack
 - [ ] Linked Stack
