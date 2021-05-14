@@ -112,7 +112,7 @@ Strutture dati
 -
 - [X] Linked List (singly linked)
 - [X] Doubly-Linked List
-- [ ] Circularly-Linked List
+- [X] Circularly-Linked List
 - [X] Array Stack
 - [ ] Linked Stack
 - [ ] Array Queue
