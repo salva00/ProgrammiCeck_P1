@@ -31,18 +31,30 @@ public:
 private:
 	Node* head;
 	size_t n;
+	//number of nodes attached
 public:
 	LinkedList();
+	//default constructor: create empty list
 	LinkedList(size_t, T = 0);
+	//creates a list with #1 elements of value #2
 	~LinkedList();
+	//delete all nodes
 	bool empty() const;
+	//returns true if list is empty
 	const T& front() const;
+	//returns first element
 	void push_front(const T&);
+	//adds element at the beginning
 	void pop_front();
+	//deletes first element
 	size_t size() const;
+	//returns number of elements stored
 	Iterator begin() const;
+	//returns iterator to first element
 	Iterator end() const;
+	//returns iterator to last element
 	void erase_after(const Iterator&);
+	//erases element AFTER iterator
 };
 
 

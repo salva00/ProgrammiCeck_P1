@@ -44,6 +44,7 @@ public:
 	//default constructor: create empty list
 	DLinkedList(size_t, const T&);
 	//creates a list with #1 elements of value #2
+	~DLinkedList();
 	bool empty() const;
 	//returns true if list is empty
 	void push_back(const T&);
@@ -83,7 +84,7 @@ template<typename T>
 DLinkedList<T>::Node::Node(Node* pre, Node* nex) : prev{pre}, next{nex} {}
 
 template<typename T>
-DLinkedList<T>::Node::~Node() {delete this->next; delete this->prev;}
+DLinkedList<T>::Node::~Node() {delete next;}
 
 // Iterator //
 
@@ -147,6 +148,9 @@ DLinkedList<T>::DLinkedList(size_t amt, const T& val) : n{0} {
 	tail->prev = head;
 	for(int i = 0; i < amt; i++) push_back(val);
 }
+
+template<typename T>
+DLinkedList<T>::~DLinkedList() {delete head;}
 
 template<typename T>
 bool DLinkedList<T>::empty() const {
