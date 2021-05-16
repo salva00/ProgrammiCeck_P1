@@ -115,7 +115,7 @@ Strutture dati
 - [X] Circularly-Linked List
 - [X] Array Stack
 - [ ] Linked Stack
-- [ ] Array Queue
+- [X] Array Queue
 - [ ] Linked Queue (with circular lists)
 - [ ] Linked Deque
 
