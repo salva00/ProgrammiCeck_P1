@@ -105,27 +105,15 @@ Lezione 13
 Lezione 14
 -
 
- _TBC_
- 
  Lezione 15
 -
 
 - [X] PriorityQueue
  
+
+
+ _TBC_
  
-Strutture dati
--
-- [X] Linked List (singly linked)
-- [X] Doubly-Linked List
-- [X] Circularly-Linked List
-- [X] Array Stack
-- [ ] Linked Stack
-- [X] Array Queue
-- [ ] Linked Queue (with circular lists)
-- [ ] Linked Deque
-
-
-
 
 *Usato nelle slide, ma non assegnato come esercizio per casa
 
