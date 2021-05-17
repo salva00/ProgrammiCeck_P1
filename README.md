@@ -107,6 +107,11 @@ Lezione 14
 
  _TBC_
  
+ Lezione 15
+-
+
+- [X] PriorityQueue
+ 
  
 Strutture dati
 -
