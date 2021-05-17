@@ -90,7 +90,7 @@ void DoubleLinkedList<T>::remove(Dnode<T>* v) {
     }
     Dnode<T>* u = v->prev;
     Dnode<T>* w = v->next;
-    u->prev = w;
+    u->next = w;
     w->prev= u;
     delete v;
 }
