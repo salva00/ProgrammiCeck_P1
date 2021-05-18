@@ -1,6 +1,7 @@
 # ProgrammiCeck_P1
 _30 politico o gli impianto i capelli_
 
+
 Lezione 1
 -
  - [X] Hearthrate
@@ -78,26 +79,43 @@ Lezione 10
 Lezione 11
 -
 - [X] LinkedList*
-- [ ] LinkedList - size(), operator[]
-- [ ] LinkedList - Reversal
+- [X] LinkedList - size(), operator[]
+- [ ] LinkedList - Reversal (controllare reverse)
 - [X] GenericLinkedList*
-- [ ] DoubleLinkedList* (Bisogna controllare gli errori e ed implementare l'overload di <)
+- [ ] DoubleLinkedList* (implementare l'overload di <)
 - [ ] Ordered DoubleLinkedList
 - [ ] CircularLinkedList* (Bisogna controllare il makefile)
 - [ ] Sparse Matrix
 
 Lezione 12
 -
+- [X] MathException
 
 Lezione 13
 -
 - [X] ArrayStack*
 - [X] ListStack*
-- [X] Expression solver*
+- [ ] Expression solver*
 - [X] Labirinto
 - [X] Stock Span Problem
+- [X] ArrayQueue
+- [X] LinkedQueue
+- [X] DoubleLinkedQueue
+
+Lezione 14
+-
+
+ Lezione 15
+-
+
+- [X] PriorityQueue
+ 
 
 
  _TBC_
+ 
 
 *Usato nelle slide, ma non assegnato come esercizio per casa
+
+BTW:
+Guida pratica a git: https://rogerdudler.github.io/git-guide/index.it.html (meglio tardi che Pokèmon -cit Croix89)
