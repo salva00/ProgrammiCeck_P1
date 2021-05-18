@@ -93,7 +93,7 @@ Lezione 13
 -
 - [X] ArrayStack*
 - [X] ListStack*
-- [ ] Expression solver*
+- [X] Expression solver*
 - [ ] Labirinto
 - [X] Stock Span Problem
 
