@@ -17,16 +17,16 @@ public:
 
     //traverse
     void inorderTreeWalk(BSTNode<Key>*x);
-    void inorderTreeWalk(){ inorderTreeWalk(root)}
+    void inorderTreeWalk(){ inorderTreeWalk(root);}
 
     //accessors
     BSTNode<Key>* getRoot() {return root;}
     BSTNode<Key>* search(Key key);
     BSTNode<Key>* search(BSTNode<Key>*x,Key key);
     BSTNode<Key>* minimum(BSTNode<Key> *subRoot);
-    BSTNode<Key>* minimum(){minimum(root)};
+    BSTNode<Key>* minimum(){minimum(root);};
     BSTNode<Key>* maximum(BSTNode<Key> *subRoot);
-    BSTNode<Key>* maximum(){maximum(root)};
+    BSTNode<Key>* maximum(){maximum(root);};
     BSTNode<Key>* predecessor(BSTNode<Key> *x);
     BSTNode<Key>* successor(BSTNode<Key> *x);
 
@@ -133,12 +133,37 @@ BSTNode<Key> *BST<Key>::insert(Key key) {
 
 template<typename Key>
 void BST<Key>::release(BSTNode<Key> *x) {
-
+    free(x);
 }
 
 template<typename Key>
 BSTNode<Key> *BST<Key>::deleteNode(Key key) {
-    return nullptr;
+    if (search(key)) return nullptr;
+    if(key<root->key)                   // If key is smaller than root
+        root->left =deleteNode(key);
+
+    else if(key > root->key)            // If key is greater than root
+        root->right = deleteNode(key);
+    else{                               // If key is root
+        if(root->left == nullptr){
+            BSTNode<Key> * temp = root->right;
+            release(root);
+            return temp;
+        }
+        else if(root->right== nullptr){
+            BSTNode<Key> * temp = root->left;
+            release(root);
+            return temp;
+        }
+        BSTNode<Key> * temp = minimum(root->right);
+
+        root->key = temp->key;
+
+        root->right = deleteNode(temp->key);
+    }
+
+    return root;
+
 }
 
 
