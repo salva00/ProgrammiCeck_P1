@@ -110,7 +110,11 @@ Lezione 14
 
 - [X] PriorityQueue
  
+ Lezione 17
+-
 
+- [X] BinarySearchTree
+ 
 
  _TBC_
  
