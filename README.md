@@ -85,7 +85,7 @@ Lezione 11
 - [ ] DoubleLinkedList* (implementare l'overload di <)
 - [ ] Ordered DoubleLinkedList
 - [ ] CircularLinkedList* (Bisogna controllare il makefile)
-- [ ] Sparse Matrix
+- [X] Sparse Matrix
 
 Lezione 12
 -
