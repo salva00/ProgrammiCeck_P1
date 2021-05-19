@@ -115,6 +115,7 @@ Lezione 14
 
 - [X] BinarySearchTree
 - [ ] ImpiegatiBST
+- [X] STLmapExample
  
 
  _TBC_
