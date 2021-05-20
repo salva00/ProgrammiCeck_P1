@@ -26,15 +26,15 @@ matrici sparse?
 */
 #include <iostream>
 #include "sparsematrix.cpp"
-#include "..\lib\LinkedList.h"
+#include <forward_list>
 #include <fstream>
 
 template<typename T>
-LinkedList<typename SparseMatrix<T>::Node*> readfile(std::string);
+std::forward_list<typename SparseMatrix<T>::Node*> readfile(std::string);
 
 int main() {
 	SparseMatrix<int> s, r;
-	LinkedList<SparseMatrix<int>::Node*> q = readfile<int>("data.txt");
+	std::forward_list<SparseMatrix<int>::Node*> q = readfile<int>("data.txt");
 	s.load(q.begin(),q.end());
 	s.print();
 	std::cout << "+\n";
@@ -53,12 +53,12 @@ int main() {
 
 
 template<typename T>
-LinkedList<typename SparseMatrix<T>::Node*> readfile(std::string filename) {
+std::forward_list<typename SparseMatrix<T>::Node*> readfile(std::string filename) {
 	std::ifstream file{filename};
 	if(!file.is_open()) throw std::invalid_argument("File not found");
 	size_t i,j;
 	T value;
-	LinkedList<typename SparseMatrix<T>::Node*> res;
+	std::forward_list<typename SparseMatrix<T>::Node*> res;
 	file >> i >> j >> value;
 	while(!file.eof()) {
 		res.push_front(new typename SparseMatrix<T>::Node(value,i,j));
