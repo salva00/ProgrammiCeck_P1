@@ -113,15 +113,14 @@ Lezione 14
 - [X] PriorityQueue*
 - [ ] Heap Sort
 
- Lezione 17
+Lezione 17
 -
 
 - [X] BinarySearchTree*
 - [ ] Map with BST
 - [ ] ImpiegatiBST
 - [X] STLmapExample
- 
--
+#
 
 *Usato nelle slide, ma non assegnato come esercizio per casa
 
