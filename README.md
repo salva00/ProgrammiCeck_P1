@@ -101,25 +101,27 @@ Lezione 13
 - [X] ArrayQueue
 - [X] LinkedQueue
 - [X] DoubleLinkedQueue
+- [ ] Deque with DoublyLinkedList*
 
 Lezione 14
 -
+- [ ] Doubly Linked List with iterators*
 
  Lezione 15
 -
 
-- [X] PriorityQueue
- 
+- [X] PriorityQueue*
+- [ ] Heap Sort
+
  Lezione 17
 -
 
-- [X] BinarySearchTree
+- [X] BinarySearchTree*
+- [ ] Map with BST
 - [ ] ImpiegatiBST
 - [X] STLmapExample
  
-
- _TBC_
- 
+-
 
 *Usato nelle slide, ma non assegnato come esercizio per casa
 
