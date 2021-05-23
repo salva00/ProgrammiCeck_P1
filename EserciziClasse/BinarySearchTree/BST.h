@@ -12,7 +12,7 @@ protected:
     BSTNode<Key> * root;
 public:
     //constructors
-    BST(BSTNode<Key>* r = NULL) : root(r){}
+    BST(BSTNode<Key>* r = nullptr) : root(r){}
     ~BST(){release(root);}
 
     //traverse
