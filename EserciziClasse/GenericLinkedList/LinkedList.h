@@ -14,6 +14,8 @@ private:
     Node<NODETYPE>* head;
 public:
     LinkedList();
+    LinkedList(const LinkedList<NODETYPE> &list);
+    LinkedList<NODETYPE> operator=(const LinkedList<NODETYPE> &list);
     ~LinkedList();
     bool empty();
     const NODETYPE& front() const;          //return front element
@@ -81,6 +83,16 @@ NODETYPE& LinkedList<NODETYPE>::operator[](int pos) {
         i++;
     }
     return pPos->element;
+}
+
+template<typename NODETYPE>
+LinkedList<NODETYPE>::LinkedList(const LinkedList<NODETYPE> &list) {
+    head = list.head;
+}
+
+template<typename NODETYPE>
+LinkedList<NODETYPE> LinkedList<NODETYPE>::operator=(const LinkedList<NODETYPE> &list) {
+    return LinkedList(list);
 }
 
 
