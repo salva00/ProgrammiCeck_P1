@@ -91,8 +91,10 @@ LinkedList<NODETYPE>::LinkedList(const LinkedList<NODETYPE> &list) {
        this->head = nullptr;
        return;
    }
-   for (Node<NODETYPE> *i{list.head}, *j{head}; i != nullptr; i = i->next){
-       x = new Node<NODETYPE>;
+   head->element = list.head->element;
+	 head->next = nullptr;
+   for (Node<NODETYPE> *i{list.head->next}, *j{head}; i != nullptr; i = i->next){
+       Node<NODETYPE>* x = new Node<NODETYPE>;
        j->next = x; // elemento precedente segue l' attuale
 	   x->element = i->element;
 	   x->next = nullptr; // piu' sicuro far seguire l'elemento nuovo a nullptr
