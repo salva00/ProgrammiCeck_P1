@@ -14,7 +14,7 @@ private:
     Node<NODETYPE>* head;
 public:
     LinkedList();
-    LinkedList(const LinkedList<NODETYPE> &list);
+    LinkedList( LinkedList<NODETYPE> &list);
     LinkedList<NODETYPE> operator=(const LinkedList<NODETYPE> &list);
     ~LinkedList();
     bool empty();
@@ -86,8 +86,10 @@ NODETYPE& LinkedList<NODETYPE>::operator[](int pos) {
 }
 
 template<typename NODETYPE>
-LinkedList<NODETYPE>::LinkedList(const LinkedList<NODETYPE> &list) {
-    head = list.head;
+LinkedList<NODETYPE>::LinkedList( LinkedList<NODETYPE> &list) {
+    for (int i =0; i < list.size(); i++){
+        addFront(list[i]);
+    }
 }
 
 template<typename NODETYPE>
