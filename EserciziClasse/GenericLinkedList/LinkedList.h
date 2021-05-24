@@ -7,7 +7,7 @@
 
 #include "Node.h"
 #include <stdexcept>
-
+#include <iostream>
 template<typename NODETYPE>
 class LinkedList {
 private:
@@ -15,7 +15,7 @@ private:
 public:
     LinkedList();
     LinkedList(const LinkedList<NODETYPE> &list);
-    LinkedList<NODETYPE> operator=(const LinkedList<NODETYPE> &list);
+    LinkedList<NODETYPE>& operator=(const LinkedList<NODETYPE> &list);
     ~LinkedList();
     bool empty() const;
     const NODETYPE& front() const;          //return front element
@@ -87,25 +87,22 @@ NODETYPE& LinkedList<NODETYPE>::operator[](int pos) {
 
 template<typename NODETYPE>
 LinkedList<NODETYPE>::LinkedList(const LinkedList<NODETYPE> &list) {
-	if(list.empty()) {
-		this->LinkedList();
-	} else {
-		Node<NODETYPE>* x = new Node<NODETYPE>;
-		x->element = list.head->element;
-		x->next = list.head->next;
-		this->head = x;
-	  for (Node<NODETYPE> *i{list.head}, *j{head}; i->next != nullptr; i = i->next, j = j->next) {
-	    x = new Node<NODETYPE>;
-			x->element = i->element;
-			x->next = i->next;
-			j = x;
-	  }
-	}
+   if(list.head == nullptr){
+       this->head = nullptr;
+       return;
+   }
+   for (Node<NODETYPE> *i{list.head}, *j{head}; i != nullptr; i = i->next){
+       x = new Node<NODETYPE>;
+       j->next = x; // elemento precedente segue l' attuale
+	   x->element = i->element;
+	   x->next = nullptr; // piu' sicuro far seguire l'elemento nuovo a nullptr
+	   j = x; // attuale diventa nuovo precedente
+   }
 }
 
 template<typename NODETYPE>
-LinkedList<NODETYPE> LinkedList<NODETYPE>::operator=(const LinkedList<NODETYPE> &list) {
-    return LinkedList(list);
+LinkedList<NODETYPE>& LinkedList<NODETYPE>::operator=(const LinkedList<NODETYPE> &list) {
+    return &LinkedList(list);
 }
 
 

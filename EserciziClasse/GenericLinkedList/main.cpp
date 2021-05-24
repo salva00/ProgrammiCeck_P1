@@ -23,11 +23,9 @@ int main() {
     std::cout<< L2[2]<< std::endl;
     L2[2]=44;
     std::cout<< L2[2]<< std::endl;
-
     LinkedList<int> L3 = L2;
     for (int i = 0; i < L3.size(); i++) {
         std::cout<< "L3 : "<< i << " : "<<L3[i]<< std::endl;
     }
-
     return 0;
 }
