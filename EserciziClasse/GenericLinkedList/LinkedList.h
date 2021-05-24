@@ -86,25 +86,27 @@ NODETYPE& LinkedList<NODETYPE>::operator[](int pos) {
 }
 
 template<typename NODETYPE>
-LinkedList<NODETYPE>::LinkedList(const LinkedList<NODETYPE> &list) {
-   if(list.head == nullptr){
-       this->head = nullptr;
-       return;
-   }
-   head->element = list.head->element;
-	 head->next = nullptr;
-   for (Node<NODETYPE> *i{list.head->next}, *j{head}; i != nullptr; i = i->next){
-       Node<NODETYPE>* x = new Node<NODETYPE>;
-       j->next = x; // elemento precedente segue l' attuale
-	   x->element = i->element;
-	   x->next = nullptr; // piu' sicuro far seguire l'elemento nuovo a nullptr
-	   j = x; // attuale diventa nuovo precedente
-   }
+LinkedList<NODETYPE>::LinkedList(const LinkedList<NODETYPE> &list) : head{nullptr} {
+	*this = list;
 }
 
 template<typename NODETYPE>
 LinkedList<NODETYPE>& LinkedList<NODETYPE>::operator=(const LinkedList<NODETYPE> &list) {
-    return &LinkedList(list);
+	if(!empty()) this->~LinkedList();
+	head = nullptr;
+	if(list.head == nullptr){
+			this->head = nullptr;
+			return *this;
+	} else {
+		this->head = new Node<NODETYPE>;
+		this->head->element = list.head->element;
+		for(Node<NODETYPE> *i{head}, *j{list.head}; j->next != nullptr; j = j->next, i = i->next) {
+			i->next = new Node<NODETYPE>;
+			i->next->element = j->next->element;
+			i->next->next = nullptr;
+		}
+	}
+	return *this;
 }
 
 
