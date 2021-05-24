@@ -33,7 +33,8 @@ public:
     //Modifiers
     BSTNode<Key>* insert(Key key);
     void release (BSTNode<Key>* x);
-    BSTNode<Key>* deleteNode(Key key);
+    void deleteNode(Key key);
+    BSTNode<Key>* deleteNode(BSTNode<Key>* subRoot, Key key);
 
 
 };
@@ -133,17 +134,19 @@ BSTNode<Key> *BST<Key>::insert(Key key) {
 
 template<typename Key>
 void BST<Key>::release(BSTNode<Key> *x) {
-    free(x);
+    std::free(x);
 }
 
+/*
 template<typename Key>
 BSTNode<Key> *BST<Key>::deleteNode(Key key) {
-    if (search(key)) return nullptr;
+    if (!search(key)) return nullptr;
     if(key<root->key)                   // If key is smaller than root
         root->left =deleteNode(key);
 
-    else if(key > root->key)            // If key is greater than root
+    else if(key > root->key){            // If key is greater than root
         root->right = deleteNode(key);
+        }
     else{                               // If key is root
         if(root->left == nullptr){
             BSTNode<Key> * temp = root->right;
@@ -164,6 +167,40 @@ BSTNode<Key> *BST<Key>::deleteNode(Key key) {
 
     return root;
 
+}
+*/
+
+template<typename Key>
+void BST<Key>::deleteNode(Key key){
+    if (search(key)) 
+		  root = deleteNode(root,key);
+    return;
+}
+
+template<typename Key>
+BSTNode<Key> *BST<Key>::deleteNode(BSTNode<Key>* subRoot, Key key) { 
+    if(key<subRoot->key)                // If key is smaller than subRoot
+        subRoot->left = deleteNode(subRoot->left, key);
+    else if(key > subRoot->key)          // If key is greater than subRoot
+        subRoot->right = deleteNode(subRoot->right,key);
+    else{                               // If key is root
+        if(subRoot->left == nullptr){
+            BSTNode<Key> * temp = subRoot->right;
+            release(subRoot);
+            return temp;
+        }
+        else if(subRoot->right== nullptr){
+            BSTNode<Key> * temp = subRoot->left;
+            release(subRoot);
+            return temp;
+        }
+        BSTNode<Key> * temp = minimum(subRoot->right);
+
+        subRoot->key = temp->key;
+
+        subRoot->right = deleteNode(subRoot->right, temp->key);
+    }
+    return subRoot;
 }
 
 
