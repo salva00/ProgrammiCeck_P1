@@ -14,15 +14,15 @@ private:
     Node<NODETYPE>* head;
 public:
     LinkedList();
-    LinkedList( LinkedList<NODETYPE> &list);
+    LinkedList(const LinkedList<NODETYPE> &list);
     LinkedList<NODETYPE> operator=(const LinkedList<NODETYPE> &list);
     ~LinkedList();
-    bool empty();
+    bool empty() const;
     const NODETYPE& front() const;          //return front element
     void addFront(const NODETYPE& e);
     void removeFront();
     NODETYPE& operator[](int);
-    int size();
+    int size() const;
 };
 
 template<typename NODETYPE>
@@ -34,7 +34,7 @@ LinkedList<NODETYPE>::~LinkedList() {
 }
 
 template<typename NODETYPE>
-bool LinkedList<NODETYPE>::empty() {
+bool LinkedList<NODETYPE>::empty() const {
     return head == nullptr;
 }
 
@@ -61,7 +61,7 @@ void LinkedList<NODETYPE>::removeFront() {
     delete old;
 }
 template <typename NODETYPE>
-int LinkedList<NODETYPE>::size() {
+int LinkedList<NODETYPE>::size() const {
     int i{ 0 };
     Node<NODETYPE>* pSize = head;
     while (pSize != nullptr) {
@@ -86,9 +86,16 @@ NODETYPE& LinkedList<NODETYPE>::operator[](int pos) {
 }
 
 template<typename NODETYPE>
-LinkedList<NODETYPE>::LinkedList( LinkedList<NODETYPE> &list) {
-    for (int i =0; i < list.size(); i++){
-        addFront(list[i]);
+LinkedList<NODETYPE>::LinkedList(const LinkedList<NODETYPE> &list) {
+	Node<NODETYPE>* x = new Node<NODETYPE>;
+	x->element = list.head->element;
+	x->next = list.head->next;
+	this->head = x;
+    for (Node<NODETYPE> *i{list.head}, *j{head}; i->next != nullptr; i = i->next, j = j->next){
+      x = new Node<NODETYPE>;
+			x->element = i->element;
+			x->next = i->next;
+			j = x;
     }
 }
 
