@@ -87,17 +87,17 @@ NODETYPE& LinkedList<NODETYPE>::operator[](int pos) {
 
 template<typename NODETYPE>
 LinkedList<NODETYPE>::LinkedList(const LinkedList<NODETYPE> &list) {
-   if(list.head == nullptr){
-       this->head = nullptr;
-       return;
-   }
-   for (Node<NODETYPE> *i{list.head}, *j{head}; i != nullptr; i = i->next){
-       x = new Node<NODETYPE>;
-       j->next = x; // elemento precedente segue l' attuale
-	   x->element = i->element;
-	   x->next = nullptr; // piu' sicuro far seguire l'elemento nuovo a nullptr
-	   j = x; // attuale diventa nuovo precedente
-   }
+    if(list.head == nullptr){
+        this->head = nullptr;
+        return;
+    }
+    for (Node<NODETYPE> *i{list.head}, *j{head}; i != nullptr; i = i->next){
+        Node<NODETYPE>* x = new Node<NODETYPE>;
+        j->next = x; // elemento precedente segue l' attuale
+        x->element = i->element;
+        x->next = nullptr; // piu' sicuro far seguire l'elemento nuovo a nullptr
+        j = x; // attuale diventa nuovo precedente
+    }
 }
 
 template<typename NODETYPE>
