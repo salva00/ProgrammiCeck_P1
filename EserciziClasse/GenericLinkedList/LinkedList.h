@@ -87,16 +87,20 @@ NODETYPE& LinkedList<NODETYPE>::operator[](int pos) {
 
 template<typename NODETYPE>
 LinkedList<NODETYPE>::LinkedList(const LinkedList<NODETYPE> &list) {
+	if(list.empty()) {
+		this->LinkedList();
+		return;
+	}
 	Node<NODETYPE>* x = new Node<NODETYPE>;
 	x->element = list.head->element;
 	x->next = list.head->next;
 	this->head = x;
-    for (Node<NODETYPE> *i{list.head}, *j{head}; i->next != nullptr; i = i->next, j = j->next){
-      x = new Node<NODETYPE>;
-			x->element = i->element;
-			x->next = i->next;
-			j = x;
-    }
+  for (Node<NODETYPE> *i{list.head}, *j{head}; i->next != nullptr; i = i->next, j = j->next) {
+    x = new Node<NODETYPE>;
+		x->element = i->element;
+		x->next = i->next;
+		j = x;
+  }
 }
 
 template<typename NODETYPE>
