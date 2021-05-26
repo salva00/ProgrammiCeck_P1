@@ -5,7 +5,7 @@
 #ifndef BINARYSEARCHTREE_BST_H
 #define BINARYSEARCHTREE_BST_H
 #include "BSTNode.h"
-
+#include <iomanip>
 template<typename Key>
 class BST {
 protected:
@@ -16,8 +16,8 @@ public:
     ~BST(){release(root);}
 
     //traverse
-    void inorderTreeWalk(BSTNode<Key>*x);
-    void inorderTreeWalk(){ inorderTreeWalk(root);}
+    void inorderTreeWalk(BSTNode<Key>*x,int indent);
+    void inorderTreeWalk(int indent){ inorderTreeWalk(root,indent);}
 
     //accessors
     BSTNode<Key>* getRoot() {return root;}
@@ -36,15 +36,28 @@ public:
     void deleteNode(Key key);
     BSTNode<Key>* deleteNode(BSTNode<Key>* subRoot, Key key);
 
+    //print
+    //void printTree(BSTNode<Key> *x, int space);
+    //void printTree( int space);
+
 
 };
 
 template<typename Key>
-void BST<Key>::inorderTreeWalk(BSTNode<Key> *x) {
+void BST<Key>::inorderTreeWalk(BSTNode<Key> *x, int indent) {
     if(x){
-        inorderTreeWalk(x->left);
-        std::cout<<x->key<<'\n';
-        inorderTreeWalk(x->right);
+        if (x->left){
+            inorderTreeWalk(x->left, indent +4);
+        }
+        if (indent){
+            std::cout<< std::setw(indent-2)<<' ';
+        }
+        if(x->left){ std::cout<<" /\n"<< std::setw(indent - 2 ) <<' ';}
+        std::cout << x->key<<std::endl;
+        if (x->right){
+            std::cout<< std::setw(indent)<<' '<< "\\ \n";
+            inorderTreeWalk(x->right, indent +4);
+        }
     }
 }
 
@@ -203,5 +216,25 @@ BSTNode<Key> *BST<Key>::deleteNode(BSTNode<Key>* subRoot, Key key) {
     return subRoot;
 }
 
+/*template<typename Key>
+void BST<Key>::printTree( int space){
+    return printTree(root,space);
+}
+
+template<typename Key>
+void BST<Key>::printTree(BSTNode<Key> *x, int space){
+    if (x == nullptr){
+        return;
+    }
+    space += SPACE;
+    printTree(x->right,space);
+    std::cout<<std::endl;
+    for(int i=SPACE;i<space;i++){
+        std::cout<<" ";
+    }
+    std::cout<< x->key <<std::endl;
+    printTree(x->left,space);
+
+}*/
 
 #endif //BINARYSEARCHTREE_BST_H
