@@ -7,6 +7,7 @@
 namespace mystl {
 
 template<typename T>
+// T requires operator< and operator==
 class BinarySearchTree {
 private:
 	class Node {
@@ -43,6 +44,8 @@ public:
 		bool operator!=(const Iterator&) const;
 	};
 protected:
+	void preorderCopy(Node*, Node*, const BinarySearchTree<T>* const);
+	// user by copy constructor
 	void remove(Node*);
 	// used by remove(iterator) and remove(T)
 	static Node* successor(Node*);
@@ -74,6 +77,10 @@ public:
 	// default constructor
 	~BinarySearchTree();
 	// deletes all nodes
+	BinarySearchTree(const BinarySearchTree<T>&);
+	// copy constructor
+	BinarySearchTree<T>& operator=(const BinarySearchTree<T>&);
+	// copy assignment
 	void push(const T&);
 	// pushes node at the bottom
 	const T& getMin() const;
@@ -102,6 +109,7 @@ public:
 	// returns iterator to end (maximum)
 	Iterator rend() const;
 	// return iterator before begin (minimum)
+	// N.B. iterating begin->end is O(n)
 
 	// DEBUG - remember to uncomment implementation and dependencies
 	// void print(const std::string&, const Node*, bool) const;
@@ -173,6 +181,52 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::Iterator::operator--
 
 template<typename T>
 BinarySearchTree<T>::BinarySearchTree() : root{nullptr}, n{0}, leaves{0} {}
+
+template<typename T>
+void BinarySearchTree<T>::preorderCopy(Node* l_ptr, Node* r_ptr, const BinarySearchTree<T>* const rhs) {
+	if(r_ptr != nullptr) {
+		// this->print();
+		while(l_ptr->value != r_ptr->parent->value) {
+			l_ptr = l_ptr->parent;
+		}
+		if(isLchild(r_ptr)) {
+			l_ptr->lchild = new Node(r_ptr->value, l_ptr);
+			l_ptr = l_ptr->lchild;
+		} else {
+			l_ptr->rchild = new Node(r_ptr->value, l_ptr);
+			l_ptr = l_ptr->rchild;
+		}
+		if(l_ptr == rhs->max) this->max = l_ptr;
+		if(l_ptr == rhs->min) this->min = l_ptr;
+		preorderCopy(l_ptr, r_ptr->lchild, rhs);
+		preorderCopy(l_ptr, r_ptr->rchild, rhs);
+	}
+	return;
+}
+
+template<typename T>
+BinarySearchTree<T>::BinarySearchTree(const BinarySearchTree<T>& rhs)
+	: n{rhs.n}, leaves{rhs.leaves} {
+
+	if(!rhs.empty()) {
+		this->root = new Node(rhs.root->value);
+		preorderCopy(this->root, rhs.root->lchild, &rhs);
+		preorderCopy(this->root, rhs.root->rchild, &rhs);
+	}
+}
+
+template<typename T>
+BinarySearchTree<T>& BinarySearchTree<T>::operator=(const BinarySearchTree<T>& tree) {
+	clear();
+	BinarySearchTree<T> temp{tree};
+	this->root = temp.root;
+	this->n = temp.n;
+	this->leaves = temp.leaves;
+	this->max = temp.max;
+	this->min = temp.min;
+	temp.root = nullptr;
+	return *this;
+}
 
 template<typename T>
 BinarySearchTree<T>::~BinarySearchTree() {
@@ -470,30 +524,30 @@ typename BinarySearchTree<T>::Node* BinarySearchTree<T>::balance(Node** arr, siz
 }
 
 //DEBUG
-/*
-template<typename T>
-void BinarySearchTree<T>::print(const std::string& prefix, const Node* node, bool isLeft) const {
-	if( node != nullptr ) {
-		std::cout << prefix;
-		std::cout << (isLeft ? (char)195 : (char)192) << "--";
-		std::cout << ' ' << node->value << '\n';
-		print(prefix + (isLeft ? "|   " : "    "), node->lchild, true);
-		print(prefix + (isLeft ? "|   " : "    "), node->rchild, false);
-	}
-	return;
-}
 
-template<typename T>
-void BinarySearchTree<T>::print(const Node* node) const {
-	print("", node, false);
-}
+// template<typename T>
+// void BinarySearchTree<T>::print(const std::string& prefix, const Node* node, bool isLeft) const {
+// 	if( node != nullptr ) {
+// 		std::cout << prefix;
+// 		std::cout << (isLeft ? (char)195 : (char)192) << "--";
+// 		std::cout << ' ' << node->value << '\n';
+// 		print(prefix + (isLeft ? "|   " : "    "), node->lchild, true);
+// 		print(prefix + (isLeft ? "|   " : "    "), node->rchild, false);
+// 	}
+// 	return;
+// }
+//
+// template<typename T>
+// void BinarySearchTree<T>::print(const Node* node) const {
+// 	print("", node, false);
+// }
+//
+// template<typename T>
+// void BinarySearchTree<T>::print() const {
+// 	if(empty()) std::cout << "tree empty\n";
+// 	else print("", root, false);
+// }
 
-template<typename T>
-void BinarySearchTree<T>::print() const {
-	if(empty()) std::cout << "tree empty\n";
-	else print("", root, false);
-}
-*/
 
 }//end namespace mystl
 
