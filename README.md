@@ -120,6 +120,27 @@ Lezione 17
 - [ ] Map with BST
 - [ ] ImpiegatiBST
 - [X] STLmapExample
+
+Strutture dati
+-
+- [X] Linked List (singly linked)
+- [X] Doubly-Linked List
+- [X] Circularly-Linked List
+- [X] Array Stack
+- [X] Linked Stack
+- [X] Array Queue
+- [X] Linked Queue (with circular lists)
+- [ ] Linked Deque
+- [X] BinarySearchTree
+- [ ] Dictionary
+
+Sorting
+-
+- [X] Insertion Sort
+- [X] Quick Sort
+- [X] Merge Sort
+- [X] Bubble Sort
+- [X] Heap Sort
 #
 
 *Usato nelle slide, ma non assegnato come esercizio per casa
