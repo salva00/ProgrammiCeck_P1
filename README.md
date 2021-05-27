@@ -132,7 +132,7 @@ Strutture dati
 - [X] Linked Queue (with circular lists)
 - [ ] Linked Deque
 - [X] BinarySearchTree
-- [ ] Dictionary
+- [X] Map
 
 Sorting
 -
