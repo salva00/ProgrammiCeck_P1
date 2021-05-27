@@ -2,7 +2,8 @@
 #ifndef BINARYSEARCHTREE_H
 #define BINARYSEARCHTREE_H
 
-#include <iostream> //DEBUG
+// #include <iostream> // DEBUG
+
 namespace mystl {
 
 template<typename T>
@@ -34,49 +35,80 @@ public:
 		T* operator->() const;
 		Iterator& operator++();
 		Iterator operator++(int);
-		// Iterator operator+(size_t) const;
+		// jumps to successor
 		Iterator& operator--();
 		Iterator operator--(int);
-		// Iterator operator-(size_t) const;
+		// jumps to predecessor
 		bool operator==(const Iterator&) const;
 		bool operator!=(const Iterator&) const;
 	};
 protected:
 	void remove(Node*);
+	// used by remove(iterator) and remove(T)
 	static Node* successor(Node*);
+	// used for iteration
 	static Node* predecessor(Node*);
+	// used for iteration
 	Node* replacenode(Node*, Node*);
+	// replace #1 with #2, does not detach #2 !!!
 	inline bool isLchild(Node*) const;
+	// nullptr exception if #1 is root
 	void unsafeDel(Node*);
+	// detach node, then delete
 	Node* balance(Node**,size_t,size_t);
+	void balance();
+	// rearrange nodes in unbalanced tree
 private:
 	Node* root;
+	// root of the tree
 	size_t n;
+	// number of elements stored
 	size_t leaves;
+	// number of leaf nodes
 	Node* max;
+	// node which cointains maximum value
 	Node* min;
+	// node which cointains minimum value
 public:
-	void balance();
 	BinarySearchTree();
+	// default constructor
 	~BinarySearchTree();
+	// deletes all nodes
 	void push(const T&);
+	// pushes node at the bottom
 	const T& getMin() const;
+	// returns minimum value stored
 	const T& getMax() const;
+	// returns maximum value stored
 	size_t getLeaves() const;
+	// returns number of leaf nodes
 	bool empty() const;
+	// returns true if empty
 	size_t size() const;
+	// returns number of elements stored
 	Iterator search(const T&) const;
+	// returns iterator to value #1
 	void remove(const T&);
+	// removes node with value #1
 	Iterator remove(const Iterator&);
+	// removes node pointed by iterator
 	void clear();
+	// deletes all nodes
 	Iterator begin() const;
+	// returns iterator to begin (minimum element)
 	Iterator end() const;
+	// returns iterator after end (maximum)
 	Iterator rbegin() const;
+	// returns iterator to end (maximum)
 	Iterator rend() const;
-	void print(const std::string&, const Node*, bool) const; // DEBUG
-	void print(const Node*) const;
-	void print() const;
+	// return iterator before begin (minimum)
+
+	// DEBUG - remember to uncomment implementation and dependencies
+	// void print(const std::string&, const Node*, bool) const;
+	// void print(const Node*) const;
+	// void print() const;
 };
+
 
 
 // Node //
@@ -113,19 +145,6 @@ bool BinarySearchTree<T>::Iterator::operator!=(const Iterator& rhs) const {
 
 template<typename T>
 typename BinarySearchTree<T>::Iterator& BinarySearchTree<T>::Iterator::operator++() {
-	// if(point->rchild != nullptr) {
-	// 	point = point->rchild;
-	// 	while(point->lchild != nullptr) {
-	// 		point = point->lchild;
-	// 	}
-	// } else {
-	// 	Node* par = point->parent;
-	// 	while(par != nullptr && point == par->rchild) {
-	// 		point = par;
-	// 		par = point->parent;
-	// 	}
-	// 	point = par;
-	// }
 	point = BinarySearchTree<T>::successor(point);
 	return *this;
 }
@@ -139,20 +158,6 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::Iterator::operator++
 
 template<typename T>
 typename BinarySearchTree<T>::Iterator& BinarySearchTree<T>::Iterator::operator--() {
-	// if(point->lchild != nullptr) {
-	// 	point = point->lchild;
-	// 	// std::cout << point->value << '\n';
-	// 	while(point->rchild != nullptr) {
-	// 		point = point->rchild;
-	// 	}
-	// } else {
-	// 	Node* par = point->parent;
-	// 	while(par != nullptr && point == par->lchild) {
-	// 		point = par;
-	// 		par = point->parent;
-	// 	}
-	// 	point = par;
-	// }
 	point = BinarySearchTree<T>::predecessor(point);
 	return *this;
 }
@@ -362,7 +367,6 @@ void BinarySearchTree<T>::remove(Node* ptr) {
 	} else {
 		// std::cout << "1 child\n";
 		Node* child = (ptr->lchild != nullptr? ptr->lchild : ptr->rchild);
-		// (isLchild(ptr)? ptr->parent->lchild : ptr->parent->rchild) = child;
 		if(ptr->parent == nullptr) {
 			root = child;
 		} else if(isLchild(ptr)) {
@@ -374,7 +378,6 @@ void BinarySearchTree<T>::remove(Node* ptr) {
 		//no effect on leaves
 	}
 	--n;
-	//h?
 	unsafeDel(ptr);
 	return;
 }
@@ -436,7 +439,6 @@ void BinarySearchTree<T>::balance() {
 	return;
 }
 
-// 0 1 2 3
 template<typename T>
 typename BinarySearchTree<T>::Node* BinarySearchTree<T>::balance(Node** arr, size_t begin, size_t end) {
 	if(begin < end) {
@@ -468,7 +470,7 @@ typename BinarySearchTree<T>::Node* BinarySearchTree<T>::balance(Node** arr, siz
 }
 
 //DEBUG
-
+/*
 template<typename T>
 void BinarySearchTree<T>::print(const std::string& prefix, const Node* node, bool isLeft) const {
 	if( node != nullptr ) {
@@ -491,22 +493,8 @@ void BinarySearchTree<T>::print() const {
 	if(empty()) std::cout << "tree empty\n";
 	else print("", root, false);
 }
+*/
 
 }//end namespace mystl
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
