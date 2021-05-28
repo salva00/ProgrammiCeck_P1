@@ -19,12 +19,11 @@ int main() {
 		<< d1.toString() << "), d1 = ";
 	d2.subtract(d1);
 	cout << d2.toString() << "\n";
-
-	cout << "Enter integer interest rate and divisor. For example:\n"
-		<< "for			2%,	enter:		2	100\n"
-		<< "for		  2.3%,	enter:	   23	1000\n"
-		<< "for		 2.37%,	enter:	  273	10000\n"
-		<< "for		2.375%,	enter:	 2375	100000\n ";
+	cout << "Enter integer interest rate and divisor. For exemple:\n"
+		<< "for     2%, enter:    2 100\n"
+		<< "for   2.3%, enter:   23 1000\n"
+		<< "for  2.37%, enter:  237 10000\n"
+		<< "for 2.375%, enter: 2375 100000\n";
 	int rate;
 	int divisor;
 	cin >> rate >> divisor;
@@ -35,7 +34,7 @@ int main() {
 	cout << "\nYear" << std::setw(20) << "Amount on deposit" << endl;
 
 	for (unsigned int year{ 1 }; year <= 10; year++) {
-		balance.adddInterest(rate, divisor);
+		balance.addInterest(rate, divisor);
 		cout << setw(4) << year << setw(20) << balance.toString() << endl;
 	}
 }

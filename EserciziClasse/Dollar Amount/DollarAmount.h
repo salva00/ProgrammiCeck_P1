@@ -11,10 +11,10 @@ public:
 	void subtract(DollarAmount right) {
 		amount -= right.amount;
 	}
-	void addInterst(int rate, int divisor) {
+	void addInterest(int rate, int divisor) {
 		DollarAmount interest{
-			(amount * rate + divisor / 2) / divisor;
-		}
+			(amount * rate + divisor / 2) / divisor
+		};
 		add(interest);
 	}
 	std::string toString() const {
