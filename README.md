@@ -41,7 +41,7 @@ Lezione 6
 -
  - [X] [Merge Sort](EserciziClasse/lib)
  - [X] [Quick Sort](EserciziClasse/lib)
- - [ ] [Longest Common Subsequence (LCS)](EserciziClasse/)
+ - [X] [Longest Common Subsequence (LCS)](EserciziClasse/LCSiterative)
  - [X] [Matrix product](EserciziClasse/Matrix)
  - [X] [Add to vector without repetition](EserciziClasse/AddToVectorwOutRepetition)
 
@@ -146,4 +146,3 @@ Sorting
 
 BTW:
 Guida pratica a git: https://rogerdudler.github.io/git-guide/index.it.html (meglio tardi che Pokèmon -cit Croix89)
-
