@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 19/05/21.
-//
 
 #ifndef BINARYSEARCHTREE_BSTNODE_H
 #define BINARYSEARCHTREE_BSTNODE_H

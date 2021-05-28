@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 05/05/21.
-//
 
 #ifndef CIRCULARLYLINKEDLIST_CNODE_H
 #define CIRCULARLYLINKEDLIST_CNODE_H

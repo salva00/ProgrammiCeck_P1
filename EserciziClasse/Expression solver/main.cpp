@@ -23,7 +23,7 @@ int main() {
 
 void evaluate(const std::string& _expression, std::stack<std::string>& _output) {
 	std::string number; // stringa di appoggio per memorizzare char per char il numero che sto leggendo
-	std::string operatorSign; // stringa di appoggio per memorizzare al più 2 operatori
+	std::string operatorSign; // stringa di appoggio per memorizzare al piï¿½ 2 operatori
 	for (size_t idx{ 0 }; idx < _expression.length(); idx++) {
 		char inputChar = _expression[idx];
 		if (invalidCharacter(inputChar))
@@ -36,7 +36,7 @@ void evaluate(const std::string& _expression, std::stack<std::string>& _output) 
 			if (!operatorSign.empty()) // va fatto controllo di priorita' con un opeartore precedente
 				if (hasPriority(operatorSign[operatorSign.length() - 1], inputChar))
 					for (size_t i{ 0 }; i < operatorSign.length(); i++)
-						_output.push(std::string({ operatorSign[operatorSign.length() - 1 - i] })); // se avevo già memorizzato uno o più operatori, li aggiungo allo stack
+						_output.push(std::string({ operatorSign[operatorSign.length() - 1 - i] })); // se avevo giï¿½ memorizzato uno o piï¿½ operatori, li aggiungo allo stack
 			operatorSign.clear(); // svuoto operatorSign prima di memorizzare nuovo operatore
 			operatorSign += inputChar; // memorizzo  l' operatore per aggiungerlo successivamente allo stack
 			number.clear(); // preparo number a leggere nuovo numero
@@ -76,7 +76,7 @@ void evaluate(const std::string& _expression, std::stack<std::string>& _output) 
 		_output.push(number); // aggiungo il numero letto in cima allo stack
 	}
 	for (size_t i{ 0 }; i < operatorSign.length(); i++)
-		_output.push(std::string({ operatorSign[operatorSign.length() - 1 - i] })); // se avevo già memorizzato uno o più operatori, li aggiungo allo stack
+		_output.push(std::string({ operatorSign[operatorSign.length() - 1 - i] })); // se avevo giï¿½ memorizzato uno o piï¿½ operatori, li aggiungo allo stack
 }
 
 double solve(std::stack<std::string>& _inputStack) {
@@ -110,6 +110,7 @@ double solve(std::stack<std::string>& _inputStack) {
 	case '/':
 		return op1 / op2;
 	}
+	throw std::runtime_error("unexpeted behaviour from solve()");
 }
 
 bool invalidCharacter(const char _char) {

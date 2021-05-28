@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 18/05/21.
-//
 
 #ifndef HEAPIFY_COMPLETETREE_H
 #define HEAPIFY_COMPLETETREE_H

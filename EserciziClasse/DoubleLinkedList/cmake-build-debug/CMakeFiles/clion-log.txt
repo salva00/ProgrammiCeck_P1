@@ -1,4 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" /Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/DoubleLinkedList
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/salvatorebramante/CLionProjects/ProgrammiCeck_P1/EserciziClasse/DoubleLinkedList/cmake-build-debug

@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 19/05/21.
-//
 
 #ifndef BINARYSEARCHTREE_BST_H
 #define BINARYSEARCHTREE_BST_H
@@ -185,13 +182,13 @@ BSTNode<Key> *BST<Key>::deleteNode(Key key) {
 
 template<typename Key>
 void BST<Key>::deleteNode(Key key){
-    if (search(key)) 
+    if (search(key))
 		  root = deleteNode(root,key);
     return;
 }
 
 template<typename Key>
-BSTNode<Key> *BST<Key>::deleteNode(BSTNode<Key>* subRoot, Key key) { 
+BSTNode<Key> *BST<Key>::deleteNode(BSTNode<Key>* subRoot, Key key) {
     if(key<subRoot->key)                // If key is smaller than subRoot
         subRoot->left = deleteNode(subRoot->left, key);
     else if(key > subRoot->key)          // If key is greater than subRoot

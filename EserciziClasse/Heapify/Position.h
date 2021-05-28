@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 18/05/21.
-//
 
 #ifndef HEAPIFY_POSITION_H
 #define HEAPIFY_POSITION_H

@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <stdlib.h>
+#include <iomanip>
 
 using std::ifstream;
 using std::ios;
@@ -36,4 +37,3 @@ void outputLine(int account, const std::string& name, double balance){
     std::cout<<std::left<< std::setw(10)<<"Account"<<account <<std::setw(13)<< "Name"<< name <<"Balance\n"<<balance
              <<std::fixed<< std::showpoint;
 }
-

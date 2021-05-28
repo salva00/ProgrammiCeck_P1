@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 28/04/21.
-//
 
 #include "SavingsAccount.h"
 

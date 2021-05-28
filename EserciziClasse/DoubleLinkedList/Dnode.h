@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 05/05/21.
-//
 
 #ifndef DOUBLELINKEDLIST_DNODE_H
 #define DOUBLELINKEDLIST_DNODE_H

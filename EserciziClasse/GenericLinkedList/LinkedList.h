@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 04/05/21.
-//
 
 #ifndef GENERICLINKEDLIST_LINKEDLIST_H
 #define GENERICLINKEDLIST_LINKEDLIST_H

@@ -1,10 +1,8 @@
-//
-// Created by Salvatore Bramante on 05/05/21.
-//
 
 #ifndef DOUBLELINKEDLIST_LINKEDLIST_H
 #define DOUBLELINKEDLIST_LINKEDLIST_H
 #include <stdexcept>
+#include <sstream>
 #include "Dnode.h"
 template <typename T>
 class DoubleLinkedList {
@@ -74,12 +72,14 @@ void DoubleLinkedList<T>::add(Dnode<T>* v,const T &e) {
 
 template<typename T>
 void DoubleLinkedList<T>::addFront(const T &e) {
-    add(front(),e);
+		//add(front(),e); ??????
+		return;
 }
 
 template<typename T>
 void DoubleLinkedList<T>::addBack(const T &e) {
-    add(back(),e);
+		//add(back(),e); ??????
+		return;
 }
 
 template<typename T>
@@ -96,12 +96,13 @@ void DoubleLinkedList<T>::remove(Dnode<T>* v) {
 
 template<typename T>
 void DoubleLinkedList<T>::removeFront() {
-    remove(front());
+    // remove(front()); ????
 }
 
 template<typename T>
 void DoubleLinkedList<T>::removeBack() {
-    remove(back());
+    // remove(back()); ????
+		return;
 }
 
 template<typename T>

@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 06/05/21.
-//
 
 #ifndef ARRAYSTACK_ARRAYSTACK_H
 #define ARRAYSTACK_ARRAYSTACK_H

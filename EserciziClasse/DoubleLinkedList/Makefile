@@ -1,6 +1,6 @@
 CC= g++
 STD = -std=c++11
-DEPS = Dnode.h LikedList.h
+DEPS = Dnode.h LinkedList.h
 OBJ = main.o
 EXE_NAME = testDoubleList
 

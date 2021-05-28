@@ -8,7 +8,7 @@ int main() {
 
     std::cout << x << std::endl;
 
-    while (true){
+    while (y < INT_MAX){
         std::cout << y << std::endl;
         next = x + y;
         x = y;
