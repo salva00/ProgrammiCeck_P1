@@ -5,7 +5,7 @@ _30 politico o gli impianto i capelli_
 Lezione 1
 -
  - [X] [Body Mass Index calculator](EserciziClasse/BMI%20Calculator)
- - [X] [Celsius-Farenheit conversion](eserciziC/C-F_converter)
+ - [X] [Celsius-Farenheit conversion](eserciziC/EserciziClasse/C-F_converter)
 
 Lezione 2
 -
