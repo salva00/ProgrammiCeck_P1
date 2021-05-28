@@ -9,23 +9,19 @@ void printFront(LinkedList<T> &list){
 }
 
 int main() {
-    LinkedList<std::string> L;
-    L.addFront("kd");
-    L.addFront("JK");
-    printFront(L);
-    LinkedList<int> L2;
-    L2.addFront(1);
-    L2.addFront(3);
-    L2.addFront(4);
-    L2.addFront(3);
-    printFront(L2);
-    std::cout<< "L2 Size: " <<L2.size()<< std::endl;
-    std::cout<< L2[2]<< std::endl;
-    L2[2]=44;
-    std::cout<< L2[2]<< std::endl;
-    LinkedList<int> L3 = L2;
-    for (int i = 0; i < L3.size(); i++) {
-        std::cout<< "L3 : "<< i << " : "<<L3[i]<< std::endl;
-    }
-    return 0;
+	// typedef LinkedList<int> lis;
+	using lis = LinkedList<int>;
+	lis l1;
+	{
+		lis l2;
+		l2.addFront(2);
+		l2.addFront(1);
+		lis l3{l2};
+		std::cout << l3[0] << " " << l3[1] << '\n';
+		l1 = l3;
+	}
+	std::cout << l1[0] << " " << l1[1] << '\n';
+	std::cout << "Press enter to exit";
+	getchar();
+	return 0;
 }
