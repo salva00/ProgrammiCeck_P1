@@ -1,4 +1,6 @@
 
+#include <stdexcept>
+#include <cstring>
 #include <sstream>
 #include "Articoli.h"
 
@@ -9,11 +11,9 @@ Articoli::Articoli(const std::string& name, int productCode, int qnt, float pric
     setPrice(price);
 }
 
-void Articoli::setName(const std::string & name) {
-    if (name.empty()){
-        throw std::invalid_argument("Name must not be empty ");
-    }
-    this->name=std::string(name.c_str());
+void Articoli::setName(const std::string & nam) {
+		if(nam.size() > 14) throw std::invalid_argument("Maximum 14 characters");
+    strcpy_s(this->name,nam.c_str());
 }
 
 std::string Articoli::getName() const {

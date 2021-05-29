@@ -2,14 +2,9 @@
 #ifndef MAGAZZINOHARDWARE_ARTICOLI_H
 #define MAGAZZINOHARDWARE_ARTICOLI_H
 
-
-#include <string>
-#include <iostream> //per far contento Francesco :)
-#include <stdexcept>
-
 class Articoli {
 private:
-    std::string name;
+    char name[15];
     int productCode;
     int qnt;
     float price;

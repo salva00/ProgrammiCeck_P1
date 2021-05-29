@@ -80,9 +80,9 @@ void addRecord(std::fstream& db) {
         float price;
 
         std::cout << "Enter name, quantity, price\n";
-        std::cin >> std::setw(15) >> name;
-        std::cin >> std::setw(10) >> qnt;
-        std::cin >> std::setw(5) >> price;
+        std::cin >> name;
+        std::cin >> qnt;
+        std::cin >> price;
 
         articolo.setName(name);
         articolo.setQnt(qnt);
@@ -99,16 +99,16 @@ void deleteRecord(std::fstream& db) {
     int recordNumber{ selectRecord("Choose a product number to delete:") };
     db.seekg((recordNumber - 1) * sizeof(Articoli), db.beg);
     Articoli articolo;
-    db.read((char*)(&articolo), sizeof(Articoli));
+    db.read(reinterpret_cast<char*>(&articolo), sizeof(Articoli));
 
     if (articolo.getProductCode() != 0) {
-        Articoli vuoto;
-        db.seekp((recordNumber - 1) * sizeof(Articoli));
-        db.write((char*)(&vuoto), sizeof(Articoli));
-        std::cout << "Product n: " << recordNumber << "successfully deleted\n";
+        db.seekp((recordNumber - 1) * sizeof(Articoli),db.beg);
+        // db.write(reinterpret_cast<const char*>(&vuoto), sizeof(Articoli));
+				for(int i = sizeof(Articoli); i > 0; --i) db.write("0",1);
+        std::cout << "Product n:" << recordNumber << " successfully deleted\n";
     }
     else {
-        std::cerr << "Product n: " << recordNumber << "doesn't exists\n";
+        std::cerr << "Product n:" << recordNumber << " doesn't exists\n";
     }
 }
 
@@ -141,7 +141,7 @@ void updateRecord(std::fstream& db) {
         db.write(reinterpret_cast<char*>(&articolo), sizeof(articolo));
     }
     else {
-        std::cerr << "Product n: " << recordNumber << "doesn't exists\n";
+        std::cerr << "Product n:" << recordNumber << " doesn't exists\n";
     }
 }
 
@@ -175,7 +175,7 @@ int selectRecord(const std::string& promnt) {
 }
 
 void outputLine(std::ostream& output, const Articoli& articolo) {
-    output << std::left << std::setw(10) << articolo.getName() <<
+    output << std::left << std::setw(16) << articolo.getName() <<
         std::setw(16) << articolo.getProductCode() <<
         std::setw(11) << articolo.getQnt() <<
         std::setw(10) << std::setprecision(2) << std::right <<
