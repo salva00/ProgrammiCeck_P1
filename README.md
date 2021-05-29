@@ -79,11 +79,11 @@ Lezione 11
 -
 - [X] [LinkedList*](EserciziClasse/LinkedList)
 - [X] [LinkedList - size(), operator[]](EserciziClasse/GenericLinkedList)
-- [ ] [LinkedList - Reversal (controllare reverse)](EserciziClasse/LinkedListReversal)
+- [X] [LinkedList - Reversal](EserciziClasse/ListReverse)
 - [X] [GenericLinkedList*](EserciziClasse/GenericLinkedList)
 - [X] [DoubleLinkedList* (implementare l'overload di <)](EserciziClasse/lib)
 - [X] [Ordered DoubleLinkedList (vedi bubblesort)](EserciziClasse/lib)
-- [X] [CircularLinkedList* (Bisogna controllare il makefile)](EserciziClasse/lib)
+- [X] [CircularLinkedList*](EserciziClasse/lib)
 - [X] [Sparse Matrix](EserciziClasse/SparseMatrix)
 
 Lezione 12
