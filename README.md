@@ -25,7 +25,7 @@ Lezione 3
  - [X] [Binary to Base-10](EserciziClasse/Dec2Bin)
  - [ ] [Encrypt data](EserciziClasse/)
  - [X] [Fibonacci sequence](EserciziClasse/FibonacciRicorsivo)
- - [ ] [Triangle printing program](EserciziClasse/)
+ - [X] [Triangle printing program](EserciziClasse/TrianglePrinting)
  - [ ] [Pithagorean Triples](EserciziClasse/)
  - [X] [Egg-timer program](EserciziClasse/EggTimer)
  - [X] [DollarAmount](EserciziClasse/DollarAmount)
