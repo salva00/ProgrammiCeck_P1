@@ -212,6 +212,7 @@ void LinkedList<T>::erase_after(const Iterator& it) {
 	it.point->next = temp->next;
 	temp->next = nullptr;
 	delete temp;
+	--n;
 	return;
 }
 
@@ -220,6 +221,7 @@ void LinkedList<T>::insert_after(const Iterator& it, const T& val) {
 	if(it.point == nullptr) throw std::invalid_argument("Index out of bounds");
 	it.point->next = new Node(val, it.point->next);
 	return;
+	++n;
 }
 
 template<typename T>

@@ -23,6 +23,7 @@ Lezione 3
  - [X] [Palindrome](EserciziClasse/RecPalindromo)
  - [X] [Base-10 to Binary](EserciziClasse/Dec2Bin)
  - [X] [Binary to Base-10](EserciziClasse/Dec2Bin)
+ - [ ] [Encrypt data](EserciziClasse/)
  - [X] [Fibonacci sequence](EserciziClasse/FibonacciRicorsivo)
  - [ ] [Triangle printing program](EserciziClasse/)
  - [ ] [Pithagorean Triples](EserciziClasse/)
@@ -79,11 +80,11 @@ Lezione 11
 -
 - [X] [LinkedList*](EserciziClasse/LinkedList)
 - [X] [LinkedList - size(), operator[]](EserciziClasse/GenericLinkedList)
-- [ ] [LinkedList - Reversal (controllare reverse)](EserciziClasse/LinkedListReversal)
+- [X] [LinkedList - Reversal](EserciziClasse/ListReverse)
 - [X] [GenericLinkedList*](EserciziClasse/GenericLinkedList)
 - [X] [DoubleLinkedList* (implementare l'overload di <)](EserciziClasse/lib)
 - [X] [Ordered DoubleLinkedList (vedi bubblesort)](EserciziClasse/lib)
-- [X] [CircularLinkedList* (Bisogna controllare il makefile)](EserciziClasse/lib)
+- [X] [CircularLinkedList*](EserciziClasse/lib)
 - [X] [Sparse Matrix](EserciziClasse/SparseMatrix)
 
 Lezione 12
