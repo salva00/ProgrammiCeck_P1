@@ -149,8 +149,7 @@ void printRecords(std::fstream& db) {
     //per stampare a console il contenuto del file:
     Articoli articolo;
     db.seekp(0); //parto dall' inizio del file
-    while (db) {
-        db.read(reinterpret_cast<char*>(&articolo), sizeof(Articoli));
+    while (db.read(reinterpret_cast<char*>(&articolo), sizeof(Articoli))) {
         if (articolo.getProductCode()!=0)
             outputLine(std::cout, articolo);
     }

@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 29/04/21.
-//
 
 #include <sstream>
 #include "Articoli.h"

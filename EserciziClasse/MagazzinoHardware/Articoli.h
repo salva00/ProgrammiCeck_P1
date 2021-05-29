@@ -1,6 +1,3 @@
-//
-// Created by Salvatore Bramante on 29/04/21.
-//
 
 #ifndef MAGAZZINOHARDWARE_ARTICOLI_H
 #define MAGAZZINOHARDWARE_ARTICOLI_H
