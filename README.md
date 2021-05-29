@@ -23,6 +23,7 @@ Lezione 3
  - [X] [Palindrome](EserciziClasse/RecPalindromo)
  - [X] [Base-10 to Binary](EserciziClasse/Dec2Bin)
  - [X] [Binary to Base-10](EserciziClasse/Dec2Bin)
+ - [ ] [Encrypt data](EserciziClasse/)
  - [X] [Fibonacci sequence](EserciziClasse/FibonacciRicorsivo)
  - [ ] [Triangle printing program](EserciziClasse/)
  - [ ] [Pithagorean Triples](EserciziClasse/)
