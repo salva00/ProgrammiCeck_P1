@@ -1,0 +1,32 @@
+10101
+United States
+International Shipping Company
+4
+1212
+13.2
+1001
+0
+1213
+14.5
+1002.0
+0
+1214
+15.5
+1003.0
+0
+1215
+16.5
+1004.0
+1
+10102
+Canada
+Canadian shipment
+2
+1833
+10.3
+1000
+0
+1832
+8.2
+2500
+0

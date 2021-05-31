@@ -70,6 +70,8 @@ public:
 	// return iterator to begin
 	Iterator end(size_t = 1) const;
 	// return iterator to end after #1 laps
+	void clear();
+	// removes every element in list
 };
 
 
@@ -148,6 +150,13 @@ CLinkedList<T>::~CLinkedList() {
 	}
 }
 
+template<typename T>
+void CLinkedList<T>::clear() {
+	this->~CLinkedList();
+	cur = nullptr;
+	n = 0;
+	return;
+}
 
 template<typename T>
 bool CLinkedList<T>::empty() const {return cur == nullptr;}
@@ -192,6 +201,7 @@ template<typename T>
 void CLinkedList<T>::pop_front() {
 	if(empty()) throw std::runtime_error("LinkedList is empty");
 	if(n == 1) {
+		cur->next = nullptr;
 		delete cur;
 		cur = nullptr;
 	} else {

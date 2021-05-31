@@ -24,7 +24,7 @@ public:
 	class Iterator {
 		friend class BinarySearchTree;
 		private:
-		Iterator(Node*);
+		Iterator(Node* = nullptr);
 		Node* point;
 		public:
 		using iterator_category = std::bidirectional_iterator_tag;
@@ -42,6 +42,7 @@ public:
 		// jumps to predecessor
 		bool operator==(const Iterator&) const;
 		bool operator!=(const Iterator&) const;
+		operator bool() const;
 	};
 protected:
 	void preorderCopy(Node*, Node*, const BinarySearchTree<T>* const);
@@ -175,6 +176,11 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::Iterator::operator--
 	Iterator temp = *this;
 	this->operator--();
 	return temp;
+}
+
+template<typename T>
+BinarySearchTree<T>::Iterator::operator bool() const {
+	return point != nullptr;
 }
 
 // BinarySearchTree //
@@ -324,7 +330,7 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::search(const T& val)
 		if(*it < val) it.point = it.point->rchild;
 		else it.point = it.point->lchild;
 	}
-	throw std::runtime_error("Search failed");
+	it.point = nullptr;
 	return it;
 }
 
@@ -396,7 +402,7 @@ void BinarySearchTree<T>::remove(Node* ptr) {
 	// if(replace != ptr) {
 	// 	replacenode(replace,ptr);
 	// }
-	std::cout << ptr->value << '\n';
+	// std::cout << ptr->value << '\n';
 	if(ptr == min) min = successor(ptr);
 	if(ptr == max) max = predecessor(ptr);
 	if(ptr->lchild != nullptr && ptr->rchild != nullptr) {
@@ -446,7 +452,10 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::remove(const Iterato
 
 template<typename T>
 void BinarySearchTree<T>::remove(const T& val) {
-	remove(search(val));
+	Iterator it = search(val);
+	if(it->point != nullptr) remove(it);
+	else throw std::runtime_error("Search failed");
+	return;
 }
 
 template<typename T>
