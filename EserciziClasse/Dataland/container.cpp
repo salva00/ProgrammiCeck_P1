@@ -10,7 +10,7 @@ Box::Box(int id, double wgt, double val, bool per) {
 		setPerishable(per);
 	}
 
-double Box::getBoxid() const {return this->box_id;}
+int Box::getBoxid() const {return this->box_id;}
 void Box::setBoxid(int id) {
 	if(id < 0) throw std::invalid_argument("Box id must be greater than zero");
 	else box_id = id;

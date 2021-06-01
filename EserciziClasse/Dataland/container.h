@@ -12,7 +12,7 @@ private:
 	bool perishable;
 public:
 	Box(int = 0, double = 0, double = 0, bool = 0);
-	double getBoxid() const;
+	int getBoxid() const;
 	void setBoxid(int);
 	double getWeight() const;
 	void setWeight(double);

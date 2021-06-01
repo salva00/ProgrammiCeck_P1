@@ -12,7 +12,7 @@ private:
 	std::string perishable;
 public:
 	Box(int = 0, double = 0, double = 0, std::string = "2121/12/31");
-	double getBoxid() const;
+	int getBoxid() const;
 	void setBoxid(int);
 	double getWeight() const;
 	void setWeight(double);
@@ -21,6 +21,7 @@ public:
 	std::string getPerishable() const;
 	void setPerishable(std::string);
 	bool operator<(const Box&) const;
+	// bool operator<=(const Box&) const;
 	bool operator==(const Box&) const;
 	bool operator!=(const Box&) const;
 	void print() const; // DEBUG
@@ -36,14 +37,15 @@ public:
 	void setId(int);
 };
 
-class Container : public mystl::BinarySearchTree<Box> {
+class Container {
 private:
 	int id_container;
 	std::string state_orig;
 	std::string id_carrier;
 public:
+	mystl::BinarySearchTree<Box> elements;
+	using Iterator = mystl::BinarySearchTree<Box>::Iterator;
 	Container(int = 0, std::string = "-", std::string = "-");
-
 	int getId() const;
 	void setId(int);
 	std::string getOrigin() const;
@@ -51,8 +53,13 @@ public:
 	std::string getCarrier() const;
 	void setCarrier(std::string);
 	bool operator<(const Container&) const;
-
+	void push(const Box&);
+	Iterator begin() const;
+	Iterator end() const;
+	Iterator rbegin() const;
+	Iterator rend() const;
 	void print() const; //DEBUG
+	void clear();
 };
 
 #endif

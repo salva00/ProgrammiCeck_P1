@@ -47,9 +47,9 @@ bool readLine<bool>(std::ifstream& file) {
 double getTotalWeight(const Container& cont) {
 	double res{0};
 	// for(Box b : cont) res += b.getWeight();
-	std::cout << "\ncont size: " << cont.size() << '\n';
-	std::cout << "min: " << cont.getMin().getBoxid() << "max: " << cont.getMax().getBoxid() << '\n';
-	for(Container::Iterator i = cont.begin(); i != cont.end(); ++i) {
+	std::cout << "\ncont size: " << cont.elements.size() << '\n';
+	std::cout << "min: " << cont.elements.getMin().getBoxid() << "max: " << cont.elements.getMax().getBoxid() << '\n';
+	for(Container::Iterator i = cont.elements.begin(); i != cont.elements.end(); ++i) {
 		std::cout << "adding " << i->getWeight() << '\n';
 		res += i->getWeight();
 	}
@@ -120,14 +120,15 @@ void Customs::append_from(std::string filename) {
 		} catch(unfinished_load& exc) {
 			break;
 		}
-		contVal = getTotalValue(cont);
-		while((contVal > max_value) && (!cont.empty())) {
-			contVal -= cont.begin()->getValue();
-			std::cout << "removing:\n";
-			cont.begin()->print();
-			storage.push_front(StoredBox(*cont.begin(),cont.getId()));
-			cont.remove(cont.begin());
-		}
+		// contVal = getTotalValue(cont);
+		// while((contVal > max_value) && (!cont.empty())) {
+		// 	contVal -= cont.begin()->getValue();
+		// 	std::cout << "removing:\n";
+		// 	cont.begin()->print();
+		// 	storage.push_front(StoredBox(*cont.begin(),cont.getId()));
+		// 	cont.remove(cont.begin());
+		// }
+
 		// if(!cont.empty()) for(Container::Iterator prev = cont.begin(), it = prev+1;
 		// 		contVal > 0 && it != cont.end();) {
 		//
@@ -144,14 +145,18 @@ void Customs::append_from(std::string filename) {
 
 		std::cout << "\nPushing this container:\n";
 		cont.print();
+		std::cout << "contains " << cont.elements.size();
+		std::cout << "\nmin box: " << cont.elements.getMin().getBoxid();
+		std::cout << " max: " << cont.elements.getMax().getBoxid() << '\n';
 		this->push(cont);
+		std::cout << "w";
 		cont.clear();
 	}
 }
 
 void Customs::load_from(std::string filename) {
-	clear();
-	append_from(filename);
+	// clear();
+	// append_from(filename);
 	return;
 }
 

@@ -54,14 +54,28 @@ sulla base della data di scadenza.
 int main() {
 	Customs cstm;
 
+	Container ct;
+	ct.push({1,2,3,"2040/10/03"});
+	ct.push({2,3,3.6,"2030/09/13"});
+	ct.push({3,10,2,"2032/11/04"});
+	ct.print();
+
+	Container ct2{ct};
+	ct2.print();
+	// cstm.push(ct);
+
+	cstm.print();
+
+	return 0;
+
 	cstm.append_from("containers.txt");
 
 	std::cout << "Q\n";
-	while(!cstm.empty()) {
-		std::cout << cstm.size() << cstm.front().size() << '\n';
-		cstm.clearance();
-	}
-
+	// while(!cstm.empty()) {
+	// 	std::cout << cstm.size() << cstm.front().size() << '\n';
+	// 	cstm.clearance();
+	// }
+	cstm.front().print();
 	std::cout << "In storage:\n";
 	cstm.printStorage();
 

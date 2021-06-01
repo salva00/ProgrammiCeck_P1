@@ -218,6 +218,10 @@ BinarySearchTree<T>::BinarySearchTree(const BinarySearchTree<T>& rhs)
 		this->root = new Node(rhs.root->value);
 		preorderCopy(this->root, rhs.root->lchild, &rhs);
 		preorderCopy(this->root, rhs.root->rchild, &rhs);
+	} else {
+		this->root = nullptr;
+		min = nullptr;
+		max = nullptr;
 	}
 }
 
