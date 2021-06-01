@@ -2,7 +2,7 @@
 #ifndef BINARYSEARCHTREE_H
 #define BINARYSEARCHTREE_H
 
-// #include <iostream> // DEBUG
+#include <iostream> // DEBUG
 
 namespace mystl {
 
@@ -244,7 +244,8 @@ void BinarySearchTree<T>::push(const T& val) {
 	if(root == nullptr) {
 		root = new Node(val);
 		leaves = 1, ++n;
-		min = root, max = root;
+		min = root;
+		max = root;
 		return;
 	} else {
 		Node* ptr{root};
@@ -470,7 +471,7 @@ void BinarySearchTree<T>::clear() {
 
 template<typename T>
 typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::begin() const {
-	return (empty()? nullptr: Iterator(min));
+	return (empty()? Iterator(nullptr): Iterator(min));
 }
 
 template<typename T>
