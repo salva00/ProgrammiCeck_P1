@@ -35,6 +35,7 @@ public:
 		Iterator& operator++(int);
 		bool operator==(const Iterator&) const;
 		bool operator!=(const Iterator&) const;
+		Iterator operator+(int);
 	};
 private:
 	Node* head;
@@ -113,6 +114,14 @@ typename LinkedList<T>::Iterator& LinkedList<T>::Iterator::operator++(int) {
 	const Iterator& temp = *this;
 	this->point = point->next;
 	return temp;
+}
+
+template<typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::Iterator::operator+(int rhs) {
+	if(point == nullptr) throw std::runtime_error("Nullpointer exception. Reached list end");
+	Iterator res = *this;
+	while(rhs-- > 0) ++res;
+	return res;
 }
 
 template<typename T>

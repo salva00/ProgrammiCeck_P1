@@ -27,6 +27,8 @@ public:
 	// adds element at the queue
 	void dequeue();
 	// removes element from the queue
+	void clear();
+	// removes every element in queue
 };
 
 
@@ -52,6 +54,12 @@ template<typename T>
 const T& LinkedQueue<T>::back() const {return elems.back();}
 
 template<typename T>
+void LinkedQueue<T>::clear() {
+	elems.clear();
+	return;
+}
+
+template<typename T>
 void LinkedQueue<T>::enqueue(const T& val) {
 	elems.push_back(val);
 	return;
@@ -66,12 +74,3 @@ void LinkedQueue<T>::dequeue() {
 }//end namespace mystl
 
 #endif
-
-
-
-
-
-
-
-
-//

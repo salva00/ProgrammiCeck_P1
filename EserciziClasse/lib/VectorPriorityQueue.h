@@ -4,6 +4,9 @@
 
 #include <vector> // bad
 #include "HeapSort.h"
+// #include <iostream> //DEBUG
+
+namespace mystl {
 
 template<typename T>
 class VPriorityQueue {
@@ -13,19 +16,21 @@ public:
 	VPriorityQueue();
 	bool empty() const;
 	size_t size() const;
-	const T& top() const;
+	const T& front() const;
 	void push(const T&);
 	void pop();
-	void print();
+	void clear();
+	/*DEBUG*/
+	// void print();
 };
 
-#include<iostream>
-template<typename T>
-void VPriorityQueue<T>::print() {
-	if(empty()) throw std::runtime_error("empty");
-	for(auto i : elements) std::cout << i << ' ';
-	std::cout << '\n';
-}
+/*DEBUG*/
+// template<typename T>
+// void VPriorityQueue<T>::print() {
+// 	if(empty()) throw std::runtime_error("empty");
+// 	for(auto i : elements) std::cout << i << ' ';
+// 	std::cout << '\n';
+// }
 
 // VPriorityQueue //
 
@@ -43,9 +48,9 @@ size_t VPriorityQueue<T>::size() const {
 }
 
 template<typename T>
-const T& VPriorityQueue<T>::top() const {
+const T& VPriorityQueue<T>::front() const {
 	if(empty()) throw std::runtime_error("Queue empty");
-	return elements[0];
+	return *elements.begin();
 }
 
 template<typename T>
@@ -57,11 +62,20 @@ void VPriorityQueue<T>::push(const T& val) {
 
 template<typename T>
 void VPriorityQueue<T>::pop() {
+	if(empty()) throw std::runtime_error("Priority queue is empty");
 	std::iter_swap(elements.begin(),elements.rbegin());
 	elements.pop_back();
 	mysort::heapify(elements.begin(),elements.end(),elements.begin());
 	return;
 }
+
+template<typename T>
+void VPriorityQueue<T>::clear() {
+	elements.clear();
+	return;
+}
+
+}// end namespace mystl
 
 #endif
 

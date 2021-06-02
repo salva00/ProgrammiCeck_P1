@@ -3,11 +3,12 @@
 #define BINARYSEARCHTREE_H
 
 // #include <iostream> // DEBUG
+#include <iterator>
 
 namespace mystl {
 
 template<typename T>
-// T requires operator< and operator==
+// T requires operator<, operator== and operator!=
 class BinarySearchTree {
 private:
 	class Node {
@@ -24,7 +25,7 @@ public:
 	class Iterator {
 		friend class BinarySearchTree;
 		private:
-		Iterator(Node*);
+		Iterator(Node* = nullptr);
 		Node* point;
 		public:
 		using iterator_category = std::bidirectional_iterator_tag;
@@ -42,6 +43,7 @@ public:
 		// jumps to predecessor
 		bool operator==(const Iterator&) const;
 		bool operator!=(const Iterator&) const;
+		operator bool() const;
 	};
 protected:
 	void preorderCopy(Node*, Node*, const BinarySearchTree<T>* const);
@@ -177,6 +179,11 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::Iterator::operator--
 	return temp;
 }
 
+template<typename T>
+BinarySearchTree<T>::Iterator::operator bool() const {
+	return point != nullptr;
+}
+
 // BinarySearchTree //
 
 template<typename T>
@@ -196,8 +203,8 @@ void BinarySearchTree<T>::preorderCopy(Node* l_ptr, Node* r_ptr, const BinarySea
 			l_ptr->rchild = new Node(r_ptr->value, l_ptr);
 			l_ptr = l_ptr->rchild;
 		}
-		if(l_ptr == rhs->max) this->max = l_ptr;
-		if(l_ptr == rhs->min) this->min = l_ptr;
+		if(l_ptr->value == rhs->max->value) this->max = l_ptr;
+		if(l_ptr->value == rhs->min->value) this->min = l_ptr;
 		preorderCopy(l_ptr, r_ptr->lchild, rhs);
 		preorderCopy(l_ptr, r_ptr->rchild, rhs);
 	}
@@ -206,10 +213,12 @@ void BinarySearchTree<T>::preorderCopy(Node* l_ptr, Node* r_ptr, const BinarySea
 
 template<typename T>
 BinarySearchTree<T>::BinarySearchTree(const BinarySearchTree<T>& rhs)
-	: n{rhs.n}, leaves{rhs.leaves} {
+	: n{rhs.n}, leaves{rhs.leaves}, root{nullptr}, min{nullptr}, max{nullptr} {
 
 	if(!rhs.empty()) {
 		this->root = new Node(rhs.root->value);
+		if(root->value == rhs.max->value) max = root;
+		if(root->value == rhs.min->value) min = root;
 		preorderCopy(this->root, rhs.root->lchild, &rhs);
 		preorderCopy(this->root, rhs.root->rchild, &rhs);
 	}
@@ -230,7 +239,7 @@ BinarySearchTree<T>& BinarySearchTree<T>::operator=(const BinarySearchTree<T>& t
 
 template<typename T>
 BinarySearchTree<T>::~BinarySearchTree() {
-	delete root;
+	if(!empty()) delete root;
 }
 
 template<typename T>
@@ -324,7 +333,7 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::search(const T& val)
 		if(*it < val) it.point = it.point->rchild;
 		else it.point = it.point->lchild;
 	}
-	throw std::runtime_error("Search failed");
+	it.point = nullptr;
 	return it;
 }
 
@@ -396,7 +405,7 @@ void BinarySearchTree<T>::remove(Node* ptr) {
 	// if(replace != ptr) {
 	// 	replacenode(replace,ptr);
 	// }
-	std::cout << ptr->value << '\n';
+	// std::cout << ptr->value << '\n';
 	if(ptr == min) min = successor(ptr);
 	if(ptr == max) max = predecessor(ptr);
 	if(ptr->lchild != nullptr && ptr->rchild != nullptr) {
@@ -411,8 +420,7 @@ void BinarySearchTree<T>::remove(Node* ptr) {
 		if(ptr->parent != nullptr) {
 			if(ptr->parent->rchild != nullptr && ptr->parent->lchild != nullptr) --leaves;
 			(isLchild(ptr)? ptr->parent->lchild : ptr->parent->rchild) = nullptr;
-			}
-		else {
+		} else {
 			root = nullptr;
 			max = nullptr;
 			min = nullptr;
@@ -446,7 +454,10 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::remove(const Iterato
 
 template<typename T>
 void BinarySearchTree<T>::remove(const T& val) {
-	remove(search(val));
+	Iterator it = search(val);
+	if(it->point != nullptr) remove(it);
+	else throw std::runtime_error("Search failed");
+	return;
 }
 
 template<typename T>
@@ -461,7 +472,7 @@ void BinarySearchTree<T>::clear() {
 
 template<typename T>
 typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::begin() const {
-	return (empty()? nullptr: Iterator(min));
+	return (empty()? Iterator(nullptr): Iterator(min));
 }
 
 template<typename T>
