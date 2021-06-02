@@ -107,7 +107,7 @@ Lezione 14
 -
 - [X] [Doubly Linked List with iterators*](EserciziClasse/lib)
 
- Lezione 15
+Lezione 15
 -
 
 - [X] [PriorityQueue*](EserciziClasse/lib)
@@ -121,7 +121,24 @@ Lezione 17
 - [ ] [ImpiegatiBST](EserciziClasse/)
 - [X] [STLmapExample](EserciziClasse/STLmapExample)
 
-Strutture dati
+Esercizi
+-
+<details> <summary> Settimana 24/05/2021 - 29/05/2021 </summary>
+
+- [X] [1. Copy constructor per Linked List](EserciziClasse/lib)
+- [X] [2. Copy assignment per Linked List](EserciziClasse/lib)
+- [X] [3. Iterator per Circular Linked List](EserciziClasse/lib)
+- [X] [4. Separazione Linked List in posizioni pari/dispari](EserciziClasse/PariDispariLinkedList)
+</details>
+
+<details> <summary> Settimana 31/05/201 - 04/06/2021 </summary>
+
+- [X] [1. Dataland parte 1](EserciziClasse/Dataland)
+- [X] [2. Dataland parte 2](EserciziClasse/Dataland)  
+(traccia nella cartella apposita)
+</details>
+
+Strutture Dati
 -
 - [X] [Linked List (singly linked)](EserciziClasse/lib)
 - [X] [Doubly-Linked List](EserciziClasse/lib)
