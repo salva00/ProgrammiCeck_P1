@@ -50,40 +50,24 @@ sulla base della data di scadenza.
 #include "container.h"
 #include "customs.h"
 
-#include "..\lib\CircularLinkedList.h"
 int main() {
 	Customs cstm;
 
-	Container ct;
-	ct.push({1,2,3,"2040/10/03"});
-	ct.push({2,3,3.6,"2030/09/13"});
-	ct.push({3,10,2,"2032/11/04"});
-	ct.print();
+	cstm.load_from("containers.txt");
 
-	Container ct2{ct};
-	ct2.print();
-	// cstm.push(ct);
+	while(!cstm.empty()) {
+		// std::cout << cstm.size() << cstm.front().size() << '\n';
+		cstm.clearance();
+	}
 
-	cstm.print();
-
-	return 0;
-
-	cstm.append_from("containers.txt");
-
-	std::cout << "Q\n";
-	// while(!cstm.empty()) {
-	// 	std::cout << cstm.size() << cstm.front().size() << '\n';
-	// 	cstm.clearance();
-	// }
-	cstm.front().print();
-	std::cout << "In storage:\n";
+	std::cout << "\nIn storage:\n";
 	cstm.printStorage();
 
-	std::cout << "Removing storage from 1st container:\n";
+	std::cout << "\nRemoving storage from 10101 container:\n";
 	cstm.clearence_excess(10101);
 	cstm.printStorage();
 
-	std::cout << "ended";
+	std::cout << "\nEnded";
 	getchar();
 	return 0;
 }

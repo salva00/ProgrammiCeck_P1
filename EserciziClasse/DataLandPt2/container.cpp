@@ -10,6 +10,9 @@ Box::Box(int id, double wgt, double val, std::string per) {
 		setPerishable(per);
 	}
 
+Box::Box(const Box& b) : box_id{b.box_id}, weight{b.weight}, value{b.value},
+	perishable{b.perishable} {}
+
 int Box::getBoxid() const {return this->box_id;}
 void Box::setBoxid(int id) {
 	if(id < 0) throw std::invalid_argument("Box id must be greater than zero");
@@ -42,6 +45,7 @@ void Box::setPerishable(std::string per) {
 bool Box::operator<(const Box& rhs) const {
 	// rhs is greater if deteriorates later
 	return this->perishable < rhs.perishable;
+
 }
 
 // bool Box::operator<=(const Box& rhs) const {
@@ -86,7 +90,10 @@ void StoredBox::setId(int id) {
 // Container //
 
 Container::Container(int id, std::string orig, std::string carrier) :
-	elements{}, id_container{id}, state_orig{orig}, id_carrier{carrier} {}
+	BinarySearchTree(), id_container{id}, state_orig{orig}, id_carrier{carrier} {}
+
+Container::Container(const Container& c) : BinarySearchTree{c},
+	id_container{c.id_container}, state_orig{c.state_orig}, id_carrier{c.id_carrier} {}
 
 int Container::getId() const {return id_container;}
 void Container::setId(int id) {
@@ -103,52 +110,20 @@ void Container::setCarrier(std::string carr) {id_carrier = carr;}
 bool Container::operator<(const Container& rhs) const {
 	// rhs is greater if deteriorates earlier
 	bool res;
-	std::cout << "u\n";
-	this->print();
-	std::cout << "-\n";
-	rhs.print();
-	if(rhs.elements.empty()) res = false;
-	else if(this->elements.empty()) res = true;
-	else res = rhs.elements.getMin() < this->elements.getMin();
-	std::cout << "u!\n";
+	if(rhs.empty()) res = false;
+	else if(this->empty()) res = true;
+	else res = rhs.getMin() < this->getMin();
 	return res;
 }
 
 void Container::print() const {
 	std::cout << id_container << ' ' << state_orig << ' ' << id_carrier << '\n';
-	if(elements.empty()) std::cout << "Empty cargo\n";
-	else for(auto it = this->elements.begin(); it != this->elements.end(); ++it) {
+	if(empty()) std::cout << "Empty cargo\n";
+	else for(auto it = this->begin(); it != this->end(); ++it) {
 		it->print();
 	}
 	return;
 }
-
-void Container::push(const Box& b) {
-	elements.push(b);
-	return;
-}
-
-typename Container::Iterator Container::begin() const {
-	return elements.begin();
-}
-
-typename Container::Iterator Container::end() const {
-	return elements.end();
-}
-
-typename Container::Iterator Container::rbegin() const {
-	return elements.rbegin();
-}
-
-typename Container::Iterator Container::rend() const {
-	return elements.rend();
-}
-
-void Container::clear() {
-	elements.clear();
-	return;
-}
-
 
 
 

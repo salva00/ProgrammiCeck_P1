@@ -2,12 +2,13 @@
 #ifndef BINARYSEARCHTREE_H
 #define BINARYSEARCHTREE_H
 
-#include <iostream> // DEBUG
+// #include <iostream> // DEBUG
+#include <iterator>
 
 namespace mystl {
 
 template<typename T>
-// T requires operator< and operator==
+// T requires operator<, operator== and operator!=
 class BinarySearchTree {
 private:
 	class Node {
@@ -202,8 +203,8 @@ void BinarySearchTree<T>::preorderCopy(Node* l_ptr, Node* r_ptr, const BinarySea
 			l_ptr->rchild = new Node(r_ptr->value, l_ptr);
 			l_ptr = l_ptr->rchild;
 		}
-		if(l_ptr == rhs->max) this->max = l_ptr;
-		if(l_ptr == rhs->min) this->min = l_ptr;
+		if(l_ptr->value == rhs->max->value) this->max = l_ptr;
+		if(l_ptr->value == rhs->min->value) this->min = l_ptr;
 		preorderCopy(l_ptr, r_ptr->lchild, rhs);
 		preorderCopy(l_ptr, r_ptr->rchild, rhs);
 	}
@@ -212,16 +213,14 @@ void BinarySearchTree<T>::preorderCopy(Node* l_ptr, Node* r_ptr, const BinarySea
 
 template<typename T>
 BinarySearchTree<T>::BinarySearchTree(const BinarySearchTree<T>& rhs)
-	: n{rhs.n}, leaves{rhs.leaves} {
+	: n{rhs.n}, leaves{rhs.leaves}, root{nullptr}, min{nullptr}, max{nullptr} {
 
 	if(!rhs.empty()) {
 		this->root = new Node(rhs.root->value);
+		if(root->value == rhs.max->value) max = root;
+		if(root->value == rhs.min->value) min = root;
 		preorderCopy(this->root, rhs.root->lchild, &rhs);
 		preorderCopy(this->root, rhs.root->rchild, &rhs);
-	} else {
-		this->root = nullptr;
-		min = nullptr;
-		max = nullptr;
 	}
 }
 
@@ -240,7 +239,7 @@ BinarySearchTree<T>& BinarySearchTree<T>::operator=(const BinarySearchTree<T>& t
 
 template<typename T>
 BinarySearchTree<T>::~BinarySearchTree() {
-	delete root;
+	if(!empty()) delete root;
 }
 
 template<typename T>
@@ -248,8 +247,7 @@ void BinarySearchTree<T>::push(const T& val) {
 	if(root == nullptr) {
 		root = new Node(val);
 		leaves = 1, ++n;
-		min = root;
-		max = root;
+		min = root, max = root;
 		return;
 	} else {
 		Node* ptr{root};
@@ -422,8 +420,7 @@ void BinarySearchTree<T>::remove(Node* ptr) {
 		if(ptr->parent != nullptr) {
 			if(ptr->parent->rchild != nullptr && ptr->parent->lchild != nullptr) --leaves;
 			(isLchild(ptr)? ptr->parent->lchild : ptr->parent->rchild) = nullptr;
-			}
-		else {
+		} else {
 			root = nullptr;
 			max = nullptr;
 			min = nullptr;

@@ -4,6 +4,7 @@
 
 #include <vector> // bad
 #include "HeapSort.h"
+// #include <iostream> //DEBUG
 
 namespace mystl {
 
@@ -18,17 +19,18 @@ public:
 	const T& front() const;
 	void push(const T&);
 	void pop();
-	void print();
 	void clear();
+	/*DEBUG*/
+	// void print();
 };
 
-#include<iostream>
-template<typename T>
-void VPriorityQueue<T>::print() {
-	if(empty()) throw std::runtime_error("empty");
-	for(auto i : elements) std::cout << i << ' ';
-	std::cout << '\n';
-}
+/*DEBUG*/
+// template<typename T>
+// void VPriorityQueue<T>::print() {
+// 	if(empty()) throw std::runtime_error("empty");
+// 	for(auto i : elements) std::cout << i << ' ';
+// 	std::cout << '\n';
+// }
 
 // VPriorityQueue //
 
@@ -60,6 +62,7 @@ void VPriorityQueue<T>::push(const T& val) {
 
 template<typename T>
 void VPriorityQueue<T>::pop() {
+	if(empty()) throw std::runtime_error("Priority queue is empty");
 	std::iter_swap(elements.begin(),elements.rbegin());
 	elements.pop_back();
 	mysort::heapify(elements.begin(),elements.end(),elements.begin());

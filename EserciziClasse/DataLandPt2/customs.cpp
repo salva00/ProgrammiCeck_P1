@@ -46,14 +46,7 @@ bool readLine<bool>(std::ifstream& file) {
 
 double getTotalWeight(const Container& cont) {
 	double res{0};
-	// for(Box b : cont) res += b.getWeight();
-	std::cout << "\ncont size: " << cont.elements.size() << '\n';
-	std::cout << "min: " << cont.elements.getMin().getBoxid() << "max: " << cont.elements.getMax().getBoxid() << '\n';
-	for(Container::Iterator i = cont.elements.begin(); i != cont.elements.end(); ++i) {
-		std::cout << "adding " << i->getWeight() << '\n';
-		res += i->getWeight();
-	}
-	std::cout << "q";
+	for(Box b : cont) res += b.getWeight();
 	return res;
 }
 
@@ -80,8 +73,9 @@ void Customs::printStorage() const {
 		std::cout << std::left << std::setw(8) << "From " << b.getId() << " ~ "
 							<< std::setw(8) << b.getBoxid()
 							<< std::right << std::setw(6) << b.getWeight() << "kg "
-							<< std::setw(8) << b.getValue() << "$\n";
-	}
+							<< std::setw(8) << b.getValue() << "$ "
+							<< std::setw(12) << b.getPerishable() << '\n';
+}
 	return;
 }
 
@@ -112,51 +106,34 @@ void Customs::append_from(std::string filename) {
 				box.setWeight(readLine<double>(file)); // weight
 				box.setValue(readLine<double>(file)); // value
 				box.setPerishable(readLine<std::string>(file)); // perishable
-				std::cout << "adding box:\n";
-				box.print();
+				// std::cout << "adding box:\n";
+				// box.print();
 				cont.push(box);
 				--repeat;
 			}
 		} catch(unfinished_load& exc) {
 			break;
 		}
-		// contVal = getTotalValue(cont);
-		// while((contVal > max_value) && (!cont.empty())) {
-		// 	contVal -= cont.begin()->getValue();
-		// 	std::cout << "removing:\n";
-		// 	cont.begin()->print();
-		// 	storage.push_front(StoredBox(*cont.begin(),cont.getId()));
-		// 	cont.remove(cont.begin());
-		// }
+		contVal = getTotalValue(cont);
+		while((contVal > max_value) && (!cont.empty())) {
+			contVal -= cont.begin()->getValue();
+			// std::cout << "removing:\n";
+			// cont.begin()->print();
+			storage.push_front(StoredBox(*cont.begin(),cont.getId()));
+			cont.remove(cont.begin());
+		}
 
-		// if(!cont.empty()) for(Container::Iterator prev = cont.begin(), it = prev+1;
-		// 		contVal > 0 && it != cont.end();) {
-		//
-		// 	if(it->getPerishable() == false) {
-		// 		contVal -= it->getValue();
-		// 		storage.push_front(StoredBox(*it,cont.getId()));
-		// 		cont.erase_after(prev);
-		// 		it = prev + 1;
-		// 		if(it == cont.end()) break;
-		// 	} else {
-		// 		++prev, ++it;
-		// 	}
-		// }
-
-		std::cout << "\nPushing this container:\n";
-		cont.print();
-		std::cout << "contains " << cont.elements.size();
-		std::cout << "\nmin box: " << cont.elements.getMin().getBoxid();
-		std::cout << " max: " << cont.elements.getMax().getBoxid() << '\n';
+		// std::cout << "\nPushing this container:\n";
+		// cont.print();
+		// std::cout << "contains " << cont.size() << '\n';
 		this->push(cont);
-		std::cout << "w";
 		cont.clear();
 	}
 }
 
 void Customs::load_from(std::string filename) {
-	// clear();
-	// append_from(filename);
+	clear();
+	append_from(filename);
 	return;
 }
 
