@@ -2,7 +2,7 @@
 #ifndef VECTOR_PRIORITY_QUEUE_H
 #define VECTOR_PRIORITY_QUEUE_H
 
-#include <vector> // bad
+#include <vector>
 #include "HeapSort.h"
 // #include <iostream> //DEBUG
 
