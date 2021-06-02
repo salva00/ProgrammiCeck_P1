@@ -134,7 +134,7 @@ Esercizi
 <details> <summary> Settimana 31/05/201 - 04/06/2021 </summary>
 
 - [X] [1. Dataland parte 1](EserciziClasse/Dataland)
-- [X] [2. Dataland parte 2](EserciziClasse/Dataland)  
+- [X] [2. Dataland parte 2](EserciziClasse/DatalandPt2)\
 (traccia nella cartella apposita)
 </details>
 
