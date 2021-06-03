@@ -455,7 +455,7 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::remove(const Iterato
 template<typename T>
 void BinarySearchTree<T>::remove(const T& val) {
 	Iterator it = search(val);
-	if(it->point != nullptr) remove(it);
+	if(it.point != nullptr) remove(it);
 	else throw std::runtime_error("Search failed");
 	return;
 }
