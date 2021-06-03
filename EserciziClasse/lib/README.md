@@ -23,5 +23,5 @@
 * <b>STDSort:</b> 1.000 <h35979>
 * <b>MyQuickSort:</b> 1.355 <h44674>
 * <b>MyMergeSort:</b> 2.174 <h71709>
-* <b>MyBubbleSort:</b> 619.11 <h30338>
+* <b>MyBubbleSort:</b> 19.11 <h30338>
 * <b>MyInsertionSort:</b> 14.453 <h46858>
