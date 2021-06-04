@@ -18,7 +18,7 @@ Lezione 2
 
 Lezione 3
 -
- - [ ] [Student*](EserciziClasse/)
+ - [ ] [Student*](EserciziClasse/Student)
  - [ ] [Min/Max number of a sequence](EserciziClasse/)
  - [X] [Palindrome](EserciziClasse/RecPalindromo)
  - [X] [Base-10 to Binary](EserciziClasse/Dec2Bin)
