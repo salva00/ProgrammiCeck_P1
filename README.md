@@ -4,7 +4,7 @@ _30 politico o gli impianto i capelli_
 Cose Utili per l'esame
 -
  - [Heap Algorithms](EserciziClasse/HeapAlgorithms)
- - [X] [Celsius-Farenheit conversion](EserciziClasse/C-F_converter)
+ 
 
 Lezione 1
 -
