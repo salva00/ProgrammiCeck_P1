@@ -2,7 +2,7 @@
 #ifndef CIRCULARLINKEDLIST_H
 #define CIRCULARLINKEDLIST_H
 
-#include <stdexcept>
+#include <iterator>
 
 namespace mystl {
 
@@ -38,6 +38,7 @@ public:
 		bool operator==(const Iterator&) const;
 		bool operator!=(const Iterator&) const;
 		size_t getLap() const;
+		operator bool() const;
 	};
 private:
 	Node* cur;
@@ -130,6 +131,11 @@ bool CLinkedList<T>::Iterator::operator!=(const Iterator& rhs) const {
 
 template<typename T>
 size_t CLinkedList<T>::Iterator::getLap() const {return lap;}
+
+template<typename T>
+CLinkedList<T>::Iterator::operator bool() const {
+	return point != nullptr;
+}
 
 // CLinkedList //
 

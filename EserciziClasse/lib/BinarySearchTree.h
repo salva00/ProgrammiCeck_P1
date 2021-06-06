@@ -8,7 +8,7 @@
 namespace mystl {
 
 template<typename T>
-// T requires operator<, operator== and operator!=
+// T requires operator< and operator==
 class BinarySearchTree {
 private:
 	class Node {
@@ -21,7 +21,7 @@ private:
 		Node(T, Node* = nullptr, Node* = nullptr, Node* = nullptr);
 		~Node();
 	};
-public:
+protected:
 	class Iterator {
 		friend class BinarySearchTree;
 		private:
@@ -45,14 +45,38 @@ public:
 		bool operator!=(const Iterator&) const;
 		operator bool() const;
 	};
+public:
+	class ConstIterator {
+		friend class BinarySearchTree;
+		private:
+		ConstIterator(Node* = nullptr);
+		Node const* point;
+		public:
+		using iterator_category = std::bidirectional_iterator_tag;
+		using difference_type = std::ptrdiff_t;
+		using value_type = const T;
+		using pointer = T const*;
+		using reference = T const&;
+		T const& operator*() const;
+		T const* operator->() const;
+		ConstIterator& operator++();
+		ConstIterator operator++(int);
+		// jumps to successor
+		ConstIterator& operator--();
+		ConstIterator operator--(int);
+		// jumps to predecessor
+		bool operator==(const ConstIterator&) const;
+		bool operator!=(const ConstIterator&) const;
+		operator bool() const;
+	};
 protected:
 	void preorderCopy(Node*, Node*, const BinarySearchTree<T>* const);
 	// user by copy constructor
 	void remove(Node*);
 	// used by remove(iterator) and remove(T)
-	static Node* successor(Node*);
+	static Node* successor(Node const*);
 	// used for iteration
-	static Node* predecessor(Node*);
+	static Node* predecessor(Node const*);
 	// used for iteration
 	Node* replacenode(Node*, Node*);
 	// replace #1 with #2, does not detach #2 !!!
@@ -60,9 +84,17 @@ protected:
 	// nullptr exception if #1 is root
 	void unsafeDel(Node*);
 	// detach node, then delete
-	Node* balance(Node**,size_t,size_t);
+	Node* balance(Node**, size_t, size_t);
 	void balance();
 	// rearrange nodes in unbalanced tree
+	Iterator begin() const;
+	// returns iterator to begin (minimum element)
+	Iterator end() const;
+	// returns iterator after end (maximum)
+	Iterator rbegin() const;
+	// returns iterator to end (maximum)
+	Iterator rend() const;
+	// return iterator before begin (minimum)
 private:
 	Node* root;
 	// root of the tree
@@ -103,14 +135,14 @@ public:
 	// removes node pointed by iterator
 	void clear();
 	// deletes all nodes
-	Iterator begin() const;
-	// returns iterator to begin (minimum element)
-	Iterator end() const;
-	// returns iterator after end (maximum)
-	Iterator rbegin() const;
-	// returns iterator to end (maximum)
-	Iterator rend() const;
-	// return iterator before begin (minimum)
+	ConstIterator cbegin() const;
+	// returns const iterator to begin (minimum element)
+	ConstIterator cend() const;
+	// returns const iterator after end (maximum)
+	ConstIterator crbegin() const;
+	// returns const iterator to end (maximum)
+	ConstIterator crend() const;
+	// returns const iterator before begin (minimum)
 	// N.B. iterating begin->end is O(n)
 
 	// DEBUG - remember to uncomment implementation and dependencies
@@ -184,6 +216,58 @@ BinarySearchTree<T>::Iterator::operator bool() const {
 	return point != nullptr;
 }
 
+// Const Iterator //
+
+template<typename T>
+BinarySearchTree<T>::ConstIterator::ConstIterator(Node* p) : point{p} {}
+
+template<typename T>
+T const& BinarySearchTree<T>::ConstIterator::operator*() const {return point->value;}
+
+template<typename T>
+T const* BinarySearchTree<T>::ConstIterator::operator->() const {return &point->value;}
+
+template<typename T>
+bool BinarySearchTree<T>::ConstIterator::operator==(const ConstIterator& rhs) const {
+	return this->point == rhs.point;
+}
+
+template<typename T>
+bool BinarySearchTree<T>::ConstIterator::operator!=(const ConstIterator& rhs) const {
+	return this->point != rhs.point;
+}
+
+template<typename T>
+typename BinarySearchTree<T>::ConstIterator& BinarySearchTree<T>::ConstIterator::operator++() {
+	point = BinarySearchTree<T>::successor(point);
+	return *this;
+}
+
+template<typename T>
+typename BinarySearchTree<T>::ConstIterator BinarySearchTree<T>::ConstIterator::operator++(int) {
+	ConstIterator temp = *this;
+	this->operator++();
+	return temp;
+}
+
+template<typename T>
+typename BinarySearchTree<T>::ConstIterator& BinarySearchTree<T>::ConstIterator::operator--() {
+	point = BinarySearchTree<T>::predecessor(point);
+	return *this;
+}
+
+template<typename T>
+typename BinarySearchTree<T>::ConstIterator BinarySearchTree<T>::ConstIterator::operator--(int) {
+	ConstIterator temp = *this;
+	this->operator--();
+	return temp;
+}
+
+template<typename T>
+BinarySearchTree<T>::ConstIterator::operator bool() const {
+	return point != nullptr;
+}
+
 // BinarySearchTree //
 
 template<typename T>
@@ -193,7 +277,7 @@ template<typename T>
 void BinarySearchTree<T>::preorderCopy(Node* l_ptr, Node* r_ptr, const BinarySearchTree<T>* const rhs) {
 	if(r_ptr != nullptr) {
 		// this->print();
-		while(l_ptr->value != r_ptr->parent->value) {
+		while(!(l_ptr->value == r_ptr->parent->value)) {
 			l_ptr = l_ptr->parent;
 		}
 		if(isLchild(r_ptr)) {
@@ -338,7 +422,7 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::search(const T& val)
 }
 
 template<typename T>
-typename BinarySearchTree<T>::Node* BinarySearchTree<T>::successor(Node* ptr) {
+typename BinarySearchTree<T>::Node* BinarySearchTree<T>::successor(Node const* ptr) {
 	if(ptr->rchild != nullptr) {
 		ptr = ptr->rchild;
 		while(ptr->lchild != nullptr) {
@@ -352,11 +436,11 @@ typename BinarySearchTree<T>::Node* BinarySearchTree<T>::successor(Node* ptr) {
 		}
 		ptr = par;
 	}
-	return ptr;
+	return const_cast<Node*>(ptr);
 }
 
 template<typename T>
-typename BinarySearchTree<T>::Node* BinarySearchTree<T>::predecessor(Node* ptr) {
+typename BinarySearchTree<T>::Node* BinarySearchTree<T>::predecessor(Node const* ptr) {
 	if(ptr->lchild != nullptr) {
 		ptr = ptr->lchild;
 		while(ptr->rchild != nullptr) {
@@ -370,7 +454,7 @@ typename BinarySearchTree<T>::Node* BinarySearchTree<T>::predecessor(Node* ptr) 
 		}
 		ptr = par;
 	}
-	return ptr;
+	return const_cast<Node*>(ptr);
 }
 
 template<typename T>
@@ -488,6 +572,26 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::rbegin() const {
 template<typename T>
 typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::rend() const {
 	return Iterator(nullptr);
+}
+
+template<typename T>
+typename BinarySearchTree<T>::ConstIterator BinarySearchTree<T>::cbegin() const {
+	return (empty()? ConstIterator(nullptr): ConstIterator(min));
+}
+
+template<typename T>
+typename BinarySearchTree<T>::ConstIterator BinarySearchTree<T>::cend() const {
+	return ConstIterator(nullptr);
+}
+
+template<typename T>
+typename BinarySearchTree<T>::ConstIterator BinarySearchTree<T>::crbegin() const {
+	return ConstIterator(max);
+}
+
+template<typename T>
+typename BinarySearchTree<T>::ConstIterator BinarySearchTree<T>::crend() const {
+	return ConstIterator(nullptr);
 }
 
 template<typename T>

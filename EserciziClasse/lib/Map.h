@@ -6,30 +6,38 @@
 
 namespace mystl {
 
+template<typename K, typename T> class Map;
+
+template<typename K, typename T>
+class Entry {
+	friend class Map<K,T>;
+protected:
+	Entry(const K, const T = T());
+public:
+	K key;
+	T value;
+	bool operator<(const Entry&) const;
+	bool operator==(const Entry&) const;
+};
+
 template<typename K, typename T>
 // K requires operator< and operator==
-class Map {
+class Map : private BinarySearchTree<Entry<K,T>> {
 private:
-	class Entry {
-		friend class Map;
-	private:
-		Entry(K, T = T());
-	public:
-		K key;
-		T value;
-		bool operator<(const Entry&) const;
-		bool operator==(const Entry&) const;
-	};
-using Iterator = typename BinarySearchTree<Entry>::Iterator;
-private:
-	BinarySearchTree<Entry> elements;
+	using Container = BinarySearchTree<Entry<K,T>>;
 public:
+	using Iterator = typename Container::Iterator;
+	using ConstIterator = typename Container::ConstIterator;
+
+	//
 	Map();
+	Map(const Map&);
+	~Map();
 	// default constructor
 	bool empty() const;
 	// returns true if empty
 	size_t size() const;
-	// returns size
+	// // returns size
 	const T& at(const K&) const;
 	// access elements
 	void insert(const K&, const T&);
@@ -38,8 +46,6 @@ public:
 	// access elements/ create new element
 	void erase(const K&);
 	// delete element with key #1
-	void swap(const Iterator&, const Iterator&);
-	// swap elements with key #1 and #2
 	void clear() const;
 	// delete all entries
 	Iterator find(const K&) const;
@@ -52,6 +58,16 @@ public:
 	// return iterator to reverse begin
 	Iterator rend() const;
 	// return iteratro to rever end
+	ConstIterator cbegin() const;
+	// return const iterator to begin
+	ConstIterator cend() const;
+	// return const iterator to end
+	ConstIterator crbegin() const;
+	// return const iterator to reverse begin
+	ConstIterator crend() const;
+	// return const iteratro to rever end
+	void clear();
+	// deletes all stored data
 };
 
 
@@ -59,88 +75,119 @@ public:
 // Entry //
 
 template<typename K, typename T>
-Map<K,T>::Entry::Entry(K k, T val) : key{k}, value{val} {}
+Entry<K,T>::Entry(const K k, const T val) : key{k}, value{val} {}
 
 template<typename K, typename T>
-bool Map<K,T>::Entry::operator<(const Entry& rhs) const {
+bool Entry<K,T>::operator<(const Entry& rhs) const {
 	return this->key < rhs.key;
 }
 
 template<typename K, typename T>
-bool Map<K,T>::Entry::operator==(const Entry& rhs) const {
+bool Entry<K,T>::operator==(const Entry& rhs) const {
 	return this->key == rhs.key;
 }
 
 // Map //
 
 template<typename K, typename T>
-Map<K,T>::Map() : elements{} {}
+Map<K,T>::Map() : Container::BinarySearchTree() {}
 
 template<typename K, typename T>
-bool Map<K,T>::empty() const {return elements.empty();}
+Map<K,T>::Map(const Map& map) : Container::BinarySearchTree(map) {}
 
 template<typename K, typename T>
-size_t Map<K,T>::size() const {return elements.size();}
+Map<K,T>::~Map() {
+	Container::~BinarySearchTree();
+}
+
+template<typename K, typename T>
+bool Map<K,T>::empty() const {
+	return Container::empty();
+}
+
+template<typename K, typename T>
+size_t Map<K,T>::size() const {
+	return Container::size();
+}
+
 
 template<typename K, typename T>
 T& Map<K,T>::operator[](const K& key) {
-	Iterator it = elements.search(Entry(key));
+	Iterator it = Container::search(Entry<K,T>(key));
 	if(!it) {
 		insert(key,T());
-		it = elements.search(Entry(key));
+		it = Container::search(Entry<K,T>(key));
 	}
 	return it->value;
 }
 
 template<typename K, typename T>
 void Map<K,T>::insert(const K& key, const T& value) {
-	elements.push(Entry(key,value));
+	Container::push(Entry<K,T>(key,value));
 	return;
 }
 
 template<typename K, typename T>
 void Map<K,T>::erase(const K& key) {
-	elements.remove(Entry(key));
-	return;
-}
-
-template<typename K, typename T>
-void Map<K,T>::swap(const Iterator& a, const Iterator& b) {
-	T temp = a->value;
-	a->value = b->value;
-	b->value = temp;
+	Container::remove(Entry<K,T>(key));
 	return;
 }
 
 template<typename K, typename T>
 void Map<K,T>::clear() const {
-	elements.clear();
+	Container::clear();
 	return;
 }
 
 template<typename K, typename T>
 typename Map<K,T>::Iterator Map<K,T>::find(const K& key) const {
-	return elements.search(Entry(key));
+	return Container::search(Entry<K,T>(key));
 }
 
 template<typename K, typename T>
 typename Map<K,T>::Iterator Map<K,T>::begin() const {
-	return elements.begin();
+	return Container::begin();
 }
 
 template<typename K, typename T>
 typename Map<K,T>::Iterator Map<K,T>::end() const {
-	return elements.end();
+	return Container::end();
 }
 
 template<typename K, typename T>
 typename Map<K,T>::Iterator Map<K,T>::rbegin() const {
-	return elements.rbegin();
+	return Container::rbegin();
 }
 
 template<typename K, typename T>
 typename Map<K,T>::Iterator Map<K,T>::rend() const {
-	return elements.rend();
+	return Container::rend();
+}
+
+template<typename K, typename T>
+typename Map<K,T>::ConstIterator Map<K,T>::cbegin() const {
+	return Container::cbegin();
+}
+
+template<typename K, typename T>
+typename Map<K,T>::ConstIterator Map<K,T>::cend() const {
+	return Container::cend();
+}
+
+template<typename K, typename T>
+typename Map<K,T>::ConstIterator Map<K,T>::crbegin() const {
+	return Container::crbegin();
+}
+
+template<typename K, typename T>
+typename Map<K,T>::ConstIterator Map<K,T>::crend() const {
+	return Container::crend();
+}
+
+template<typename K, typename T>
+void Map<K,T>::clear() {
+	Container::clear();
+	return;
 }
 
 }//end namespace mystl

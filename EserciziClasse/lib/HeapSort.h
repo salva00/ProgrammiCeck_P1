@@ -69,13 +69,13 @@ void mysort::heapify(const Iterator& begin, const Iterator& end, const Iterator&
 	// std::cout << 2*(target - begin) << "<=" << end - begin << " ~ ";
 	if(2*(target - begin + 1) <= (end - begin)) {
 		// std::cout << "###" <<  *lchild(begin,target) << "\n";
-		if(*target < *lchild(begin,target)) largest = lchild(begin,target);
+		if(*lchild(begin,target) > *target) largest = lchild(begin,target);
 	}
 
 	// std::cout << 2*(target - begin + 1) << "<" << end - begin << " ~ ";
 	if(2*(target - begin + 1) < (end - begin)) {
 		// std::cout << "###" <<  *rchild(begin,target) << '\n';
-		if(*largest < *rchild(begin,target)) largest = rchild(begin,target);
+		if(*rchild(begin,target) > *largest) largest = rchild(begin,target);
 	}
 	// std::cout << "target: " << *target << " ~ " << "largest: " << *largest << '\n';
 	if(largest != target) {

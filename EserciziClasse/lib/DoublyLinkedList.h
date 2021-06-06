@@ -2,7 +2,7 @@
 #ifndef DOUBLYLINKEDLIST_H
 #define DOUBLYLINKEDLIST_H
 
-#include <stdexcept>
+#include <iterator>
 
 namespace mystl {
 
@@ -41,6 +41,7 @@ public:
 		Iterator operator-(size_t) const;
 		bool operator==(const Iterator&) const;
 		bool operator!=(const Iterator&) const;
+		operator bool() const;
 	};
 private:
 	Node* head;
@@ -173,6 +174,11 @@ bool DLinkedList<T>::Iterator::operator==(const Iterator& rhs) const {
 template<typename T>
 bool DLinkedList<T>::Iterator::operator!=(const Iterator& rhs) const {
 	return this->point != rhs.point;
+}
+
+template<typename T>
+DLinkedList<T>::Iterator::operator bool() const {
+	return point != nullptr;
 }
 
 // DLinkedList //

@@ -2,7 +2,7 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-#include <stdexcept>
+#include <iterator>
 
 namespace mystl {
 
@@ -14,7 +14,7 @@ private:
 	private:
 		T value;
 		Node* next;
-		Node(T,Node* = nullptr);
+		Node(T, Node* = nullptr);
 		~Node();
 	};
 public:
@@ -36,6 +36,7 @@ public:
 		bool operator==(const Iterator&) const;
 		bool operator!=(const Iterator&) const;
 		Iterator operator+(int);
+		operator bool() const;
 	};
 private:
 	Node* head;
@@ -132,6 +133,11 @@ bool LinkedList<T>::Iterator::operator==(const Iterator& rhs) const {
 template<typename T>
 bool LinkedList<T>::Iterator::operator!=(const Iterator& rhs) const {
 	return this->point != rhs.point;
+}
+
+template<typename T>
+LinkedList<T>::Iterator::operator bool() const {
+	return point != nullptr;
 }
 
 // Linked List //
