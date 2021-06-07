@@ -27,25 +27,29 @@ private:
 	using Container = BinarySearchTree<Entry<K,T>>;
 public:
 	using Iterator = typename Container::Iterator;
-	using ConstIterator = typename Container::ConstIterator;
-
 	//
 	Map();
-	Map(const Map&);
-	~Map();
 	// default constructor
+	Map(const Map&);
+	// copy constructor
+	Map& operator=(const Map&);
+	// copy assignment
+	~Map() = default;
+	// destructor
 	bool empty() const;
 	// returns true if empty
 	size_t size() const;
 	// // returns size
 	const T& at(const K&) const;
 	// access elements
-	void insert(const K&, const T&);
+	Iterator insert(const K&, const T&);
 	// insert elments
 	T& operator[](const K&);
 	// access elements/ create new element
 	void erase(const K&);
 	// delete element with key #1
+	Iterator erase(const Iterator&);
+	// delete element pointed by iterator
 	void clear() const;
 	// delete all entries
 	Iterator find(const K&) const;
@@ -57,17 +61,10 @@ public:
 	Iterator rbegin() const;
 	// return iterator to reverse begin
 	Iterator rend() const;
-	// return iteratro to rever end
-	ConstIterator cbegin() const;
-	// return const iterator to begin
-	ConstIterator cend() const;
-	// return const iterator to end
-	ConstIterator crbegin() const;
-	// return const iterator to reverse begin
-	ConstIterator crend() const;
-	// return const iteratro to rever end
+	// return iterator to rever end
 	void clear();
 	// deletes all stored data
+
 };
 
 
@@ -96,8 +93,9 @@ template<typename K, typename T>
 Map<K,T>::Map(const Map& map) : Container::BinarySearchTree(map) {}
 
 template<typename K, typename T>
-Map<K,T>::~Map() {
-	Container::~BinarySearchTree();
+Map<K,T>& Map<K,T>::operator=(const Map& rhs) {
+	Container::operator=(rhs);
+	return *this;
 }
 
 template<typename K, typename T>
@@ -110,27 +108,37 @@ size_t Map<K,T>::size() const {
 	return Container::size();
 }
 
+template<typename K, typename T>
+const T& Map<K,T>::at(const K& key) const {
+	Iterator it = Container::find(Entry<K,T>(key));
+	if(!it) throw std::invalid_argument("Key cannot be found");
+	else return it->value;
+}
+
+template<typename K, typename T>
+typename Map<K,T>::Iterator Map<K,T>::insert(const K& key, const T& value) {
+	return Container::insert(Entry<K,T>(key,value));
+}
 
 template<typename K, typename T>
 T& Map<K,T>::operator[](const K& key) {
-	Iterator it = Container::search(Entry<K,T>(key));
+	Iterator it = Container::find(Entry<K,T>(key));
 	if(!it) {
 		insert(key,T());
-		it = Container::search(Entry<K,T>(key));
+		it = Container::find(Entry<K,T>(key));
 	}
 	return it->value;
 }
 
 template<typename K, typename T>
-void Map<K,T>::insert(const K& key, const T& value) {
-	Container::push(Entry<K,T>(key,value));
+void Map<K,T>::erase(const K& key) {
+	Container::erase(Entry<K,T>(key));
 	return;
 }
 
 template<typename K, typename T>
-void Map<K,T>::erase(const K& key) {
-	Container::remove(Entry<K,T>(key));
-	return;
+typename Map<K,T>::Iterator Map<K,T>::erase(const Iterator& it) {
+	return Container::erase(it);
 }
 
 template<typename K, typename T>
@@ -141,7 +149,7 @@ void Map<K,T>::clear() const {
 
 template<typename K, typename T>
 typename Map<K,T>::Iterator Map<K,T>::find(const K& key) const {
-	return Container::search(Entry<K,T>(key));
+	return Container::find(Entry<K,T>(key));
 }
 
 template<typename K, typename T>
@@ -162,26 +170,6 @@ typename Map<K,T>::Iterator Map<K,T>::rbegin() const {
 template<typename K, typename T>
 typename Map<K,T>::Iterator Map<K,T>::rend() const {
 	return Container::rend();
-}
-
-template<typename K, typename T>
-typename Map<K,T>::ConstIterator Map<K,T>::cbegin() const {
-	return Container::cbegin();
-}
-
-template<typename K, typename T>
-typename Map<K,T>::ConstIterator Map<K,T>::cend() const {
-	return Container::cend();
-}
-
-template<typename K, typename T>
-typename Map<K,T>::ConstIterator Map<K,T>::crbegin() const {
-	return Container::crbegin();
-}
-
-template<typename K, typename T>
-typename Map<K,T>::ConstIterator Map<K,T>::crend() const {
-	return Container::crend();
 }
 
 template<typename K, typename T>
