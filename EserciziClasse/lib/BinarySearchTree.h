@@ -31,10 +31,10 @@ protected:
 		using iterator_category = std::bidirectional_iterator_tag;
 		using difference_type = std::ptrdiff_t;
 		using value_type = const T;
-		using pointer = T const*;
-		using reference = T const&;
-		T const& operator*() const;
-		T const* operator->() const;
+		using pointer = T* const;
+		using reference = const T&;
+		const T& operator*() const;
+		T* const operator->() const;
 		Iterator& operator++();
 		Iterator operator++(int);
 		// jumps to successor
@@ -143,7 +143,7 @@ template<typename T>
 T const& BinarySearchTree<T>::Iterator::operator*() const {return point->value;}
 
 template<typename T>
-T const* BinarySearchTree<T>::Iterator::operator->() const {return &point->value;}
+T* const BinarySearchTree<T>::Iterator::operator->() const {return &point->value;}
 
 template<typename T>
 bool BinarySearchTree<T>::Iterator::operator==(const Iterator& rhs) const {
