@@ -40,13 +40,14 @@ public:
 	};
 private:
 	Node* head;
+	// first node with content
 	size_t n;
 	// number of nodes attached
 public:
 	LinkedList();
 	// default constructor: create empty list
 	LinkedList(size_t, const T& = T());
-	// creates a list with #1 elements of value #2
+	// create a list with #1 elements of value #2
 	LinkedList(const LinkedList&);
 	// copy constructor
 	LinkedList& operator=(const LinkedList&);
@@ -54,21 +55,21 @@ public:
 	~LinkedList();
 	// delete all nodes
 	bool empty() const;
-	// returns true if list is empty
+	// return true if list is empty
 	const T& front() const;
-	// returns first element
+	// return first element
 	void push_front(const T&);
-	// adds element at the beginning
+	// add element at the beginning
 	void pop_front();
-	// deletes first element
+	// delete first element
 	size_t size() const;
-	// returns number of elements stored
+	// return number of elements stored
 	Iterator begin() const;
-	// returns iterator to first element
+	// return iterator to first element
 	Iterator end() const;
-	// returns iterator to last element
+	// return iterator to last element
 	void erase_after(const Iterator&);
-	// erases element AFTER iterator
+	// erase element AFTER iterator
 	void insert_after(const Iterator&, const T&);
 	// insert element after iterator
 	void clear();
@@ -151,23 +152,23 @@ LinkedList<T>::LinkedList(size_t amount, const T& val) : head{nullptr}, n{amount
 }
 
 template<typename T>
-LinkedList<T>::LinkedList(const LinkedList& list) : head{nullptr} {
-	*this = list;
-}
-
-template<typename T>
-LinkedList<T>& LinkedList<T>::operator=(const LinkedList& rhs) {
-	if(!empty()) clear();
-	if(rhs.empty()) {
-		this->head = nullptr;
-		this->n = 0;
-	} else {
+LinkedList<T>::LinkedList(const LinkedList& rhs) : head{nullptr}, n{0} {
+	if(!rhs.empty()) {
 		this->head = new Node(rhs.head->value);
 		for(Node *i = head, *j = rhs.head; j->next != nullptr; j = j->next, i = i->next) {
 			i->next = new Node(j->next->value);
 		}
 		this->n = rhs.size();
 	}
+}
+
+template<typename T>
+LinkedList<T>& LinkedList<T>::operator=(const LinkedList& rhs) {
+	if(!empty()) clear();
+	LinkedList<T> temp{rhs};
+	this->head = temp.head;
+	this->n = temp.n;
+	temp.head = nullptr;
 	return *this;
 }
 

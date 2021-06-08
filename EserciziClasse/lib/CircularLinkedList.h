@@ -21,9 +21,10 @@ public:
 	class Iterator {
 		friend class CLinkedList;
 	private:
-		Iterator(Node*,size_t = 0);
+		Iterator(Node*, size_t = 0);
 		Node* point;
 		const Node* firstnode;
+		// const CLinkedList<T>* origin; // ???
 		size_t lap;
 	public:
 		using iterator_category = std::forward_iterator_tag;
@@ -34,7 +35,7 @@ public:
 		T& operator*() const;
 		T* operator->() const;
 		Iterator& operator++();
-		Iterator& operator++(int);
+		Iterator operator++(int);
 		bool operator==(const Iterator&) const;
 		bool operator!=(const Iterator&) const;
 		size_t getLap() const;
@@ -42,6 +43,7 @@ public:
 	};
 private:
 	Node* cur;
+	// like the back of the list
 	size_t n;
 	// number of nodes attached
 public:
@@ -49,30 +51,34 @@ public:
 	// default constructor: create empty list
 	CLinkedList(size_t, const T& = T());
 	// create a list with #1 elements of value #2
+	CLinkedList(const CLinkedList<T>&);
+	// copy constructor
+	CLinkedList<T>& operator=(const CLinkedList<T>&);
+	// copy assignment
 	~CLinkedList();
 	// delete cursor node and all attached nodes
 	bool empty() const;
-	// returns true if list is empty
+	// return true if list is empty
 	size_t size() const;
-	// returns number of elements stored in the list
+	// return number of elements stored in the list
 	void push_front(const T&);
-	// adds element after cursor
+	// add element after cursor
 	void push_back(const T&);
-	// adds element after cursor and advance list
+	// add element after cursor and advance list
 	const T& front() const;
-	// returns value after cursor node
+	// return value after cursor node
 	const T& back() const;
-	// returns cursor node stored value
+	// return cursor node stored value
 	void pop_front();
-	// removes node after cursor
+	// remove node after cursor
 	void advance();
-	// moves cursor forward
+	// move cursor forward
 	Iterator begin() const;
 	// return iterator to begin
 	Iterator end(size_t = 1) const;
 	// return iterator to end after #1 laps
 	void clear();
-	// removes every element in list
+	// remove every element in list
 };
 
 
@@ -103,7 +109,6 @@ T* CLinkedList<T>::Iterator::operator->() const {
 	return &point->value;
 }
 
-
 template<typename T>
 typename CLinkedList<T>::Iterator& CLinkedList<T>::Iterator::operator++() {
 	point = point->next;
@@ -112,8 +117,8 @@ typename CLinkedList<T>::Iterator& CLinkedList<T>::Iterator::operator++() {
 }
 
 template<typename T>
-typename CLinkedList<T>::Iterator& CLinkedList<T>::Iterator::operator++(int) {
-	const Iterator& temp = *this;
+typename CLinkedList<T>::Iterator CLinkedList<T>::Iterator::operator++(int) {
+	Iterator temp = *this;
 	point = point->next;
 	if(point == firstnode) ++lap;
 	return temp;
@@ -145,6 +150,23 @@ CLinkedList<T>::CLinkedList() : cur{nullptr}, n{0} {}
 template<typename T>
 CLinkedList<T>::CLinkedList(size_t amt, const T& val) : cur{nullptr}, n{0} {
 	for(int i = 0; i < amt; i++) push_back(val);
+}
+
+template<typename T>
+CLinkedList<T>::CLinkedList(const CLinkedList<T>& list) : CLinkedList() {
+	for(auto i = list.begin(); i != list.end(); ++i) {
+		this->push_back(*i);
+	}
+}
+
+template<typename T>
+CLinkedList<T>& CLinkedList<T>::operator=(const CLinkedList<T>& rhs) {
+	this->clear();
+	CLinkedList<T> temp{rhs};
+	this->cur = temp.cur;
+	this->n = temp.n;
+	temp.cur = nullptr;
+	return *this;
 }
 
 template<typename T>

@@ -52,52 +52,52 @@ private:
 	// number of nodes attached
 protected:
 	Node* erase(const Node*);
-	// deletes node and return pointer to next
+	// delete node and return pointer to next
 public:
 	DLinkedList();
 	// default constructor: create empty list
 	DLinkedList(size_t, const T& = T());
-	// creates a list with #1 elements of value #2
+	// create a list with #1 elements of value #2
 	DLinkedList(const DLinkedList<T>&);
 	// copy constructor
 	~DLinkedList();
-	// deletes all nodes
+	// delete all nodes
 	DLinkedList& operator=(const DLinkedList<T>&);
 	// copy assignment
 	bool empty() const;
-	// returns true if list is empty
+	// return true if list is empty
 	void push_back(const T&);
-	// adds element at the end
+	// add element at the end
 	void push_front(const T&);
-	// adds element at the beginning
+	// add element at the beginning
 	const T& back() const;
-	// returns last element
+	// return last element
 	const T& front() const;
-	// returns first element
+	// return first element
 	Iterator begin() const;
-	// returns iterator to first element
+	// return iterator to first element
 	Iterator end() const;
-	// returns iterator to last element
+	// return iterator to last element
 	Iterator rbegin() const;
-	// returns iterator to reverse begin
+	// return iterator to reverse begin
 	Iterator rend() const;
-	// returns iterator to reverse end
+	// return iterator to reverse end
 	size_t size() const;
-	// returns number of elements stored
+	// return number of elements stored
 	Iterator erase(const Iterator&);
-	// erases node pointed by iterator and return iterator to next
+	// erase node pointed by iterator and return iterator to next
 	void erase_before(const Iterator&);
-	// erases node before iterator
+	// erase node before iterator
 	void erase_after(const Iterator&);
-	// erases node after iterator
+	// erase node after iterator
 	void insert_before(const Iterator&, const T&);
 	// insert element #2 before iterator #1
 	void insert_after(const Iterator&, const T&);
 	// insert element #2 after iterator #1
 	void pop_back();
-	// deletes last element
+	// delete last element
 	void pop_front();
-	// deletes first element
+	// delete first element
 	void clear();
 	// list empty
 };
