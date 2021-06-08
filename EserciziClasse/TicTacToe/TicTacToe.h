@@ -1,18 +1,20 @@
+
 #ifndef TICTACTOE_H
 #define TICTACTOE_H
-#include <array>
 
-class TicTacToe{
-    private:
-        enum Status{WIN, DRAW, CONTINUE};
-        std::array<std::array<char, 3>, 3> board;
-    public:
-        TicTacToe();
-        void makeMove();
-        void printBoard() const;
-        bool validMove(int, int) const;
-        bool xoMove(char);
-        Status gameStatus() const;
+class TicTacToe {
+public:
+	enum mark{EMPTY, CROSS, CIRCLE};
+private:
+	mark grid[9];
+protected:
+	bool checkWin(const mark&);
+	bool makeMove(const mark&);
+public:
+	TicTacToe();
+	void print() const;
+	void reset();
+	mark play();
 };
 
 #endif

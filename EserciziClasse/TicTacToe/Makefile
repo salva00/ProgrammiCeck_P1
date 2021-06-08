@@ -1,8 +1,8 @@
 CFLAGS = -std=c++11 -pedantic -Wall
 DEPS = TicTacToe.h
-OBJ = TicTacToe.o Main.o 
+OBJ = TicTacToe.o main.o
 
-Main: $(OBJ)
+main: $(OBJ)
 	g++ -o $@ $^
 %.o: %.cpp $(DEPS)
 	g++ -c -o $@ $< $(CFLAGS)

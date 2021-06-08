@@ -1,6 +1,17 @@
+
 #include "TicTacToe.h"
 
-int main(){
-    TicTacToe g;
-    g.makeMove();
+int main() {
+	TicTacToe game;
+	game.play();
+	return 0;
 }
+
+
+
+
+
+
+
+
+//
