@@ -1,24 +1,24 @@
 
-// #include "ArrayStack.h"
-// #include "LinkedList.h"
-// #include "DoublyLinkedList.h"
-#include "CircularLinkedList.h"
-// #include "LinkedStack.h"
-// #include "ArrayQueue.h"
-// #include "LinkedQueue.h"
+#include "mystl\ArrayStack.h"
+#include "mystl\LinkedList.h"
+#include "mystl\DoublyLinkedList.h"
+#include "mystl\CircularLinkedList.h"
+#include "mystl\LinkedStack.h"
+#include "mystl\ArrayQueue.h"
+#include "mystl\LinkedQueue.h"
+#include "mystl\VectorPriorityQueue.h"
+#include "mystl\BinarySearchTree.h"
+#include "mystl\Map.h"
+#include "mysort\InsertionSort.h"
+#include "mysort\MergeSort.h"
+#include "mysort\QuickSort.h"
+#include "mysort\BubbleSort.h"
+#include "mysort\HeapSort.h"
 #include <iostream>
-// #include "InsertionSort.h"
-// #include "MergeSort.h"
-// #include "QuickSort.h"
-// #include "BubbleSort.h"
-// #include "HeapSort.h"
-// #include <vector>
-// #include <cstdlib>
-// #include <ctime>
-// #include "VectorPriorityQueue.h"
-// #include "BinarySearchTree.h"
-// #include "Map.h"
 #include <algorithm>
+#include <ctime>
+#include <vector>
+#include <cstdlib>
 
 // using namespace mystl;
 // using namespace mysort;

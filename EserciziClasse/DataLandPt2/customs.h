@@ -1,7 +1,7 @@
 
 #include "container.h"
-#include "..\lib\LinkedList.h"
-#include "..\lib\VectorPriorityQueue.h"
+#include "..\lib\mystl\LinkedList.h"
+#include "..\lib\mystl\VectorPriorityQueue.h"
 
 double getTotalWeight(const Container&);
 double getTotalValue(const Container&);

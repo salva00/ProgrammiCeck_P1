@@ -50,7 +50,6 @@ sulla base della data di scadenza.
 #include "container.h"
 #include "customs.h"
 
-#include "..\lib\CircularLinkedList.h"
 int main() {
 	Customs cstm;
 
