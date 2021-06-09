@@ -1,5 +1,5 @@
 
-#include "..\lib\LinkedList.h"
+#include "..\lib\mystl\LinkedList.h"
 #include <iostream>
 
 template<typename T>

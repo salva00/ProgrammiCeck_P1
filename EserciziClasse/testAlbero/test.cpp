@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "..\lib\BinarySearchTree.h"
+#include "..\lib\mystl\BinarySearchTree.h"
 
 using namespace mystl;
 
