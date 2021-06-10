@@ -3,7 +3,7 @@ _30 politico o gli impianto i capelli_
 
 Cose Utili per l'esame
 -
- - [Heap Algorithms](EserciziClasse/HeapAlgorithms)
+ - [X] [Heap Algorithms](EserciziClasse/HeapAlgorithms)
  
 
 Lezione 1
@@ -54,7 +54,7 @@ Lezione 7
 -
  - [X] [Time*](EserciziClasse/Time)
  - [X] [Rectangle](EserciziClasse/Rectangle)
- - [X] [TicTacToe (dalla repo pub.)](EserciziClasse/TicTacToe)
+ - [X] [TicTacToe](EserciziClasse/TicTacToe)
 
 Lezione 8
 -
