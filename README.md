@@ -36,7 +36,7 @@ Lezione 3
 
 Lezione 4
 -
- - [X] [Insertion Sort*](EserciziClasse/lib)
+ - [X] [Insertion Sort*](EserciziClasse/lib/mysort)
 
 Lezione 5
 -
@@ -44,8 +44,8 @@ Lezione 5
 
 Lezione 6
 -
- - [X] [Merge Sort](EserciziClasse/lib)
- - [X] [Quick Sort](EserciziClasse/lib)
+ - [X] [Merge Sort](EserciziClasse/lib/mysort)
+ - [X] [Quick Sort](EserciziClasse/lib/mysort)
  - [X] [Longest Common Subsequence (LCS)](EserciziClasse/LCSiterative)
  - [X] [Matrix product](EserciziClasse/Matrix)
  - [X] [Add to vector without repetition](EserciziClasse/AddToVectorwOutRepetition)
@@ -86,9 +86,9 @@ Lezione 11
 - [X] [LinkedList - size(), operator[]](EserciziClasse/GenericLinkedList)
 - [X] [LinkedList - Reversal](EserciziClasse/ListReverse)
 - [X] [GenericLinkedList*](EserciziClasse/GenericLinkedList)
-- [X] [DoubleLinkedList* (implementare l'overload di <)](EserciziClasse/lib)
-- [X] [Ordered DoubleLinkedList (vedi bubblesort)](EserciziClasse/lib)
-- [X] [CircularLinkedList*](EserciziClasse/lib)
+- [X] [DoubleLinkedList* (implementare l'overload di <)](EserciziClasse/lib/mystl)
+- [X] [Ordered DoubleLinkedList (vedi bubblesort)](EserciziClasse/lib/mysort)
+- [X] [CircularLinkedList*](EserciziClasse/lib/mystl)
 - [X] [Sparse Matrix](EserciziClasse/SparseMatrix)
 
 Lezione 12
@@ -103,25 +103,25 @@ Lezione 13
 - [X] [Labirinto](EserciziClasse/Labirinto)
 - [X] [Stock Span Problem](EserciziClasse/StockSpanProblem)
 - [X] [ArrayQueue](EserciziClasse/ArrayQueue)
-- [X] [LinkedQueue](EserciziClasse/lib)
-- [X] [DoubleLinkedQueue](EserciziClasse/lib)
+- [X] [LinkedQueue](EserciziClasse/lib/mystl)
+- [X] [DoubleLinkedQueue](EserciziClasse/lib/mystl)
 - [ ] [Deque with DoublyLinkedList*](EserciziClasse/)
 
 Lezione 14
 -
-- [X] [Doubly Linked List with iterators*](EserciziClasse/lib)
+- [X] [Doubly Linked List with iterators*](EserciziClasse/lib/mystl)
 
 Lezione 15
 -
 
-- [X] [PriorityQueue*](EserciziClasse/lib)
+- [X] [PriorityQueue*](EserciziClasse/lib/mystl)
 - [X] [Heap Sort](EserciziClasse/Heap)
 
 Lezione 17
 -
 
 - [X] [BinarySearchTree*](EserciziClasse/BinarySearchTree)
-- [X] [Map with BST](EserciziClasse/lib)
+- [X] [Map with BST](EserciziClasse/lib/mystl)
 - [ ] [ImpiegatiBST](EserciziClasse/)
 - [X] [STLmapExample](EserciziClasse/STLmapExample)
 
@@ -129,9 +129,9 @@ Esercizi
 -
 <details> <summary> Settimana 24/05/2021 - 29/05/2021 </summary>
 
-- [X] [1. Copy constructor per Linked List](EserciziClasse/lib)
-- [X] [2. Copy assignment per Linked List](EserciziClasse/lib)
-- [X] [3. Iterator per Circular Linked List](EserciziClasse/lib)
+- [X] [1. Copy constructor per Linked List](EserciziClasse/lib/mystl)
+- [X] [2. Copy assignment per Linked List](EserciziClasse/lib/mystl)
+- [X] [3. Iterator per Circular Linked List](EserciziClasse/lib/mystl)
 - [X] [4. Separazione Linked List in posizioni pari/dispari](EserciziClasse/PariDispariLinkedList)
 </details>
 
@@ -144,24 +144,24 @@ Esercizi
 
 Strutture Dati
 -
-- [X] [Linked List (singly linked)](EserciziClasse/lib)
-- [X] [Doubly-Linked List](EserciziClasse/lib)
-- [X] [Circularly-Linked List](EserciziClasse/lib)
-- [X] [Array Stack](EserciziClasse/lib)
-- [X] [Linked Stack](EserciziClasse/lib)
-- [X] [Array Queue](EserciziClasse/lib)
-- [X] [Linked Queue (with circular lists)](EserciziClasse/lib)
-- [ ] [Linked Deque](EserciziClasse/lib)
-- [X] [BinarySearchTree](EserciziClasse/lib)
-- [X] [Map](EserciziClasse/lib)
+- [X] [Linked List (singly linked)](EserciziClasse/lib/mystl)
+- [X] [Doubly-Linked List](EserciziClasse/lib/mystl)
+- [X] [Circularly-Linked List](EserciziClasse/lib/mystl)
+- [X] [Array Stack](EserciziClasse/lib/mystl)
+- [X] [Linked Stack](EserciziClasse/lib/mystl)
+- [X] [Array Queue](EserciziClasse/lib/mystl)
+- [X] [Linked Queue (with circular lists)](EserciziClasse/lib/mystl)
+- [ ] [Linked Deque](EserciziClasse/lib/mystl)
+- [X] [BinarySearchTree](EserciziClasse/lib/mystl)
+- [X] [Map](EserciziClasse/lib/mystl)
 
 Sorting
 -
-- [X] [Insertion Sort](EserciziClasse/lib)
-- [X] [Quick Sort](EserciziClasse/lib)
-- [X] [Merge Sort](EserciziClasse/lib)
-- [X] [Bubble Sort](EserciziClasse/lib)
-- [X] [Heap Sort](EserciziClasse/lib)
+- [X] [Insertion Sort](EserciziClasse/lib/mysort)
+- [X] [Quick Sort](EserciziClasse/lib/mysort)
+- [X] [Merge Sort](EserciziClasse/lib/mysort)
+- [X] [Bubble Sort](EserciziClasse/lib/mysort)
+- [X] [Heap Sort](EserciziClasse/lib/mysort)
 #
 
 *Usato nelle slide, ma non assegnato come esercizio per casa
