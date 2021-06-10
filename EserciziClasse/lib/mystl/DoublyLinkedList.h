@@ -192,7 +192,7 @@ DLinkedList<T>::DLinkedList() : n{0} {
 }
 
 template<typename T>
-DLinkedList<T>::DLinkedList(size_t amt, const T& val) : n{0} {
+DLinkedList<T>::DLinkedList(size_t amt, const T& val) : n{amt} {
 	head = new Node();
 	tail = new Node();
 	head->next = tail;
@@ -215,7 +215,9 @@ DLinkedList<T>::DLinkedList(const DLinkedList<T>& list) : DLinkedList() {
 }
 
 template<typename T>
-DLinkedList<T>::~DLinkedList() {delete head;}
+DLinkedList<T>::~DLinkedList() {
+	if(head) delete head;
+}
 
 template<typename T>
 bool DLinkedList<T>::empty() const {
@@ -295,7 +297,7 @@ size_t DLinkedList<T>::size() const {return this->n;}
 
 template<typename T>
 typename DLinkedList<T>::Node* DLinkedList<T>::erase(const Node* ptr) {
-	if(ptr == head || ptr == tail) throw std::invalid_argument("Out of bounds");
+	if(ptr == head || ptr == tail || ptr==nullptr) throw std::invalid_argument("Out of bounds");
 	ptr->prev->next = ptr->next;
 	ptr->next->prev = ptr->prev;
 	Node* res = ptr->next;

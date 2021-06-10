@@ -21,11 +21,9 @@ public:
 	class Iterator {
 		friend class CLinkedList;
 	private:
-		// Iterator(Node*, size_t = 0);
 		Iterator(Node*, size_t = 0, const CLinkedList<T>* const = nullptr);
 		Node* point;
-		// const Node* firstnode;
-		const CLinkedList<T>* const origin;
+		const CLinkedList<T>* const origin; // bad :(
 		size_t lap;
 	public:
 		using iterator_category = std::forward_iterator_tag;
@@ -95,11 +93,6 @@ CLinkedList<T>::Node::~Node() {
 	return;
 }
 
-// Iterator //
-
-// template<typename T>
-// CLinkedList<T>::Iterator::Iterator(Node* p, size_t s) : point{p}, lap{s} {}
-
 template<typename T>
 CLinkedList<T>::Iterator::Iterator(Node* p, size_t s, const CLinkedList<T>* const list) : point{p}, origin{list}, lap{s} {}
 
@@ -130,7 +123,8 @@ typename CLinkedList<T>::Iterator CLinkedList<T>::Iterator::operator++(int) {
 
 template<typename T>
 bool CLinkedList<T>::Iterator::operator==(const Iterator& rhs) const {
-	return (this->point == rhs.point) && (this->lap == rhs.lap);
+	return (this->point == rhs.point) && (this->lap == rhs.lap) ||
+		(this->point == nullptr && rhs.point == nullptr); //to make begin==end
 }
 
 template<typename T>
@@ -158,8 +152,10 @@ CLinkedList<T>::CLinkedList(size_t amt, const T& val) : cur{nullptr}, n{0} {
 
 template<typename T>
 CLinkedList<T>::CLinkedList(const CLinkedList<T>& list) : CLinkedList() {
-	for(auto i = list.begin(); i != list.end(); ++i) {
-		this->push_back(*i);
+	if(!list.empty()) {
+		for(auto i = list.begin(); i != list.end(); ++i) {
+			this->push_back(*i);
+		}
 	}
 }
 

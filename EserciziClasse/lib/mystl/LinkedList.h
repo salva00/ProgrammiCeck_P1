@@ -84,7 +84,7 @@ LinkedList<T>::Node::Node(T v, Node* n) : value{v}, next{n} {}
 
 template<typename T>
 LinkedList<T>::Node::~Node() {
-	delete next;
+	if(next) delete next;
 	return;
 }
 
@@ -174,7 +174,7 @@ LinkedList<T>& LinkedList<T>::operator=(const LinkedList& rhs) {
 
 template<typename T>
 LinkedList<T>::~LinkedList() {
-	delete head;
+	if(head) delete head;
 	return;
 }
 

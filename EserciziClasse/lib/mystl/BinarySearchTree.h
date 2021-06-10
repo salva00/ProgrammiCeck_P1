@@ -157,6 +157,7 @@ bool BinarySearchTree<T>::Iterator::operator!=(const Iterator& rhs) const {
 
 template<typename T>
 typename BinarySearchTree<T>::Iterator& BinarySearchTree<T>::Iterator::operator++() {
+	if(point == nullptr) throw runtime_error("Nullpointer exception");
 	point = BinarySearchTree<T>::successor(point);
 	return *this;
 }
@@ -170,6 +171,7 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::Iterator::operator++
 
 template<typename T>
 typename BinarySearchTree<T>::Iterator& BinarySearchTree<T>::Iterator::operator--() {
+	if(point == nullptr) throw runtime_error("Nullpointer exception");
 	point = BinarySearchTree<T>::predecessor(point);
 	return *this;
 }
@@ -468,11 +470,13 @@ void BinarySearchTree<T>::erase(const T& val) {
 
 template<typename T>
 void BinarySearchTree<T>::clear() {
-	delete root;
-	leaves = 0;
-	n = 0;
-	max = nullptr, min = nullptr;
-	root = nullptr;
+	if(!empty()) {
+		delete root;
+		leaves = 0;
+		n = 0;
+		max = nullptr, min = nullptr;
+		root = nullptr;
+	}
 	return;
 }
 
@@ -488,7 +492,7 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::end() const {
 
 template<typename T>
 typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::rbegin() const {
-	return Iterator(max);
+	return (empty()? Iterator(nullptr) : Iterator(max));
 }
 
 template<typename T>
