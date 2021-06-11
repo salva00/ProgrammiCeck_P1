@@ -13,7 +13,7 @@ Articoli::Articoli(const std::string& name, int productCode, int qnt, float pric
 
 void Articoli::setName(const std::string & nam) {
 		if(nam.size() > 14) throw std::invalid_argument("Maximum 14 characters");
-    strcpy_s(this->name,nam.c_str());
+        strcpy(this->name,nam.c_str());
 }
 
 std::string Articoli::getName() const {
