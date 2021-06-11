@@ -14,6 +14,7 @@ private:
 	std::vector<T> elements;
 public:
 	VPriorityQueue();
+	VPriorityQueue(const std::vector&);
 	bool empty() const;
 	size_t size() const;
 	const T& front() const;
@@ -38,6 +39,11 @@ template<typename T>
 VPriorityQueue<T>::VPriorityQueue() : elements() {}
 
 template<typename T>
+VPriorityQueue<T>::VPriorityQueue(const std::vector& vect) : elements(vect) {
+	mysort::build_heap(elements.begin(),elements.end());
+}
+
+template<typename T>
 bool VPriorityQueue<T>::empty() const {
 	return elements.empty();
 }
@@ -49,7 +55,7 @@ size_t VPriorityQueue<T>::size() const {
 
 template<typename T>
 const T& VPriorityQueue<T>::front() const {
-	if(empty()) throw std::runtime_error("Queue empty");
+	if(empty()) throw std::runtime_error("Priority queue is empty");
 	return *elements.begin();
 }
 
