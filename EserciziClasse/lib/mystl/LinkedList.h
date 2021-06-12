@@ -75,7 +75,9 @@ public:
 	void clear();
 	// list empty
 	Iterator insert_in_order(const T&);
+	// insert #1 in an ordered list, keeping it ordered
 	template<class Predicate> void remove_if(Predicate);
+	// remove all elements for which predicate returns true
 };
 
 
@@ -266,7 +268,7 @@ typename LinkedList<T>::Iterator LinkedList<T>::insert_in_order(const T& val) {
 			break;
 		}
 	}
-	return prev+1;
+	return ++prev;
 }
 
 template<typename T> template<class Predicate>
