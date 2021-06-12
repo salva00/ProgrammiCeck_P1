@@ -226,19 +226,13 @@ bool DLinkedList<T>::empty() const {
 
 template<typename T>
 void DLinkedList<T>::push_back(const T& val) {
-	tail->value = val;
-	tail->next = new Node(tail,nullptr);
-	tail = tail->next;
-	++n;
+	insert_before(end());
 	return;
 }
 
 template<typename T>
 void DLinkedList<T>::push_front(const T& val) {
-	head->value = val;
-	head->prev = new Node(nullptr,head);
-	head = head->prev;
-	++n;
+	insert_after(begin());
 	return;
 }
 
