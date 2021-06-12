@@ -1,7 +1,3 @@
-//
-// Created by Salvatore Bramante on 10/06/21.
-//
-
 #ifndef UTILS_H
 #define UTILS_H
 #include <fstream>
@@ -20,11 +16,12 @@ namespace myutils {
 
 
     template <typename T>
-    void seq_write(const T& data, const string& path){
+    void seq_write(const T& data, const string& path) {
         ofstream file(path, std::ios::out);
         if (file.is_open()) {
-            file << data <<"\n";
-        } else {
+            file << data << "\n";
+        }
+        else {
             throw std::invalid_argument("Cannot open file");
         }
         file.close();
@@ -32,31 +29,31 @@ namespace myutils {
 
 
     template <typename T>
-    void bin_init(T blank, int numberOfElements, const string& path){
+    void bin_init(T blank, int numberOfElements, const string& path) {
         ofstream file(path, std::ios::binary | std::ios::out | std::ios::app);
         if (file.is_open()) {
-            for (int i=0; i<numberOfElements; i++){
+            for (int i = 0; i < numberOfElements; i++) {
                 file.write(reinterpret_cast<const char*>(blank), sizeof(T));
             }
-        } else {
+        }
+        else {
             throw std::invalid_argument("Cannot open file");
         }
         file.close();
     }
 
-
-    vector<Instance> seq_deserialize(const vector<std::pair<string,Types>>& arguments){
-        ifstream file("filename.txt", std::ios::in);
+    vector<Instance> seq_deserialize(const vector<std::pair<string, Types>>& arguments, const std::string& filename) {
+        ifstream file(filename, std::ios::in);
         vector<Instance> result;
         if (file.is_open()) {
-            while (!file.eof()) {
-                for (auto arg: arguments) {
-                    result.push_back(getCorrectType(file,arg));
-                    //result.front().value->getType();
-                }
-                //file >> res;
+            for (auto arg : arguments) {
+                if (file.eof()) break; // salto a chiusura del file se il file e' terminato
+                result.push_back(getCorrectType(file, arg));
+                //result.front().value->getType();
             }
-        } else {
+            //file >> res;
+        }
+        else {
             throw std::invalid_argument("Cannot open file");
         }
         file.close();
