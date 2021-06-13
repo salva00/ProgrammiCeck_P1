@@ -4,7 +4,7 @@ _30 politico o gli impianto i capelli_
 Cose Utili per l'esame
 -
  - [X] [Heap Algorithms](EserciziClasse/HeapAlgorithms)
- 
+
 
 Lezione 1
 -
@@ -139,6 +139,12 @@ Esercizi
 
 - [X] [1. Dataland parte 1](EserciziClasse/Dataland)
 - [X] [2. Dataland parte 2](EserciziClasse/DataLandPt2)\
+(traccia nella cartella apposita)
+</details>
+
+<details> <summary> Settimana 7/06/201 - 11/06/2021 </summary>
+
+- [X] [Fantaware](EserciziClasse/Fantaware)\
 (traccia nella cartella apposita)
 </details>
 

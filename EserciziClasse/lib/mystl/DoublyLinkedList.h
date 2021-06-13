@@ -51,7 +51,7 @@ private:
 	size_t n;
 	// number of nodes attached
 protected:
-	Node* erase(const Node*);
+	Node* erase(Node*);
 	// delete node and return pointer to next
 public:
 	DLinkedList();
@@ -100,6 +100,10 @@ public:
 	// delete first element
 	void clear();
 	// list empty
+	Iterator insert_in_order(const T&);
+	// insert #1 in an ordered list, keeping it ordered
+	template<class Predicate> void remove_if(Predicate);
+	// remove all elements for which predicate returns true
 };
 
 
@@ -226,19 +230,13 @@ bool DLinkedList<T>::empty() const {
 
 template<typename T>
 void DLinkedList<T>::push_back(const T& val) {
-	tail->value = val;
-	tail->next = new Node(tail,nullptr);
-	tail = tail->next;
-	++n;
+	insert_before(end(),val);
 	return;
 }
 
 template<typename T>
 void DLinkedList<T>::push_front(const T& val) {
-	head->value = val;
-	head->prev = new Node(nullptr,head);
-	head = head->prev;
-	++n;
+	insert_before(begin(),val);
 	return;
 }
 
@@ -296,8 +294,8 @@ template<typename T>
 size_t DLinkedList<T>::size() const {return this->n;}
 
 template<typename T>
-typename DLinkedList<T>::Node* DLinkedList<T>::erase(const Node* ptr) {
-	if(ptr == head || ptr == tail || ptr==nullptr) throw std::invalid_argument("Out of bounds");
+typename DLinkedList<T>::Node* DLinkedList<T>::erase(Node* ptr) {
+	if(ptr == head || ptr == tail || ptr == nullptr) throw std::invalid_argument("Out of bounds");
 	ptr->prev->next = ptr->next;
 	ptr->next->prev = ptr->prev;
 	Node* res = ptr->next;
@@ -309,7 +307,7 @@ typename DLinkedList<T>::Node* DLinkedList<T>::erase(const Node* ptr) {
 
 template<typename T>
 typename DLinkedList<T>::Iterator DLinkedList<T>::erase(const Iterator& it) {
-	return Iterator(erase(it->point));
+	return Iterator(erase(it.point));
 }
 
 template<typename T>
@@ -345,6 +343,29 @@ void DLinkedList<T>::clear() {
 	tail->prev = head;
 	n = 0;
 	return;
+}
+
+template<typename T>
+typename DLinkedList<T>::Iterator DLinkedList<T>::insert_in_order(const T& val) {
+	Iterator it = begin();
+	while(it) {
+		if(it == end() || *it > val) {
+			insert_before(it,val);
+			break;
+		}
+		++it;
+	}
+	return --it;
+}
+
+template<typename T> template<class Predicate>
+void DLinkedList<T>::remove_if(Predicate pred) {
+	Iterator it = begin();
+	while(it) {
+		if(pred(*it)) it = erase(it);
+		else if(it == end()) return;
+		else ++it;
+	}
 }
 
 }// end namespace mystl

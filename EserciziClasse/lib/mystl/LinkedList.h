@@ -74,6 +74,10 @@ public:
 	// insert element after iterator
 	void clear();
 	// list empty
+	Iterator insert_in_order(const T&);
+	// insert #1 in an ordered list, keeping it ordered
+	template<class Predicate> void remove_if(Predicate);
+	// remove all elements for which predicate returns true
 };
 
 
@@ -246,6 +250,41 @@ void LinkedList<T>::clear() {
 		delete head;
 		head = nullptr;
 		n = 0;
+	}
+	return;
+}
+
+template<typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::insert_in_order(const T& val) {
+	Iterator prev = begin();
+	if(empty() || val < *prev) {
+		push_front(val);
+		return begin();
+	}
+	for(Iterator next = prev; prev != end(); ++prev) {
+		++next;
+		if(next == end() || val < *next) {
+			insert_after(prev, val);
+			break;
+		}
+	}
+	return ++prev;
+}
+
+template<typename T> template<class Predicate>
+void LinkedList<T>::remove_if(Predicate pred) {
+	if(empty()) return;
+	Iterator prev = begin();
+	while(prev != end() && pred(*prev)) {
+		++prev;
+		pop_front();
+	}
+	for(Iterator next = prev; prev != end(); ++prev) {
+		++next;
+		while(next != end() && pred(*next)) {
+			++next;
+			erase_after(prev);
+		}
 	}
 	return;
 }
