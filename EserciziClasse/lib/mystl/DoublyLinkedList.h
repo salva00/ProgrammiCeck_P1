@@ -60,6 +60,8 @@ public:
 	// create a list with #1 elements of value #2
 	DLinkedList(const DLinkedList<T>&);
 	// copy constructor
+	DLinkedList(const std::initializer_list<T>&);
+	// construct a list from initalizer list
 	~DLinkedList();
 	// delete all nodes
 	DLinkedList& operator=(const DLinkedList<T>&);
@@ -216,6 +218,11 @@ DLinkedList<T>& DLinkedList<T>::operator=(const DLinkedList<T>& rhs) {
 template<typename T>
 DLinkedList<T>::DLinkedList(const DLinkedList<T>& list) : DLinkedList() {
 	*this = list;
+}
+
+template<typename T>
+DLinkedList<T>::DLinkedList(const std::initializer_list<T>& il) : DLinkedList() {
+	for(auto i : il) push_back(i);
 }
 
 template<typename T>

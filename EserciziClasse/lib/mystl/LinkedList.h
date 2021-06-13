@@ -50,6 +50,8 @@ public:
 	// create a list with #1 elements of value #2
 	LinkedList(const LinkedList&);
 	// copy constructor
+	LinkedList(const std::initializer_list<T>&);
+	// construct a list from initalizer list
 	LinkedList& operator=(const LinkedList&);
 	// copy assignment
 	~LinkedList();
@@ -163,6 +165,14 @@ LinkedList<T>::LinkedList(const LinkedList& rhs) : head{nullptr}, n{0} {
 			i->next = new Node(j->next->value);
 		}
 		this->n = rhs.size();
+	}
+}
+
+template<typename T>
+LinkedList<T>::LinkedList(const std::initializer_list<T>& il) : head{nullptr}, n{il.size()} {
+ 	auto ptr = il.end();
+	while(ptr-- != il.begin()) {
+		push_front(*ptr);
 	}
 }
 
