@@ -70,7 +70,7 @@ public:
 	// return cursor node stored value
 	void pop_front();
 	// remove node after cursor
-	void advance();
+	void advance() const;
 	// move cursor forward
 	Iterator begin() const;
 	// return iterator to begin
@@ -243,7 +243,7 @@ void CLinkedList<T>::pop_front() {
 }
 
 template<typename T>
-void CLinkedList<T>::advance() {
+void CLinkedList<T>::advance() const {
 	if(empty()) throw std::runtime_error("LinkedList is empty");
 	cur = cur->next;
 	return;
