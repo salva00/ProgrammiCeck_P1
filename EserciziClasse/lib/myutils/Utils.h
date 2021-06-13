@@ -29,7 +29,7 @@ namespace myutils {
 
 
     template <typename T>
-    void bin_init(T blank, int numberOfElements, const string& path) {
+    void bin_init(const T* blank, int numberOfElements, const string& path) {
         ofstream file(path, std::ios::binary | std::ios::out | std::ios::app);
         if (file.is_open()) {
             for (int i = 0; i < numberOfElements; i++) {
