@@ -5,8 +5,8 @@
 namespace myutils {
 
     Instance returnString(const std::string& name, const std::string& value) {
-        static String strObj{ value };
-        static Instance returnObj{ name,&strObj };
+        String* strObj = new String{ value };
+        Instance returnObj{ name,strObj };
         return returnObj;
     }
 
