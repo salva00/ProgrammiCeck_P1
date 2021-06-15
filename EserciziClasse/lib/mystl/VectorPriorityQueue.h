@@ -3,6 +3,7 @@
 #define VECTOR_PRIORITY_QUEUE_H
 
 #include <vector>
+#include <stdexcept>
 #include "..\mysort\HeapSort.h"
 // #include <iostream> //DEBUG
 
@@ -14,13 +15,22 @@ private:
 	std::vector<T> elements;
 public:
 	VPriorityQueue();
-	VPriorityQueue(const std::vector&);
+	// default constructor
+	VPriorityQueue(const std::initializer_list<T>&);
+	// constructor a priority queue from #1 elements
 	bool empty() const;
+	// return true if empty
 	size_t size() const;
+	// return size
 	const T& front() const;
+	// access largest element
 	void push(const T&);
+	// enqueue element
 	void pop();
+	// remove largest element
 	void clear();
+	// clear queue
+
 	/*DEBUG*/
 	// void print();
 };
@@ -39,7 +49,7 @@ template<typename T>
 VPriorityQueue<T>::VPriorityQueue() : elements() {}
 
 template<typename T>
-VPriorityQueue<T>::VPriorityQueue(const std::vector& vect) : elements(vect) {
+VPriorityQueue<T>::VPriorityQueue(const std::initializer_list<T>& il) : elements(il) {
 	mysort::build_heap(elements.begin(),elements.end());
 }
 
@@ -62,7 +72,7 @@ const T& VPriorityQueue<T>::front() const {
 template<typename T>
 void VPriorityQueue<T>::push(const T& val) {
 	elements.push_back(val);
-	mysort::build_heap(elements.begin(),elements.end());
+	mysort::push_heap(elements.begin(),elements.end());
 	return;
 }
 

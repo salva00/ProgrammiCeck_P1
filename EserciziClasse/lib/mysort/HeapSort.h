@@ -4,6 +4,7 @@
 
 // REQUIRES: random_access_iterator
 // operator+(iterator,int)
+// operator-(iterator,int)
 // operator-(iterator,iterator)
 // operator!=(iterator,iterator)
 // operator--(iterator)
@@ -17,7 +18,13 @@ namespace mysort {
 	void build_heap(const Iterator&, const Iterator&);
 
 	template<class Iterator>
+	void push_heap(const Iterator&, const Iterator&);
+
+	template<class Iterator>
 	void heap_sort(const Iterator&, const Iterator&);
+
+	template<class Iterator>
+	inline Iterator parent(const Iterator&, const Iterator&);
 
 	template<class Iterator>
 	inline Iterator lchild(const Iterator&, const Iterator&);
@@ -27,28 +34,32 @@ namespace mysort {
 
 }
 
-//#include<iostream>
-// template<class Iterator>
-// void print(const Iterator& begin, const Iterator& end) {
-// 	int x = 1, i = 0;
-// 	Iterator it{begin};
-// 	while(it != end) {
-// 		// for(int j = 0; j < 10 - x; ++j) std::cout << ' ';
-// 		while(it != end && i < x) {
-// 			std::cout << *it++ << ' ';
-// 			++i;
-// 		}
-// 		// std::cout << '\n';
-// 		x *= 2;
-// 		i = 0;
-// 	}
-// 	std::cout << '\n';
-// 	return;
-// }
+#include<iostream>
+template<class Iterator>
+void print(const Iterator& begin, const Iterator& end) {
+	int x = 1, i = 0;
+	Iterator it{begin};
+	while(it != end) {
+		// for(int j = 0; j < 10 - x; ++j) std::cout << ' ';
+		while(it != end && i < x) {
+			std::cout << *it++ << ' ';
+			++i;
+		}
+		std::cout << '\n';
+		x *= 2;
+		i = 0;
+	}
+	std::cout << '\n';
+	return;
+}
+
+template<class Iterator>
+inline Iterator mysort::parent(const Iterator& begin, const Iterator& i) {
+	return begin + ((i-begin)-1)/2;
+}
 
 template<class Iterator>
 inline Iterator mysort::lchild(const Iterator& begin, const Iterator& i) {
-	// std::cout << "QQQQ" << i-begin << " .\n";
 	return i+(i-begin)+1;
 }
 template<class Iterator>
@@ -114,6 +125,17 @@ void mysort::build_heap(const Iterator& begin, const Iterator& end) {
 	return;
 }
 
+template<class Iterator>
+void mysort::push_heap(const Iterator& begin, const Iterator& end) {
+	using mysort::parent;
+	Iterator i = end-1;
+	for(Iterator par = parent(begin,i); i != begin && *par < *i;) {
+		std::iter_swap(i,par);
+		i = par;
+		par = parent(begin, par);
+	}
+	return;
+}
 
 #endif
 
