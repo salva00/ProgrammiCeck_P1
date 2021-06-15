@@ -10,7 +10,9 @@ template <typename T>
 class ArrayStack {
 public:
 	ArrayStack(int = DEF_CAPACITY);
+	// default constructor
 	~ArrayStack();
+	// destructor
 	int size() const;
 	// returns number of elements stored
 	bool empty() const;
@@ -22,11 +24,15 @@ public:
 	const T& pop();
 	// deletes and return element at the top
 	void resize(int);
+	// resize stack (only smaller)
 private:
 	static const int DEF_CAPACITY{10};
-	T* data;           //member data
-	int capacity;   //stack capacity
-	int index;          //index of top stack
+	T* data;
+	// member data
+	int capacity;
+	// stack capacity
+	int index;
+	// index of top stack
 };
 
 template<typename T>
@@ -71,7 +77,6 @@ template<typename T>
 void ArrayStack<T>::resize(int size) {
 	if(size > capacity) throw std::invalid_argument("New size cannot be larger than stack maximum capacity");
 	else if(size < 0) throw std::invalid_argument("Size must be a positive integer");
-	for(int i = index; i < size; i++) data[i]=0; //expansion
 	index = size-1;
 	return;
 }
