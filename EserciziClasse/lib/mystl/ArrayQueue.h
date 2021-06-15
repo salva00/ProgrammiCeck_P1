@@ -25,8 +25,6 @@ public:
 	// deallocates elems
 	const T& front();
 	// access first element
-	const T& back();
-	// access last element
 	bool empty();
 	// returns true if empty
 	size_t size();
@@ -57,12 +55,6 @@ const T& ArrayQueue<T>::front() {
 }
 
 template<typename T>
-const T& ArrayQueue<T>::back() {
-	if(n == 0) throw std::runtime_error("Queue empty");
-	return elems[tail-1];
-}
-
-template<typename T>
 bool ArrayQueue<T>::empty() {
 	return n == 0;
 }
@@ -88,7 +80,6 @@ void ArrayQueue<T>::dequeue() {
 	--n;
 	return;
 }
-
 
 } // end namespace mystl
 
