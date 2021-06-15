@@ -32,7 +32,7 @@ void Box::setValue(double val) {
 	return;
 }
 
-double Box::getPerishable() const {return this->perishable;}
+bool Box::getPerishable() const {return this->perishable;}
 void Box::setPerishable(bool per) {
 	perishable = per;
 	return;
