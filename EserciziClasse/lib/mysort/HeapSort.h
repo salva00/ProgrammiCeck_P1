@@ -34,24 +34,24 @@ namespace mysort {
 
 }
 
-#include<iostream>
-template<class Iterator>
-void print(const Iterator& begin, const Iterator& end) {
-	int x = 1, i = 0;
-	Iterator it{begin};
-	while(it != end) {
-		// for(int j = 0; j < 10 - x; ++j) std::cout << ' ';
-		while(it != end && i < x) {
-			std::cout << *it++ << ' ';
-			++i;
-		}
-		std::cout << '\n';
-		x *= 2;
-		i = 0;
-	}
-	std::cout << '\n';
-	return;
-}
+// #include<iostream>
+// template<class Iterator>
+// void print(const Iterator& begin, const Iterator& end) {
+// 	int x = 1, i = 0;
+// 	Iterator it{begin};
+// 	while(it != end) {
+// 		// for(int j = 0; j < 10 - x; ++j) std::cout << ' ';
+// 		while(it != end && i < x) {
+// 			std::cout << *it++ << ' ';
+// 			++i;
+// 		}
+// 		std::cout << '\n';
+// 		x *= 2;
+// 		i = 0;
+// 	}
+// 	std::cout << '\n';
+// 	return;
+// }
 
 template<class Iterator>
 inline Iterator mysort::parent(const Iterator& begin, const Iterator& i) {
