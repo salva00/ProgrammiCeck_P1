@@ -356,7 +356,7 @@ template<typename T>
 typename DLinkedList<T>::Iterator DLinkedList<T>::insert_in_order(const T& val) {
 	Iterator it = begin();
 	while(it) {
-		if(it == end() || *it > val) {
+		if(it == end() || val < *it) {
 			insert_before(it,val);
 			break;
 		}
