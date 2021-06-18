@@ -148,6 +148,12 @@ Esercizi
 (traccia nella cartella apposita)
 </details>
 
+<details> <summary> Esame 18/06/2021 </summary>
+
+- [X] [Fantaland](EserciziClasse/Fantaland)\
+(traccia nella cartella apposita)
+</details>
+
 Strutture Dati
 -
 - [X] [Linked List (singly linked)](EserciziClasse/lib/mystl)
