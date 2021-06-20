@@ -319,12 +319,12 @@ typename DLinkedList<T>::Iterator DLinkedList<T>::erase(const Iterator& it) {
 
 template<typename T>
 void DLinkedList<T>::erase_before(const Iterator& it) {
-	erase(it->ptr->prev);
+	erase(it.point->prev);
 }
 
 template<typename T>
 void DLinkedList<T>::erase_after(const Iterator& it) {
-	erase(it->ptr->next);
+	erase(it.point->next);
 }
 
 template<typename T>
