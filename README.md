@@ -1,5 +1,4 @@
 # ProgrammiCeck_P1
-_30 politico o gli impianto i capelli_
 
 Cose Utili per l'esame
 -
