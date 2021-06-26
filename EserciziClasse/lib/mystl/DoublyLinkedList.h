@@ -3,6 +3,12 @@
 #define DOUBLYLINKEDLIST_H
 
 #include <iterator>
+#include <type_traits>
+
+#define CONST true
+#define NONCONST false
+#define REVERSE true
+#define NONREVERSE false
 
 namespace mystl {
 
@@ -19,30 +25,12 @@ private:
 		Node* prev;
 		Node* next;
 	};
+	template<bool is_const = false, bool is_reverse = false> class GenericIterator;
 public:
-	class Iterator {
-		friend class DLinkedList;
-	private:
-		Iterator(Node*);
-		Node* point;
-	public:
-		using iterator_category = std::bidirectional_iterator_tag;
-		using difference_type = std::ptrdiff_t;
-		using value_type = T;
-		using pointer = T*;
-		using reference = T&;
-		T& operator*() const;
-		T* operator->() const;
-		Iterator& operator++();
-		Iterator operator++(int);
-		Iterator operator+(size_t) const;
-		Iterator& operator--();
-		Iterator operator--(int);
-		Iterator operator-(size_t) const;
-		bool operator==(const Iterator&) const;
-		bool operator!=(const Iterator&) const;
-		operator bool() const;
-	};
+	using Iterator = GenericIterator<NONCONST,NONREVERSE>;
+	using ConstIterator = GenericIterator<CONST,NONREVERSE>;
+	using ReverseIterator = GenericIterator<NONCONST,REVERSE>;
+	using ConstReverseIterator = GenericIterator<CONST,REVERSE>;
 private:
 	Node* head;
 	// first node: does not store data!
@@ -76,14 +64,18 @@ public:
 	// return last element
 	const T& front() const;
 	// return first element
-	Iterator begin() const;
+	Iterator begin();
+	ConstIterator begin() const;
 	// return iterator to first element
-	Iterator end() const;
+	Iterator end();
+	ConstIterator end() const;
 	// return iterator to last element
-	Iterator rbegin() const;
-	// return iterator to reverse begin
-	Iterator rend() const;
-	// return iterator to reverse end
+	ReverseIterator rbegin();
+	ConstReverseIterator rbegin() const;
+	// return reverse iterator to reverse begin
+	ReverseIterator rend();
+	ConstReverseIterator rend() const;
+	// return reverse iterator to reverse end
 	size_t size() const;
 	// return number of elements stored
 	Iterator erase(const Iterator&);
@@ -108,6 +100,36 @@ public:
 	// remove all elements for which predicate returns true
 };
 
+template<typename T>
+template<bool is_const, bool is_reverse>
+class DLinkedList<T>::GenericIterator {
+	friend class DLinkedList<T>;
+private:
+	GenericIterator(typename DLinkedList<T>::Node*);
+	typename DLinkedList<T>::Node* point;
+public:
+	using iterator_category = std::bidirectional_iterator_tag;
+	using difference_type = std::ptrdiff_t;
+	using value_type = typename std::conditional<is_const, const T, T>::type;
+	using pointer = typename std::conditional<is_const, const T*, T*>::type;
+	using reference = typename std::conditional<is_const, const T&, T&>::type;
+	reference operator*() const;
+	pointer operator->() const;
+	GenericIterator<is_const,is_reverse>& operator++();
+	GenericIterator<is_const,is_reverse> operator++(int);
+	GenericIterator<is_const,is_reverse> operator+(size_t) const;
+	GenericIterator<is_const,is_reverse>& operator--();
+	GenericIterator<is_const,is_reverse> operator--(int);
+	GenericIterator<is_const,is_reverse> operator-(size_t) const;
+	bool operator==(const GenericIterator<is_const, is_reverse>&) const;
+	bool operator!=(const GenericIterator<is_const, is_reverse>&) const;
+	operator bool() const;
+	operator GenericIterator<CONST,is_reverse>();
+	// Non Const => Const
+	GenericIterator(GenericIterator<is_const,!is_reverse>);
+	// Reverse <=> Non reverse
+};
+
 
 
 // Node //
@@ -123,69 +145,95 @@ DLinkedList<T>::Node::~Node() {delete next;}
 
 // Iterator //
 
-template<typename T>
-DLinkedList<T>::Iterator::Iterator(Node* p) : point{p} {}
+template<typename T> template<bool is_const, bool is_reverse>
+DLinkedList<T>::GenericIterator<is_const,is_reverse>::GenericIterator(Node* p) : point{p} {}
 
-template<typename T>
-T& DLinkedList<T>::Iterator::operator*() const {return point->value;}
+template<typename T> template<bool is_const, bool is_reverse>
+typename DLinkedList<T>::template GenericIterator<is_const,is_reverse>::reference DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator*() const {
+	return point->value;
+}
 
-template<typename T>
-T* DLinkedList<T>::Iterator::operator->() const {return &point->value;}
+template<typename T> template<bool is_const, bool is_reverse>
+typename DLinkedList<T>::template GenericIterator<is_const,is_reverse>::pointer DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator->() const {
+	return &point->value;
+}
 
-template<typename T>
-typename DLinkedList<T>::Iterator& DLinkedList<T>::Iterator::operator++() {
-	if(point->next != nullptr) point = point->next;
+template<typename T> template<bool is_const, bool is_reverse>
+typename DLinkedList<T>::template GenericIterator<is_const,is_reverse>& DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator++() {
+	// if(point->next != nullptr) point = point->next;
+	if(is_reverse) {
+		if(point->prev) point = point->prev;
+		else throw std::runtime_error("Reached End");
+	} else {
+		if(point->next) point = point->next;
+		else throw std::runtime_error("Reached End");
+	}
 	return *this;
 }
 
-template<typename T>
-typename DLinkedList<T>::Iterator DLinkedList<T>::Iterator::operator++(int) {
-	Iterator temp = *this;
-	if(point->next != nullptr) point = point->next;
+template<typename T> template<bool is_const, bool is_reverse>
+typename DLinkedList<T>::template GenericIterator<is_const,is_reverse> DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator++(int) {
+	GenericIterator<is_const,is_reverse> temp = *this;
+	this->operator++();
 	return temp;
 }
 
-template<typename T>
-typename DLinkedList<T>::Iterator DLinkedList<T>::Iterator::operator+(size_t amt) const {
-	Iterator res = *this;
+template<typename T> template<bool is_const, bool is_reverse>
+typename DLinkedList<T>::template GenericIterator<is_const,is_reverse> DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator+(size_t amt) const {
+	GenericIterator<is_const,is_reverse> res = *this;
 	for(size_t i = 0; i < amt; ++i) ++res;
 	return res;
 }
 
-template<typename T>
-typename DLinkedList<T>::Iterator& DLinkedList<T>::Iterator::operator--() {
-	if(point->prev != nullptr) point = point->prev;
+template<typename T> template<bool is_const, bool is_reverse>
+typename DLinkedList<T>::template GenericIterator<is_const,is_reverse>& DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator--() {
+	if(is_reverse) {
+		if(point->next) point = point->next;
+		else throw std::runtime_error("Reached End");
+	} else {
+		if(point->prev) point = point->prev;
+		else throw std::runtime_error("Reached End");
+	}
 	return *this;
 }
 
-template<typename T>
-typename DLinkedList<T>::Iterator DLinkedList<T>::Iterator::operator--(int) {
-	Iterator temp = *this;
-	if(point->prev != nullptr) point = point->prev;
+template<typename T> template<bool is_const, bool is_reverse>
+typename DLinkedList<T>::template GenericIterator<is_const,is_reverse> DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator--(int) {
+	GenericIterator<is_const,is_reverse> temp = *this;
+	this->operator--();
 	return temp;
 }
 
-template<typename T>
-typename DLinkedList<T>::Iterator DLinkedList<T>::Iterator::operator-(size_t amt) const {
-	Iterator res = *this;
+template<typename T> template<bool is_const, bool is_reverse>
+typename DLinkedList<T>::template GenericIterator<is_const,is_reverse> DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator-(size_t amt) const {
+	GenericIterator<is_const,is_reverse> res = *this;
 	for(size_t i = 0; i < amt; ++i) --res;
 	return res;
 }
 
-template<typename T>
-bool DLinkedList<T>::Iterator::operator==(const Iterator& rhs) const {
+template<typename T> template<bool is_const, bool is_reverse>
+bool DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator==(const GenericIterator<is_const,is_reverse>& rhs) const {
 	return this->point == rhs.point;
 }
 
-template<typename T>
-bool DLinkedList<T>::Iterator::operator!=(const Iterator& rhs) const {
+template<typename T> template<bool is_const, bool is_reverse>
+bool DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator!=(const GenericIterator<is_const,is_reverse>& rhs) const {
 	return this->point != rhs.point;
 }
 
-template<typename T>
-DLinkedList<T>::Iterator::operator bool() const {
+template<typename T> template<bool is_const, bool is_reverse>
+DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator bool() const {
 	return point != nullptr;
 }
+
+template<typename T> template<bool is_const, bool is_reverse>
+DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator GenericIterator<CONST,is_reverse>() {
+	return GenericIterator<CONST,is_reverse>(this->point);
+}
+
+template<typename T> template<bool is_const, bool is_reverse>
+DLinkedList<T>::GenericIterator<is_const,is_reverse>::GenericIterator(GenericIterator<is_const,!is_reverse> it)
+	: GenericIterator{it.point} {};
 
 // DLinkedList //
 
@@ -278,23 +326,43 @@ const T& DLinkedList<T>::front() const {
 }
 
 template<typename T>
-typename DLinkedList<T>::Iterator DLinkedList<T>::begin() const {
+typename DLinkedList<T>::Iterator DLinkedList<T>::begin() {
 	return Iterator(head->next);
 }
 
 template<typename T>
-typename DLinkedList<T>::Iterator DLinkedList<T>::end() const {
+typename DLinkedList<T>::ConstIterator DLinkedList<T>::begin() const {
+	return ConstIterator(head->next);
+}
+
+template<typename T>
+typename DLinkedList<T>::Iterator DLinkedList<T>::end() {
 	return Iterator(tail);
 }
 
 template<typename T>
-typename DLinkedList<T>::Iterator DLinkedList<T>::rbegin() const {
-	return Iterator(tail->prev);
+typename DLinkedList<T>::ConstIterator DLinkedList<T>::end() const {
+	return ConstIterator(tail);
 }
 
 template<typename T>
-typename DLinkedList<T>::Iterator DLinkedList<T>::rend() const {
-	return Iterator(head);
+typename DLinkedList<T>::ReverseIterator DLinkedList<T>::rbegin() {
+	return ReverseIterator(tail->prev);
+}
+
+template<typename T>
+typename DLinkedList<T>::ConstReverseIterator DLinkedList<T>::rbegin() const {
+	return ConstReverseIterator(tail->prev);
+}
+
+template<typename T>
+typename DLinkedList<T>::ReverseIterator DLinkedList<T>::rend() {
+	return ReverseIterator(head);
+}
+
+template<typename T>
+typename DLinkedList<T>::ConstReverseIterator DLinkedList<T>::rend() const {
+	return ConstReverseIterator(head);
 }
 
 template<typename T>
@@ -319,12 +387,12 @@ typename DLinkedList<T>::Iterator DLinkedList<T>::erase(const Iterator& it) {
 
 template<typename T>
 void DLinkedList<T>::erase_before(const Iterator& it) {
-	erase(it.point->prev);
+	erase(it->ptr->prev);
 }
 
 template<typename T>
 void DLinkedList<T>::erase_after(const Iterator& it) {
-	erase(it.point->next);
+	erase(it->ptr->next);
 }
 
 template<typename T>
@@ -356,7 +424,7 @@ template<typename T>
 typename DLinkedList<T>::Iterator DLinkedList<T>::insert_in_order(const T& val) {
 	Iterator it = begin();
 	while(it) {
-		if(it == end() || val < *it) {
+		if(it == end() || *it > val) {
 			insert_before(it,val);
 			break;
 		}
@@ -378,17 +446,3 @@ void DLinkedList<T>::remove_if(Predicate pred) {
 }// end namespace mystl
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
