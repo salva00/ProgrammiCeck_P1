@@ -44,7 +44,7 @@ protected:
 public:
 	DLinkedList();
 	// default constructor: create empty list
-	DLinkedList(size_t, const T& = T());
+	DLinkedList(size_t, const T&;
 	// create a list with #1 elements of value #2
 	DLinkedList(const DLinkedList<T>&);
 	// copy constructor
