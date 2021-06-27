@@ -44,11 +44,11 @@ protected:
 public:
 	DLinkedList();
 	// default constructor: create empty list
-	DLinkedList(size_t, const T&;
+	DLinkedList(size_t, const T&);
 	// create a list with #1 elements of value #2
 	DLinkedList(const DLinkedList<T>&);
 	// copy constructor
-	DLinkedList(const std::initializer_list<T>&);
+	explicit DLinkedList(const std::initializer_list<T>&);
 	// construct a list from initalizer list
 	~DLinkedList();
 	// delete all nodes
@@ -105,7 +105,7 @@ template<bool is_const, bool is_reverse>
 class DLinkedList<T>::GenericIterator {
 	friend class DLinkedList<T>;
 private:
-	GenericIterator(typename DLinkedList<T>::Node*);
+	explicit GenericIterator(typename DLinkedList<T>::Node*);
 	typename DLinkedList<T>::Node* point;
 public:
 	using iterator_category = std::bidirectional_iterator_tag;
@@ -126,7 +126,7 @@ public:
 	operator bool() const;
 	operator GenericIterator<CONST,is_reverse>();
 	// Non Const => Const
-	GenericIterator(GenericIterator<is_const,!is_reverse>);
+	explicit GenericIterator(GenericIterator<is_const,!is_reverse>);
 	// Reverse <=> Non reverse
 };
 

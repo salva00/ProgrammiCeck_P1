@@ -50,7 +50,7 @@ public:
 	// create a list with #1 elements of value #2
 	LinkedList(const LinkedList&);
 	// copy constructor
-	LinkedList(const std::initializer_list<T>&);
+	explicit LinkedList(const std::initializer_list<T>&);
 	// construct a list from initalizer list
 	LinkedList& operator=(const LinkedList&);
 	// copy assignment
