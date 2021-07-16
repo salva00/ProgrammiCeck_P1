@@ -9,18 +9,19 @@
 #define NONCONST false
 
 namespace mystl {
+
 	template<typename T>
 	class CLinkedList {
 	private:
 		class Node {
-			friend class CLinkedList;
+			friend class CLinkedList<T>;
 		private:
 			T value;
 			Node* next;
 			Node(T, Node* = nullptr);
 			~Node();
 		};
-		template<bool is_const = false> class GenericIterator;
+		template<bool is_const> class GenericIterator;
 	public:
 		using Iterator = GenericIterator<NONCONST>;
 		using ConstIterator = GenericIterator<CONST>;
@@ -32,7 +33,7 @@ namespace mystl {
 	public:
 		CLinkedList();
 		// default constructor: create empty list
-		CLinkedList(size_t, const T & = T());
+		CLinkedList(size_t, const T&);
 		// create a list with #1 elements of value #2
 		CLinkedList(const CLinkedList<T>&);
 		// copy constructor
@@ -57,12 +58,15 @@ namespace mystl {
 		void advance() const;
 		// move cursor forward
 		ConstIterator cbegin() const;
-		// return iterator to begin
+		// return const iterator to begin
 		ConstIterator cend() const;
+		// return const iterator to end
+		ConstIterator begin() const;
 		Iterator begin();
 		// return iterator to begin
+		ConstIterator end() const;
 		Iterator end();
-		// return iterator to end after #1 laps
+		// return iterator to end
 		void clear();
 		// remove every element in list
 	};
@@ -86,9 +90,6 @@ namespace mystl {
 		GenericIterator<is_const>& operator++();
 		GenericIterator<is_const> operator++(int);
 		GenericIterator<is_const> operator+(size_t) const;
-		GenericIterator<is_const>& operator--();
-		GenericIterator<is_const> operator--(int);
-		GenericIterator<is_const> operator-(size_t) const;
 		bool operator==(const GenericIterator<is_const>&) const;
 		bool operator!=(const GenericIterator<is_const>&) const;
 		operator bool() const;
@@ -101,7 +102,7 @@ namespace mystl {
 	// Node //
 
 	template<typename T>
-	CLinkedList<T>::Node::Node(T v, Node* n) : value{ v }, next{ n } {}
+	CLinkedList<T>::Node::Node(T v, Node* n) : value{v}, next{n} {}
 
 	template<typename T>
 	CLinkedList<T>::Node::~Node() {
@@ -128,7 +129,7 @@ namespace mystl {
 	template<typename T> template<bool is_const>
 	typename CLinkedList<T>::template GenericIterator<is_const>& CLinkedList<T>::GenericIterator<is_const>::operator++() {
 		this->bool_value = true; // set start lap flag, used for operator==
-		if (point) point = point->next;
+		if(point) point = point->next;
 		else throw std::runtime_error("Reached End");
 		return *this;
 	}
@@ -143,44 +144,23 @@ namespace mystl {
 	template<typename T> template<bool is_const>
 	typename CLinkedList<T>::template GenericIterator<is_const> CLinkedList<T>::GenericIterator<is_const>::operator+(size_t amt) const {
 		GenericIterator<is_const> res = *this;
-		for (size_t i = 0; i < amt; ++i) ++res;
-		return res;
-	}
-
-	template<typename T> template<bool is_const>
-	typename CLinkedList<T>::template GenericIterator<is_const>& CLinkedList<T>::GenericIterator<is_const>::operator--() {
-		if (point->prev) point = point->prev;
-		else throw std::runtime_error("Reached End");
-		return *this;
-	}
-
-	template<typename T> template<bool is_const>
-	typename CLinkedList<T>::template GenericIterator<is_const> CLinkedList<T>::GenericIterator<is_const>::operator--(int) {
-		GenericIterator<is_const> temp = *this;
-		this->operator--();
-		return temp;
-	}
-
-	template<typename T> template<bool is_const>
-	typename CLinkedList<T>::template GenericIterator<is_const> CLinkedList<T>::GenericIterator<is_const>::operator-(size_t amt) const {
-		GenericIterator<is_const> res = *this;
-		for (size_t i = 0; i < amt; ++i) --res;
+		for(size_t i = 0; i < amt; ++i) ++res;
 		return res;
 	}
 
 	template<typename T> template<bool is_const>
 	bool CLinkedList<T>::GenericIterator<is_const>::operator==(const GenericIterator<is_const>& rhs) const {
-		return ((this->point == rhs.point) && this->bool_value);	// if bool_value is false it means that iterator is at start, must advance at least one time with operator++
+		return ((this->point == rhs.point) && (this->bool_value == rhs.bool_value)) || !(this->point || rhs.point);	// if bool_value is false it means that iterator is at start, must advance at least one time with operator++
 	}
 
 	template<typename T> template<bool is_const>
 	bool CLinkedList<T>::GenericIterator<is_const>::operator!=(const GenericIterator<is_const>& rhs) const {
-		return this->point != rhs.point || !this->bool_value;
+		return !(*this == rhs);
 	}
 
 	template<typename T> template<bool is_const>
 	CLinkedList<T>::GenericIterator<is_const>::operator bool() const {
-		return point != nullptr;
+		return bool(this->point);
 	}
 
 	template<typename T> template<bool is_const>
@@ -240,17 +220,17 @@ namespace mystl {
 	// CLinkedList //
 
 	template<typename T>
-	CLinkedList<T>::CLinkedList() : cur{ nullptr }, n{ 0 } {}
+	CLinkedList<T>::CLinkedList() : cur{nullptr}, n{0} {}
 
 	template<typename T>
-	CLinkedList<T>::CLinkedList(size_t amt, const T& val) : cur{ nullptr }, n{ 0 } {
-		for (int i = 0; i < amt; i++) push_back(val);
+	CLinkedList<T>::CLinkedList(size_t amt, const T& val) : cur{nullptr}, n{0} {
+		for(int i = 0; i < amt; i++) push_back(val);
 	}
 
 	template<typename T>
 	CLinkedList<T>::CLinkedList(const CLinkedList<T>& list) : CLinkedList() {
-		if (!list.empty()) {
-			for (auto i = list.begin(); i != list.end(); ++i) {
+		if(!list.empty()) {
+			for(auto i = list.begin(); i != list.end(); ++i) {
 				this->push_back(*i);
 			}
 		}
@@ -259,7 +239,7 @@ namespace mystl {
 	template<typename T>
 	CLinkedList<T>& CLinkedList<T>::operator=(const CLinkedList<T>& rhs) {
 		this->clear();
-		CLinkedList<T> temp{ rhs };
+		CLinkedList<T> temp{rhs};
 		this->cur = temp.cur;
 		this->n = temp.n;
 		temp.cur = nullptr;
@@ -268,7 +248,7 @@ namespace mystl {
 
 	template<typename T>
 	CLinkedList<T>::~CLinkedList() {
-		if (!empty()) {
+		if(!empty()) {
 			Node* temp = cur->next;
 			cur->next = nullptr;
 			delete temp;
@@ -284,14 +264,18 @@ namespace mystl {
 	}
 
 	template<typename T>
-	bool CLinkedList<T>::empty() const { return cur == nullptr; }
+	bool CLinkedList<T>::empty() const {
+		return cur == nullptr;
+	}
 
 	template<typename T>
-	size_t CLinkedList<T>::size() const { return this->n; }
+	size_t CLinkedList<T>::size() const {
+		return this->n;
+	}
 
 	template<typename T>
 	void CLinkedList<T>::push_front(const T& val) {
-		if (empty()) {
+		if(empty()) {
 			cur = new Node(val, nullptr);
 			cur->next = cur;
 		}
@@ -302,7 +286,7 @@ namespace mystl {
 
 	template<typename T>
 	void CLinkedList<T>::push_back(const T& val) {
-		if (empty()) {
+		if(empty()) {
 			cur = new Node(val, nullptr);
 			cur->next = cur;
 		}
@@ -314,20 +298,20 @@ namespace mystl {
 
 	template<typename T>
 	const T& CLinkedList<T>::front() const {
-		if (empty()) throw std::runtime_error("LinkedList is empty");
+		if(empty()) throw std::runtime_error("LinkedList is empty");
 		return cur->next->value;
 	}
 
 	template<typename T>
 	const T& CLinkedList<T>::back() const {
-		if (empty()) throw std::runtime_error("LinkedList is empty");
+		if(empty()) throw std::runtime_error("LinkedList is empty");
 		return cur->value;
 	}
 
 	template<typename T>
 	void CLinkedList<T>::pop_front() {
-		if (empty()) throw std::runtime_error("LinkedList is empty");
-		if (n == 1) {
+		if(empty()) throw std::runtime_error("LinkedList is empty");
+		if(n == 1) {
 			cur->next = nullptr;
 			delete cur;
 			cur = nullptr;
@@ -344,7 +328,7 @@ namespace mystl {
 
 	template<typename T>
 	void CLinkedList<T>::advance() const {
-		if (empty()) throw std::runtime_error("LinkedList is empty");
+		if(empty()) throw std::runtime_error("LinkedList is empty");
 		cur = cur->next;
 		return;
 	}
@@ -360,8 +344,18 @@ namespace mystl {
 	}
 
 	template<typename T>
+	typename CLinkedList<T>::ConstIterator CLinkedList<T>::begin() const {
+		return ConstIterator(cur->next, false);
+	}
+
+	template<typename T>
 	typename CLinkedList<T>::Iterator CLinkedList<T>::begin() {
 		return Iterator(cur->next, false);
+	}
+
+	template<typename T>
+	typename CLinkedList<T>::ConstIterator CLinkedList<T>::end() const {
+		return ConstIterator(cur->next, true);
 	}
 
 	template<typename T>

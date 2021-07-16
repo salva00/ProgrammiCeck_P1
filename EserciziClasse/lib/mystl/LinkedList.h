@@ -14,14 +14,14 @@ namespace mystl {
 	class LinkedList {
 	private:
 		class Node {
-			friend class LinkedList;
+			friend class LinkedList<T>;
 		private:
 			T value;
 			Node* next;
 			Node(T, Node* = nullptr);
 			~Node();
 		};
-		template<bool is_const = false> class GenericIterator;
+		template<bool is_const> class GenericIterator;
 	public:
 		using Iterator = GenericIterator<NONCONST>;
 		using ConstIterator = GenericIterator<CONST>;
@@ -33,7 +33,7 @@ namespace mystl {
 	public:
 		LinkedList();
 		// default constructor: create empty list
-		LinkedList(size_t, const T & = T());
+		LinkedList(size_t, const T&);
 		// create a list with #1 elements of value #2
 		LinkedList(const LinkedList&);
 		// copy constructor
@@ -54,9 +54,13 @@ namespace mystl {
 		size_t size() const;
 		// return number of elements stored
 		ConstIterator cbegin() const;
+		// return const iterator to first element
+		ConstIterator begin() const;
 		Iterator begin();
 		// return iterator to first element
 		ConstIterator cend() const;
+		// return const iterator to last element
+		ConstIterator end() const;
 		Iterator end();
 		// return iterator to last element
 		void erase_after(const Iterator&);
@@ -100,18 +104,18 @@ namespace mystl {
 	// Node //
 
 	template<typename T>
-	LinkedList<T>::Node::Node(T v, Node* n) : value{ v }, next{ n } {}
+	LinkedList<T>::Node::Node(T v, Node* n) : value{v}, next{n} {}
 
 	template<typename T>
 	LinkedList<T>::Node::~Node() {
-		if (next) delete next;
+		if(next) delete next;
 		return;
 	}
 
 	// Iterator //
 
 	template<typename T> template<bool is_const>
-	LinkedList<T>::GenericIterator<is_const>::GenericIterator(Node* p) : point{ p } {}
+	LinkedList<T>::GenericIterator<is_const>::GenericIterator(Node* p) : point{p} {}
 
 	template<typename T> template<bool is_const>
 	typename LinkedList<T>::template GenericIterator<is_const>::reference LinkedList<T>::GenericIterator<is_const>::operator*() const {
@@ -125,7 +129,7 @@ namespace mystl {
 
 	template<typename T> template<bool is_const>
 	typename LinkedList<T>::template GenericIterator<is_const>& LinkedList<T>::GenericIterator<is_const>::operator++() {
-		if (point) point = point->next;
+		if(point) point = point->next;
 		else throw std::runtime_error("Reached End");
 		return *this;
 	}
@@ -140,7 +144,7 @@ namespace mystl {
 	template<typename T> template<bool is_const>
 	typename LinkedList<T>::template GenericIterator<is_const> LinkedList<T>::GenericIterator<is_const>::operator+(size_t amt) const {
 		GenericIterator<is_const> res = *this;
-		for (size_t i = 0; i < amt; ++i) ++res;
+		for(size_t i = 0; i < amt; ++i) ++res;
 		return res;
 	}
 
@@ -156,7 +160,7 @@ namespace mystl {
 
 	template<typename T> template<bool is_const>
 	LinkedList<T>::GenericIterator<is_const>::operator bool() const {
-		return point != nullptr;
+		return bool(point);
 	}
 
 	template<typename T> template<bool is_const>
@@ -167,18 +171,18 @@ namespace mystl {
 	// Linked List //
 
 	template<typename T>
-	LinkedList<T>::LinkedList() : head{ nullptr }, n{ 0 } {}
+	LinkedList<T>::LinkedList() : head{nullptr}, n{0} {}
 
 	template<typename T>
-	LinkedList<T>::LinkedList(size_t amount, const T& val) : head{ nullptr }, n{ amount } {
-		for (size_t i = 0; i < amount; i++) push_front(val);
+	LinkedList<T>::LinkedList(size_t amount, const T& val) : head{nullptr}, n{amount} {
+		for(size_t i = 0; i < amount; i++) push_front(val);
 	}
 
 	template<typename T>
-	LinkedList<T>::LinkedList(const LinkedList& rhs) : head{ nullptr }, n{ 0 } {
-		if (!rhs.empty()) {
+	LinkedList<T>::LinkedList(const LinkedList& rhs) : head{nullptr}, n{0} {
+		if(!rhs.empty()) {
 			this->head = new Node(rhs.head->value);
-			for (Node* i = head, *j = rhs.head; j->next != nullptr; j = j->next, i = i->next) {
+			for(Node* i = head, *j = rhs.head; j->next != nullptr; j = j->next, i = i->next) {
 				i->next = new Node(j->next->value);
 			}
 			this->n = rhs.size();
@@ -186,7 +190,7 @@ namespace mystl {
 	}
 
 	template<typename T>
-	LinkedList<T>::LinkedList(const std::initializer_list<T>& il) : head{ nullptr }, n{ il.size() } {
+	LinkedList<T>::LinkedList(const std::initializer_list<T>& il) : head{nullptr}, n{il.size()} {
 		auto ptr = il.end();
 		while (ptr-- != il.begin()) {
 			push_front(*ptr);
@@ -196,7 +200,7 @@ namespace mystl {
 	template<typename T>
 	LinkedList<T>& LinkedList<T>::operator=(const LinkedList& rhs) {
 		if (!empty()) clear();
-		LinkedList<T> temp{ rhs };
+		LinkedList<T> temp{rhs};
 		this->head = temp.head;
 		this->n = temp.n;
 		temp.head = nullptr;
@@ -205,16 +209,18 @@ namespace mystl {
 
 	template<typename T>
 	LinkedList<T>::~LinkedList() {
-		if (head) delete head;
+		if(head) delete head;
 		return;
 	}
 
 	template<typename T>
-	bool LinkedList<T>::empty() const { return this->head == nullptr; }
+	bool LinkedList<T>::empty() const {
+		return this->head == nullptr;
+	}
 
 	template<typename T>
 	const T& LinkedList<T>::front() const {
-		if (empty()) throw std::runtime_error("LinkedList is empty");
+		if(empty()) throw std::runtime_error("LinkedList is empty");
 		return head->value;
 	}
 
@@ -230,7 +236,7 @@ namespace mystl {
 
 	template<typename T>
 	void LinkedList<T>::pop_front() {
-		if (empty()) throw std::runtime_error("LinkedList is empty");
+		if(empty()) throw std::runtime_error("LinkedList is empty");
 		Node* popped = head;
 		head = head->next;
 		popped->next = nullptr;
@@ -240,7 +246,9 @@ namespace mystl {
 	}
 
 	template<typename T>
-	size_t LinkedList<T>::size() const { return this->n; }
+	size_t LinkedList<T>::size() const {
+		return this->n;
+	}
 
 	template<typename T>
 	typename LinkedList<T>::ConstIterator LinkedList<T>::cbegin() const {
@@ -253,8 +261,18 @@ namespace mystl {
 	}
 
 	template<typename T>
+	typename LinkedList<T>::ConstIterator LinkedList<T>::begin() const {
+		return ConstIterator(head);
+	}
+
+	template<typename T>
 	typename LinkedList<T>::Iterator LinkedList<T>::begin() {
 		return Iterator(head);
+	}
+
+	template<typename T>
+	typename LinkedList<T>::ConstIterator LinkedList<T>::end() const {
+		return ConstIterator(nullptr);
 	}
 
 	template<typename T>
@@ -265,7 +283,7 @@ namespace mystl {
 	template<typename T>
 	void LinkedList<T>::erase_after(const Iterator& it) {
 		Node* temp = it.point->next;
-		if (temp == nullptr) throw std::invalid_argument("Index out of bounds");
+		if(temp == nullptr) throw std::invalid_argument("Index out of bounds");
 		it.point->next = temp->next;
 		temp->next = nullptr;
 		delete temp;
@@ -275,7 +293,7 @@ namespace mystl {
 
 	template<typename T>
 	void LinkedList<T>::insert_after(const Iterator& it, const T& val) {
-		if (it.point == nullptr) throw std::invalid_argument("Index out of bounds");
+		if(it.point == nullptr) throw std::invalid_argument("Index out of bounds");
 		it.point->next = new Node(val, it.point->next);
 		return;
 		++n;
@@ -283,7 +301,7 @@ namespace mystl {
 
 	template<typename T>
 	void LinkedList<T>::clear() {
-		if (!empty()) {
+		if(!empty()) {
 			delete head;
 			head = nullptr;
 			n = 0;
@@ -294,11 +312,11 @@ namespace mystl {
 	template<typename T>
 	typename LinkedList<T>::Iterator LinkedList<T>::insert_in_order(const T& val) {
 		Iterator prev = begin();
-		if (empty() || val < *prev) {
+		if(empty() || val < *prev) {
 			push_front(val);
 			return begin();
 		}
-		for (Iterator next = prev; prev != end(); ++prev) {
+		for(Iterator next = prev; prev != end(); ++prev) {
 			++next;
 			if (next == end() || val < *next) {
 				insert_after(prev, val);
@@ -310,15 +328,15 @@ namespace mystl {
 
 	template<typename T> template<class Predicate>
 	void LinkedList<T>::remove_if(Predicate pred) {
-		if (empty()) return;
+		if(empty()) return;
 		Iterator prev = begin();
-		while (prev != end() && pred(*prev)) {
+		while(prev != end() && pred(*prev)) {
 			++prev;
 			pop_front();
 		}
-		for (Iterator next = prev; prev != end(); ++prev) {
+		for(Iterator next = prev; prev != end(); ++prev) {
 			++next;
-			while (next != end() && pred(*next)) {
+			while(next != end() && pred(*next)) {
 				++next;
 				erase_after(prev);
 			}
