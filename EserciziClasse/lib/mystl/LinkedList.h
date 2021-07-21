@@ -83,7 +83,7 @@ namespace mystl {
 		explicit GenericIterator(typename LinkedList<T>::Node*);
 		typename LinkedList<T>::Node* point;
 	public:
-		//using iterator_category = std::bidirectional_iterator_tag;
+		using iterator_category = std::forward_iterator_tag;
 		using difference_type = std::ptrdiff_t;
 		using value_type = typename std::conditional<is_const, const T, T>::type;
 		using pointer = typename std::conditional<is_const, const T*, T*>::type;
