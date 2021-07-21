@@ -59,14 +59,14 @@ namespace mystl {
 		// move cursor forward
 		ConstIterator cbegin() const;
 		// return const iterator to begin
-		ConstIterator cend() const;
-		// return const iterator to end
 		ConstIterator begin() const;
 		Iterator begin();
 		// return iterator to begin
-		ConstIterator end() const;
-		Iterator end();
-		// return iterator to end
+		ConstIterator cend(size_t = 1) const;
+		// return const iterator to end after #1 laps
+		ConstIterator end(size_t = 1) const;
+		Iterator end(size_t = 1);
+		// return iterator to end after #1 laps
 		void clear();
 		// remove every element in list
 	};
@@ -76,9 +76,10 @@ namespace mystl {
 	class CLinkedList<T>::GenericIterator {
 		friend class CLinkedList<T>;
 	private:
-		explicit GenericIterator(typename CLinkedList<T>::Node*, bool);
+		explicit GenericIterator(typename CLinkedList<T>::Node*, const CLinkedList<T>* const, size_t = 0);
 		typename CLinkedList<T>::Node* point;
-		bool bool_value = true;
+		const CLinkedList<T>* const origin;
+		size_t lap;
 	public:
 		using iterator_category = std::bidirectional_iterator_tag;
 		using difference_type = std::ptrdiff_t;
@@ -114,7 +115,7 @@ namespace mystl {
 	// Iterator //
 
 	template<typename T> template<bool is_const>
-	CLinkedList<T>::GenericIterator<is_const>::GenericIterator(Node* p, bool bool_value) : point{ p }, bool_value{ bool_value } {}
+	CLinkedList<T>::GenericIterator<is_const>::GenericIterator(Node* p, const CLinkedList<T>* const o, size_t l) : point{p}, origin{o}, lap{l} {}
 
 	template<typename T> template<bool is_const>
 	typename CLinkedList<T>::template GenericIterator<is_const>::reference CLinkedList<T>::GenericIterator<is_const>::operator*() const {
@@ -126,11 +127,19 @@ namespace mystl {
 		return &point->value;
 	}
 
+	// template<typename T> template<bool is_const>
+	// typename CLinkedList<T>::template GenericIterator<is_const>& CLinkedList<T>::GenericIterator<is_const>::operator++() {
+	// 	this->bool_value = true; // set start lap flag, used for operator==
+	// 	if(point) point = point->next;
+	// 	else throw std::runtime_error("Reached End");
+	// 	return *this;
+	// }
 	template<typename T> template<bool is_const>
 	typename CLinkedList<T>::template GenericIterator<is_const>& CLinkedList<T>::GenericIterator<is_const>::operator++() {
-		this->bool_value = true; // set start lap flag, used for operator==
-		if(point) point = point->next;
-		else throw std::runtime_error("Reached End");
+		if(point) {
+			point = point->next;
+			if(point == origin->cur) ++lap;
+		} else throw std::runtime_error("Reached End");
 		return *this;
 	}
 
@@ -148,10 +157,14 @@ namespace mystl {
 		return res;
 	}
 
+	// template<typename T> template<bool is_const>
+	// bool CLinkedList<T>::GenericIterator<is_const>::operator==(const GenericIterator<is_const>& rhs) const {
+	// 	return ((this->point == rhs.point) && (this->bool_value == rhs.bool_value)) || !(this->point || rhs.point);	// if bool_value is false it means that iterator is at start, must advance at least one time with operator++
+	// }
 	template<typename T> template<bool is_const>
 	bool CLinkedList<T>::GenericIterator<is_const>::operator==(const GenericIterator<is_const>& rhs) const {
-		return ((this->point == rhs.point) && (this->bool_value == rhs.bool_value)) || !(this->point || rhs.point);	// if bool_value is false it means that iterator is at start, must advance at least one time with operator++
-	}
+		return (this->point == rhs.point) && (this->lap == rhs.lap) || (this->point == nullptr && rhs.point == nullptr); //to make begin==end
+		}
 
 	template<typename T> template<bool is_const>
 	bool CLinkedList<T>::GenericIterator<is_const>::operator!=(const GenericIterator<is_const>& rhs) const {
@@ -335,32 +348,28 @@ namespace mystl {
 
 	template<typename T>
 	typename CLinkedList<T>::ConstIterator CLinkedList<T>::cbegin() const {
-		return ConstIterator(cur->next, false);
+		return ConstIterator(cur->next, this, 0);
 	}
-
-	template<typename T>
-	typename CLinkedList<T>::ConstIterator CLinkedList<T>::cend() const {
-		return ConstIterator(cur->next, true);
-	}
-
 	template<typename T>
 	typename CLinkedList<T>::ConstIterator CLinkedList<T>::begin() const {
-		return ConstIterator(cur->next, false);
+		return ConstIterator(cur->next, this, 0);
 	}
-
 	template<typename T>
 	typename CLinkedList<T>::Iterator CLinkedList<T>::begin() {
-		return Iterator(cur->next, false);
+		return Iterator(cur->next, this, 0);
 	}
 
 	template<typename T>
-	typename CLinkedList<T>::ConstIterator CLinkedList<T>::end() const {
-		return ConstIterator(cur->next, true);
+	typename CLinkedList<T>::ConstIterator CLinkedList<T>::cend(size_t lap) const {
+		return ConstIterator(cur->next, this, lap);
 	}
-
 	template<typename T>
-	typename CLinkedList<T>::Iterator CLinkedList<T>::end() {
-		return Iterator(cur->next, true);
+	typename CLinkedList<T>::ConstIterator CLinkedList<T>::end(size_t lap) const {
+		return ConstIterator(cur->next, this, lap);
+	}
+	template<typename T>
+	typename CLinkedList<T>::Iterator CLinkedList<T>::end(size_t lap) {
+		return Iterator(cur->next, this, lap);
 	}
 
 }// end namespace mystl
