@@ -5,6 +5,9 @@
 // #include <iostream> // DEBUG
 #include <iterator>
 
+#define REVERSE true
+#define NONREVERSE false
+
 namespace mystl {
 
 template<typename T>
@@ -12,7 +15,7 @@ template<typename T>
 class BinarySearchTree {
 private:
 	class Node {
-		friend class BinarySearchTree;
+		friend class BinarySearchTree<T>;
 		private:
 		T value;
 		Node* parent;
@@ -21,30 +24,34 @@ private:
 		Node(T, Node* = nullptr, Node* = nullptr, Node* = nullptr);
 		~Node();
 	};
-protected:
-	class Iterator {
-		friend class BinarySearchTree;
-		private:
-		Iterator(Node* = nullptr);
-		Node* point;
-		public:
-		using iterator_category = std::bidirectional_iterator_tag;
-		using difference_type = std::ptrdiff_t;
-		using value_type = const T;
-		using pointer = T* const;
-		using reference = const T&;
-		const T& operator*() const;
-		T* const operator->() const;
-		Iterator& operator++();
-		Iterator operator++(int);
-		// jumps to successor
-		Iterator& operator--();
-		Iterator operator--(int);
-		// jumps to predecessor
-		bool operator==(const Iterator&) const;
-		bool operator!=(const Iterator&) const;
-		operator bool() const;
-	};
+	template<bool is_reverse> class GenericIterator;
+public:
+	using Iterator = GenericIterator<NONREVERSE>;
+	using ReverseIterator = GenericIterator<REVERSE>;
+// protected: //old
+// 	class Iterator {
+// 		friend class BinarySearchTree;
+// 		private:
+// 		Iterator(Node* = nullptr);
+// 		Node* point;
+// 		public:
+// 		using iterator_category = std::bidirectional_iterator_tag;
+// 		using difference_type = std::ptrdiff_t;
+// 		using value_type = const T;
+// 		using pointer = T* const;
+// 		using reference = const T&;
+// 		const T& operator*() const;
+// 		T* const operator->() const;
+// 		Iterator& operator++();
+// 		Iterator operator++(int);
+// 		// jumps to successor
+// 		Iterator& operator--();
+// 		Iterator operator--(int);
+// 		// jumps to predecessor
+// 		bool operator==(const Iterator&) const;
+// 		bool operator!=(const Iterator&) const;
+// 		operator bool() const;
+// 	};
 protected:
 	void preorderCopy(Node*, Node*, const BinarySearchTree<T>* const);
 	// used by copy constructor
@@ -107,11 +114,11 @@ public:
 	// delete all nodes
 	Iterator begin() const;
 	// return iterator to begin (minimum element)
+	ReverseIterator rbegin() const;
+	// return iterator to end (maximum)
 	Iterator end() const;
 	// return iterator after end (maximum)
-	Iterator rbegin() const;
-	// return iterator to end (maximum)
-	Iterator rend() const;
+	ReverseIterator rend() const;
 	// return iterator before begin (minimum)
 	// N.B. iterating begin->end is O(n) (1.5n if balanced)
 
@@ -121,7 +128,33 @@ public:
 	// void print() const;
 };
 
-
+template<typename T>
+template<bool is_reverse>
+class BinarySearchTree<T>::GenericIterator {
+	friend class BinarySearchTree<T>;
+private:
+	explicit GenericIterator(typename BinarySearchTree<T>::Node*);
+	typename BinarySearchTree<T>::Node* point;
+public:
+	using iterator_category = std::bidirectional_iterator_tag;
+	using difference_type = std::ptrdiff_t;
+	using value_type = const T;
+	using pointer = const T*;
+	using reference = const T&;
+	reference operator*() const;
+	pointer operator->() const;
+	GenericIterator<is_reverse>& operator++();
+	GenericIterator<is_reverse> operator++(int);
+	GenericIterator<is_reverse> operator+(size_t) const;
+	GenericIterator<is_reverse>& operator--();
+	GenericIterator<is_reverse> operator--(int);
+	GenericIterator<is_reverse> operator-(size_t) const;
+	bool operator==(const GenericIterator<is_reverse>&) const;
+	bool operator!=(const GenericIterator<is_reverse>&) const;
+	operator bool() const;
+	explicit GenericIterator(GenericIterator<!is_reverse>);
+	// Reverse <=> Non reverse
+};
 
 // Node //
 
@@ -136,57 +169,135 @@ BinarySearchTree<T>::Node::~Node() {
 
 // Iterator //
 
-template<typename T>
-BinarySearchTree<T>::Iterator::Iterator(Node* p) : point{p} {}
+// template<typename T>
+// BinarySearchTree<T>::Iterator::Iterator(Node* p) : point{p} {}
 
-template<typename T>
-T const& BinarySearchTree<T>::Iterator::operator*() const {return point->value;}
+// template<typename T>
+// T const& BinarySearchTree<T>::Iterator::operator*() const {return point->value;}
+//
+// template<typename T>
+// T* const BinarySearchTree<T>::Iterator::operator->() const {return &point->value;}
 
-template<typename T>
-T* const BinarySearchTree<T>::Iterator::operator->() const {return &point->value;}
+// template<typename T>
+// bool BinarySearchTree<T>::Iterator::operator==(const Iterator& rhs) const {
+// 	return this->point == rhs.point;
+// }
+//
+// template<typename T>
+// bool BinarySearchTree<T>::Iterator::operator!=(const Iterator& rhs) const {
+// 	return this->point != rhs.point;
+// }
 
-template<typename T>
-bool BinarySearchTree<T>::Iterator::operator==(const Iterator& rhs) const {
-	return this->point == rhs.point;
+// template<typename T>
+// typename BinarySearchTree<T>::Iterator& BinarySearchTree<T>::Iterator::operator++() {
+// 	if(point == nullptr) throw runtime_error("Nullpointer exception");
+// 	point = BinarySearchTree<T>::successor(point);
+// 	return *this;
+// }
+//
+// template<typename T>
+// typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::Iterator::operator++(int) {
+// 	Iterator temp = *this;
+// 	this->operator++();
+// 	return temp;
+// }
+//
+// template<typename T>
+// typename BinarySearchTree<T>::Iterator& BinarySearchTree<T>::Iterator::operator--() {
+// 	if(point == nullptr) throw runtime_error("Nullpointer exception");
+// 	point = BinarySearchTree<T>::predecessor(point);
+// 	return *this;
+// }
+//
+// template<typename T>
+// typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::Iterator::operator--(int) {
+// 	Iterator temp = *this;
+// 	this->operator--();
+// 	return temp;
+// }
+//
+// template<typename T>
+// BinarySearchTree<T>::Iterator::operator bool() const {
+// 	return point != nullptr;
+// }
+////////
+
+template<typename T> template<bool is_reverse>
+BinarySearchTree<T>::GenericIterator<is_reverse>::GenericIterator(Node* p) : point{p} {}
+
+template<typename T> template<bool is_reverse>
+typename BinarySearchTree<T>::template GenericIterator<is_reverse>::reference BinarySearchTree<T>::GenericIterator<is_reverse>::operator*() const {
+	return point->value;
 }
 
-template<typename T>
-bool BinarySearchTree<T>::Iterator::operator!=(const Iterator& rhs) const {
-	return this->point != rhs.point;
+template<typename T> template<bool is_reverse>
+typename BinarySearchTree<T>::template GenericIterator<is_reverse>::pointer BinarySearchTree<T>::GenericIterator<is_reverse>::operator->() const {
+	return &point->value;
 }
 
-template<typename T>
-typename BinarySearchTree<T>::Iterator& BinarySearchTree<T>::Iterator::operator++() {
-	if(point == nullptr) throw runtime_error("Nullpointer exception");
-	point = BinarySearchTree<T>::successor(point);
+template<typename T> template<bool is_reverse>
+typename BinarySearchTree<T>::template GenericIterator<is_reverse>& BinarySearchTree<T>::GenericIterator<is_reverse>::operator++() {
+	// if(point->next != nullptr) point = point->next;
+	if(!point) throw std::runtime_error("Nullpointer exception");
+	else if(is_reverse) point = BinarySearchTree<T>::predecessor(point);
+	else point = BinarySearchTree<T>::successor(point);
 	return *this;
 }
 
-template<typename T>
-typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::Iterator::operator++(int) {
-	Iterator temp = *this;
+template<typename T> template<bool is_reverse>
+typename BinarySearchTree<T>::template GenericIterator<is_reverse> BinarySearchTree<T>::GenericIterator<is_reverse>::operator++(int) {
+	GenericIterator<is_reverse> temp = *this;
 	this->operator++();
 	return temp;
 }
 
-template<typename T>
-typename BinarySearchTree<T>::Iterator& BinarySearchTree<T>::Iterator::operator--() {
-	if(point == nullptr) throw runtime_error("Nullpointer exception");
-	point = BinarySearchTree<T>::predecessor(point);
+template<typename T> template<bool is_reverse>
+typename BinarySearchTree<T>::template GenericIterator<is_reverse> BinarySearchTree<T>::GenericIterator<is_reverse>::operator+(size_t amt) const {
+	GenericIterator<is_reverse> res = *this;
+	for(size_t i = 0; i < amt; ++i) ++res;
+	return res;
+}
+
+template<typename T> template<bool is_reverse>
+typename BinarySearchTree<T>::template GenericIterator<is_reverse>& BinarySearchTree<T>::GenericIterator<is_reverse>::operator--() {
+	if(!point) throw std::runtime_error("Nullpointer exception");
+	else if(is_reverse) point = BinarySearchTree<T>::successor(point);
+	else point = BinarySearchTree<T>::predecessor(point);
 	return *this;
 }
 
-template<typename T>
-typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::Iterator::operator--(int) {
-	Iterator temp = *this;
+template<typename T> template<bool is_reverse>
+typename BinarySearchTree<T>::template GenericIterator<is_reverse> BinarySearchTree<T>::GenericIterator<is_reverse>::operator--(int) {
+	GenericIterator<is_reverse> temp = *this;
 	this->operator--();
 	return temp;
 }
 
-template<typename T>
-BinarySearchTree<T>::Iterator::operator bool() const {
-	return point != nullptr;
+template<typename T> template<bool is_reverse>
+typename BinarySearchTree<T>::template GenericIterator<is_reverse> BinarySearchTree<T>::GenericIterator<is_reverse>::operator-(size_t amt) const {
+	GenericIterator<is_reverse> res = *this;
+	for(size_t i = 0; i < amt; ++i) --res;
+	return res;
 }
+
+template<typename T> template<bool is_reverse>
+bool BinarySearchTree<T>::GenericIterator<is_reverse>::operator==(const GenericIterator<is_reverse>& rhs) const {
+	return this->point == rhs.point;
+}
+
+template<typename T> template<bool is_reverse>
+bool BinarySearchTree<T>::GenericIterator<is_reverse>::operator!=(const GenericIterator<is_reverse>& rhs) const {
+	return this->point != rhs.point;
+}
+
+template<typename T> template<bool is_reverse>
+BinarySearchTree<T>::GenericIterator<is_reverse>::operator bool() const {
+	return bool(point);
+}
+
+template<typename T> template<bool is_reverse>
+BinarySearchTree<T>::GenericIterator<is_reverse>::GenericIterator(GenericIterator<!is_reverse> it)
+	: GenericIterator{it.point} {};
 
 // BinarySearchTree //
 
@@ -252,7 +363,7 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::insert(const T& val)
 		root = new Node(val);
 		leaves = 1, ++n;
 		min = root, max = root;
-		return root;
+		return Iterator(root);
 	} else {
 		Node* ptr{root};
 		bool isMin{true}, isMax{true};
@@ -491,13 +602,13 @@ typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::end() const {
 }
 
 template<typename T>
-typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::rbegin() const {
-	return (empty()? Iterator(nullptr) : Iterator(max));
+typename BinarySearchTree<T>::ReverseIterator BinarySearchTree<T>::rbegin() const {
+	return (empty()? ReverseIterator(nullptr) : ReverseIterator(max));
 }
 
 template<typename T>
-typename BinarySearchTree<T>::Iterator BinarySearchTree<T>::rend() const {
-	return Iterator(nullptr);
+typename BinarySearchTree<T>::ReverseIterator BinarySearchTree<T>::rend() const {
+	return ReverseIterator(nullptr);
 }
 
 template<typename T>
