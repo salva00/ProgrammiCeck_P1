@@ -16,7 +16,7 @@ template<typename T>
 class DLinkedList {
 private:
 	class Node {
-		friend class DLinkedList;
+		friend class DLinkedList<T>;
 	private:
 		Node(T, Node* = nullptr, Node* = nullptr);
 		Node(Node* = nullptr, Node* = nullptr);
@@ -25,7 +25,7 @@ private:
 		Node* prev;
 		Node* next;
 	};
-	template<bool is_const = false, bool is_reverse = false> class GenericIterator;
+	template<bool is_const, bool is_reverse> class GenericIterator;
 public:
 	using Iterator = GenericIterator<NONCONST,NONREVERSE>;
 	using ConstIterator = GenericIterator<CONST,NONREVERSE>;
@@ -223,7 +223,7 @@ bool DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator!=(const Gene
 
 template<typename T> template<bool is_const, bool is_reverse>
 DLinkedList<T>::GenericIterator<is_const,is_reverse>::operator bool() const {
-	return point != nullptr;
+	return bool(point);
 }
 
 template<typename T> template<bool is_const, bool is_reverse>
